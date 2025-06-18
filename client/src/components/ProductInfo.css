@@ -1,0 +1,31 @@
+.extra-section {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  color: #111;
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 4rem;
+  min-height: 800px;
+}
+
+.extra-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.extra-section p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.extra-section ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+.extra-section li {
+  margin-bottom: 0.5rem;
+}

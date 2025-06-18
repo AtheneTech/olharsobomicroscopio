@@ -1,0 +1,172 @@
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;         /* usa toda a largura da tela */
+  min-height: 100vh;        /* usa toda a altura da tela */
+ /* background: linear-gradient(to bottom, #f3f4f6, #d1d5db);*/
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.step-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.choose-label {
+  position: absolute;
+  top: 3rem;
+  left: 1rem;
+  font-size: 2rem;
+  font-weight: 900;
+  transform: rotate(-10deg);
+}
+
+.shoe-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 300px;
+  margin-top: 4rem;
+}
+
+.shoe-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+}
+
+.main-shoe-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-shoe {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+
+.nav-button {
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10; /* <-- Adicione isso */
+}
+
+.nav-button.left {
+  left: 1rem;
+}
+
+.nav-button.right {
+  right: 1rem;
+}
+
+
+.shoe-info {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.model-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.color-name {
+  font-size: 3rem;
+  font-weight: 900;
+  transform: rotate(-6deg);
+}
+
+.go-next-label {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.selected-preview {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid black;
+}
+
+.selected-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 800px;
+  margin-top: 2rem;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid transparent;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnail.selected {
+  border-color: black;
+}
+
+.footer {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  align-items: center;
+}
+
+.back-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.next-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.privacy-label {
+  position: absolute;
+  top: 50%;
+  left: -2.5rem;
+  transform: rotate(-90deg) translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
