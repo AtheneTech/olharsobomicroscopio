@@ -1,3 +1,13 @@
+@keyframes backgroundScroll {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 100% center;
+  }
+}
+
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -211,16 +221,19 @@ html, body, #root {
 }
 
 .background-image {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
   z-index: -1;
+
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position: 0% center;
+  animation: backgroundScroll 60s linear infinite;
 }
+
 
 .background-image::before {
   content: '';

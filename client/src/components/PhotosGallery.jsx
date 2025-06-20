@@ -14,7 +14,14 @@ const photosOptions = [
     color: "White",
     src: "/photos/image3.png",
     bgColor: "#99999",
-    icons: [{ icon: <FaInstagram />, label: "Instagram" }]
+    icons: [
+      { icon: <img src="/icons/iconi.png" style={{ width: 32, height: 32 }}
+/>, label: "GitHub", position: { top: "30%", left: "70%" }},
+      { icon: <img src="/icons/iconsearch.png" style={{ width: 25, height: 25}}/>, label: "LinkedIn", position: { top: "10%", left: "15%" }},
+      { icon: <img src="/icons/iconuser.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "40%", left: "30%" }},
+      { icon: <img src="/icons/iconsound.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "10%", left: "70%" }},
+      { icon: <img src="/icons/iconworldmap.png" style={{ width: 32, height: 32 }} />, label: "LinkedIn", position: { top: "15%", left: "50%" }}
+    ]
   },
   {
     name: "Fusion Navy",
@@ -26,21 +33,21 @@ const photosOptions = [
   {
     name: "Fusion Pink",
     color: "Pink",
-    src: "/pink.png",
+    src: "/photos/image2.png",
     bgColor: "#ec4899",
     icons: [{ icon: <FaDribbble />, label: "Dribbble" }]
   },
   {
     name: "Fusion Green",
     color: "Green",
-    src: "/green.png",
+    src: "/photos/image1.png",
     bgColor: "#10b981",
     icons: [{ icon: <FaLinkedin />, label: "LinkedIn" }]
   },
   {
     name: "Fusion Black",
     color: "Black",
-    src: "/black.png",
+    src: "/photos/image.png",
     bgColor: "#111827",
     icons: [
       { icon: <FaGithub />, label: "GitHub" },
@@ -50,14 +57,14 @@ const photosOptions = [
   {
     name: "Fusion Red",
     color: "Red",
-    src: "/red.png",
+    src: "/photos/image3.png",
     bgColor: "#dc2626",
     icons: [{ icon: <FaTwitter />, label: "Twitter" }]
   },
   {
     name: "Fusion Cream",
     color: "Cream",
-    src: "/cream.png",
+    src: "/photos/image.png",
     bgColor: "#fef3c7",
     icons: []
   },
@@ -180,11 +187,26 @@ export default function PhotosGallery() {
    
     <div className="gallery-container">
 
-  <div
+ <motion.div
+  key={photosOptions[selectedIndex].src}
   className="background-image"
+  initial={{ backgroundPositionX: "0%", opacity: 0 }}
+  animate={{ backgroundPositionX: ["0%", "100%"], opacity: 1 }}
+  transition={{
+    backgroundPositionX: {
+      duration: 30,
+      repeat: Infinity,
+      ease: "linear",
+    },
+    opacity: { duration: 0.6 }
+  }}
   style={{
-    backgroundImage: `url(${photosOptions[selectedIndex].src})`,}}
-></div>
+    backgroundImage: `url(${photosOptions[selectedIndex].src})`,
+    backgroundRepeat: "repeat-x",
+    backgroundSize: "cover",
+    backgroundPositionY: "center",
+  }}
+/>
 
       {/*<div className="step-label">STEP 3/3</div>
       <div className="choose-label">CHOOSE YOUR COLOR</div>*/}
@@ -287,36 +309,40 @@ export default function PhotosGallery() {
       <div className="privacy-label">PRIVACY POLICY</div>*/}
 
           {/* Ícones flutuantes */}
-      <div style={floatingContainerStyle}>
-  {photosOptions[selectedIndex].icons.map(({ icon, label }, index) => (
-    <motion.div
-      key={label}
-      style={{
-        ...floatingIconStyle,
-        backgroundColor: photosOptions[selectedIndex].bgColor,
-      }}
-      animate={{ y: [0, -10, 0] }}
-      transition={{
-        duration: 3 + index,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "easeInOut",
-        delay: index * 0.5,
-      }}
-      whileHover={{
-        scale: 1.2,
-        rotate: 5,
-        backgroundColor: "#1DA1F2",
-        boxShadow: "0 4px 12px rgba(29,161,242,0.5)",
-      }}
-      whileTap={{ scale: 0.9 }}
-      onClick={() => handleIconClick(label)}
-      title={label}
-    >
-      {icon}
-    </motion.div>
-  ))}
-</div>
+     
+ {photosOptions[selectedIndex].icons.map(({ icon, label, position }, index) => (
+  <motion.div
+    key={label}
+    style={{
+      ...floatingIconStyle,
+      backgroundColor: "white",
+      position: "absolute",
+      top: position?.top || "0%",
+      left: position?.left || "0%",
+      zIndex: 9999,
+    }}
+    animate={{ y: [0, -10, 0] }}
+    transition={{
+      duration: 3 + index,
+      repeat: Infinity,
+      repeatType: "loop",
+      ease: "easeInOut",
+      delay: index * 0.5,
+    }}
+    whileHover={{
+      scale: 1.2,
+      rotate: 5,
+      backgroundColor: "#1DA1F2",
+      boxShadow: "0 4px 12px rgba(29,161,242,0.5)",
+    }}
+    whileTap={{ scale: 0.9 }}
+    onClick={() => handleIconClick(label)}
+    title={label}
+  >
+    {icon}
+  </motion.div>
+))}
+
 
 
       {/* Sidebar animada */}
@@ -341,18 +367,17 @@ export default function PhotosGallery() {
   );
 }
 
-const floatingContainerStyle = {
-  position: "fixed",
+{/*const floatingContainerStyle = {
+  position: "relative",
   bottom: 40,
   right: 40,
-  backgroundColor: "#222",
+  backgroundColor: "transparent",
   borderRadius: "50%",
   padding: "12px",
   display: "flex",
   gap: "12px",
-  boxShadow: "0 5px 15px rgba(0,0,0,0.4)",
   zIndex: 9999,
-};
+};*/}
 
 const floatingIconStyle = {
   width: 40,
@@ -363,6 +388,7 @@ const floatingIconStyle = {
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
+  backgroundColor: "white",
   userSelect: "none",
 };
 
