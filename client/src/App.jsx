@@ -1,10 +1,10 @@
 import React from 'react';
-import ShoeGallery from './components/ShoeGallery';
+import PhotosGallery from './components/PhotosGallery';
 
 function App() {
   return (
     <div className="App">
-      <ShoeGallery />
+      <PhotosGallery />
     </div>
   );
 }

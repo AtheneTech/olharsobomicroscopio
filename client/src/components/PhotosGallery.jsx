@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import ProductInfo from "./ProductInfo";
+import Header from './Header';
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaDribbble } from "react-icons/fa";
 import Button from '../components/ui/Button';
-import './ShoeGallery.css';
+import './PhotosGallery.css';
 
-const shoeOptions = [
+
+const photosOptions = [
   {
     name: "Fusion White",
     color: "White",
-    src: "/white.png",
-    bgColor: "#f9fafb",
+    src: "/photos/image3.png",
+    bgColor: "#99999",
     icons: [{ icon: <FaInstagram />, label: "Instagram" }]
   },
   {
     name: "Fusion Navy",
     color: "Navy",
-    src: "/shoes/navy.png",
+    src: "/photos/image.png",
     bgColor: "#1e3a8a",
     icons: [{ icon: <FaGithub />, label: "GitHub" }]
   },
@@ -31,14 +33,14 @@ const shoeOptions = [
   {
     name: "Fusion Green",
     color: "Green",
-    src: "/shoes/green.png",
+    src: "/green.png",
     bgColor: "#10b981",
     icons: [{ icon: <FaLinkedin />, label: "LinkedIn" }]
   },
   {
     name: "Fusion Black",
     color: "Black",
-    src: "/shoes/black.png",
+    src: "/black.png",
     bgColor: "#111827",
     icons: [
       { icon: <FaGithub />, label: "GitHub" },
@@ -48,20 +50,23 @@ const shoeOptions = [
   {
     name: "Fusion Red",
     color: "Red",
-    src: "/shoes/red.png",
+    src: "/red.png",
     bgColor: "#dc2626",
     icons: [{ icon: <FaTwitter />, label: "Twitter" }]
   },
   {
     name: "Fusion Cream",
     color: "Cream",
-    src: "/shoes/cream.png",
+    src: "/cream.png",
     bgColor: "#fef3c7",
     icons: []
   },
 ];
 
-export default function ShoeGallery() {
+  
+  const ITEMS_PER_PAGE = 5;
+
+export default function PhotosGallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeIcon, setActiveIcon] = useState(null);
@@ -71,7 +76,7 @@ export default function ShoeGallery() {
   };
 
   const handleNext = () => {
-    if (selectedIndex < shoeOptions.length - 1) {
+    if (selectedIndex < photosOptions.length - 1) {
       setSelectedIndex(selectedIndex + 1);
     }
   };
@@ -91,16 +96,71 @@ export default function ShoeGallery() {
     setSidebarOpen(false);
   };
 
+
+  ///////////////////////// teste
+
+  const [page, setPage] = useState(0); // nova variável de página
+
+  // cálculo dos thumbnails visíveis
+  const startIndex = page * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const visibleThumbnails = photosOptions.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(photosOptions.length / ITEMS_PER_PAGE);
+
+  const handleNextPage = () => {
+    if ((selectedIndex + 1) % ITEMS_PER_PAGE === 0 && page < totalPages - 1) {
+  setPage(page + 1); // muda a página se for o último da página
+}
+
+    if (page < totalPages - 1) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (selectedIndex % ITEMS_PER_PAGE === 0 && page > 0) {
+  setPage(page - 1); // muda a página se for o primeiro da página
+}
+
+
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  };
+
+  
+React.useEffect(() => {
+  const interval = setInterval(() => {
+    const isLastPage = page === totalPages - 1;
+    const nextPage = isLastPage ? 0 : page + 1;
+    setPage(nextPage);
+
+    // Atualiza selectedIndex para a primeira thumbnail da nova página
+    setSelectedIndex(nextPage * ITEMS_PER_PAGE);
+  }, 5000); // troca a cada 5 segundos
+
+  return () => clearInterval(interval); // limpa quando desmontar
+}, [page, totalPages]);
+
+
+
   return (
-    <div
-  className="gallery-container"
-  style={{ backgroundColor: shoeOptions[selectedIndex].bgColor }}
->
+    <>
+       <Header />
+   
+    <div className="gallery-container">
+
+  <div
+  className="background-image"
+  style={{
+    backgroundImage: `url(${photosOptions[selectedIndex].src})`,}}
+></div>
 
       {/*<div className="step-label">STEP 3/3</div>
       <div className="choose-label">CHOOSE YOUR COLOR</div>*/}
 
-      <div className="shoe-display">
+      <div className="photos-display">
         <Button
           className="nav-button left"
           onClick={handlePrev}
@@ -109,50 +169,81 @@ export default function ShoeGallery() {
           <ArrowLeft size={32} />
         </Button>
 
-        <div className="main-shoe-wrapper">
+        {/*<div className="main-photos-wrapper">
           <AnimatePresence mode="wait">
-            <motion.img
-              key={shoeOptions[selectedIndex].src}
-              src={shoeOptions[selectedIndex].src}
-              alt={shoeOptions[selectedIndex].name}
-              className="shoe-image"
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-            />
+            <motion.div
+  key={photosOptions[selectedIndex].src}
+  className="photos-background"
+  initial={{ opacity: 0, x: 100 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 0, x: -100 }}
+  transition={{ duration: 0.5 }}
+  style={{
+    backgroundImage: `url(${photosOptions[selectedIndex].src})`,
+    backgroundSize: 'contain', // ou 'cover' conforme o efeito desejado
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    width: '100%',
+    height: '100%',
+  }}
+/>
           </AnimatePresence>
-        </div>
+        </div>*/}
 
         <Button
           className="nav-button right"
           onClick={handleNext}
-          disabled={selectedIndex === shoeOptions.length - 1}
+          disabled={selectedIndex === photosOptions.length - 1}
         >
           <ArrowRight size={32} />
         </Button>
       </div>
 
-      <div className="shoe-info">
+      <div className="photos-info">
         <div className="model-label">Fusion</div>
-        <div className="color-name">{shoeOptions[selectedIndex].color.toUpperCase()}</div>
+        <div className="color-name"><motion.h2
+  initial={{ y: 0 }}
+  animate={{ y: [0, -10, 0] }}
+  transition={{
+    duration: 1.5,
+    repeat: Infinity,
+    repeatType: "loop",
+    ease: "easeInOut"
+  }}
+>{photosOptions[selectedIndex].color.toUpperCase()}</motion.h2></div>
         <div className="go-next-label">GO NEXT!</div>
       </div>
 
-      <div className="thumbnails">
-        {shoeOptions.map((shoe, index) => (
-          <button
-            key={index}
-            className={`thumbnail ${index === selectedIndex ? "selected" : ""}`}
-            onClick={() => handleSelect(index)}
-          >
-            <img
-              src={shoe.src}
-              alt={shoe.name}
-              className="mini-shoe"
-            />
-          </button>
-        ))}
+     
+      <div className="thumbnails-navigation">
+        
+
+        <AnimatePresence mode="wait">
+  <motion.div
+    key={page}
+    className="thumbnails"
+    initial={{ x: 100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ x: -100, opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    {visibleThumbnails.map((photo, idx) => {
+      const realIndex = startIndex + idx;
+      return (
+        <button
+          key={realIndex}
+          className={`thumbnail ${realIndex === selectedIndex ? "selected" : ""}`}
+          onClick={() => setSelectedIndex(realIndex)}
+        >
+          <img src={photo.src} alt={photo.name} className="mini-photos" />
+        </button>
+      );
+    })}
+  </motion.div>
+</AnimatePresence>
+
+
+       
       </div>
 
       {/*<div className="footer">
@@ -164,12 +255,12 @@ export default function ShoeGallery() {
 
           {/* Ícones flutuantes */}
       <div style={floatingContainerStyle}>
-  {shoeOptions[selectedIndex].icons.map(({ icon, label }, index) => (
+  {photosOptions[selectedIndex].icons.map(({ icon, label }, index) => (
     <motion.div
       key={label}
       style={{
         ...floatingIconStyle,
-        backgroundColor: shoeOptions[selectedIndex].bgColor,
+        backgroundColor: photosOptions[selectedIndex].bgColor,
       }}
       animate={{ y: [0, -10, 0] }}
       transition={{
@@ -213,7 +304,7 @@ export default function ShoeGallery() {
       </AnimatePresence>
        <ProductInfo />
     </div>
-    
+     </>
   );
 }
 
