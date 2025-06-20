@@ -72,20 +72,49 @@ export default function PhotosGallery() {
   const [activeIcon, setActiveIcon] = useState(null);
 
   const handleSelect = (index) => {
-    setSelectedIndex(index);
-  };
+  setSelectedIndex(index);
+
+  const isLastOnPage = (index + 1) % ITEMS_PER_PAGE === 0;
+  const isFirstOnPage = index % ITEMS_PER_PAGE === 0;
+  const isNotLastOverall = index < photosOptions.length - 1;
+  const isNotFirstOverall = index > 0;
+  const nextPage = page + 1;
+  const prevPage = page - 1;
+
+  if (isLastOnPage && isNotLastOverall && nextPage < totalPages) {
+    setPage(nextPage);
+  } else if (isFirstOnPage && isNotFirstOverall && prevPage >= 0) {
+    setPage(prevPage);
+  }
+};
 
   const handleNext = () => {
-    if (selectedIndex < photosOptions.length - 1) {
-      setSelectedIndex(selectedIndex + 1);
+  if (selectedIndex < photosOptions.length - 1) {
+    const newIndex = selectedIndex + 1;
+    setSelectedIndex(newIndex);
+
+    const isLastOnPage = (newIndex + 1) % ITEMS_PER_PAGE === 1;
+    const nextPage = page + 1;
+
+    if (isLastOnPage && nextPage < totalPages) {
+      setPage(nextPage);
     }
-  };
+  }
+};
 
   const handlePrev = () => {
-    if (selectedIndex > 0) {
-      setSelectedIndex(selectedIndex - 1);
+  if (selectedIndex > 0) {
+    const newIndex = selectedIndex - 1;
+    setSelectedIndex(newIndex);
+
+    const isFirstOnPage = newIndex % ITEMS_PER_PAGE === ITEMS_PER_PAGE - 1;
+    const prevPage = page - 1;
+
+    if (isFirstOnPage && prevPage >= 0) {
+      setPage(prevPage);
     }
-  };
+  }
+};
 
   const handleIconClick = (label) => {
     setActiveIcon(label);
@@ -130,7 +159,7 @@ export default function PhotosGallery() {
   };
 
   
-React.useEffect(() => {
+{/*React.useEffect(() => {
   const interval = setInterval(() => {
     const isLastPage = page === totalPages - 1;
     const nextPage = isLastPage ? 0 : page + 1;
@@ -141,7 +170,7 @@ React.useEffect(() => {
   }, 5000); // troca a cada 5 segundos
 
   return () => clearInterval(interval); // limpa quando desmontar
-}, [page, totalPages]);
+}, [page, totalPages]);*/}
 
 
 
@@ -217,30 +246,34 @@ React.useEffect(() => {
      
       <div className="thumbnails-navigation">
         
-
-        <AnimatePresence mode="wait">
-  <motion.div
-    key={page}
-    className="thumbnails"
-    initial={{ x: 100, opacity: 0 }}
-    animate={{ x: 0, opacity: 1 }}
-    exit={{ x: -100, opacity: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-    {visibleThumbnails.map((photo, idx) => {
-      const realIndex = startIndex + idx;
-      return (
-        <button
-          key={realIndex}
-          className={`thumbnail ${realIndex === selectedIndex ? "selected" : ""}`}
-          onClick={() => setSelectedIndex(realIndex)}
-        >
-          <img src={photo.src} alt={photo.name} className="mini-photos" />
-        </button>
-      );
-    })}
-  </motion.div>
-</AnimatePresence>
+<motion.div
+  key={page}
+  className="thumbnails"
+  drag="x"
+  dragConstraints={{ left: -300, right: 0 }}
+  dragElastic={0.2}
+  onDragEnd={(event, info) => {
+    if (info.offset.x < -100 && page < totalPages - 1) {
+      handleNextPage();
+    } else if (info.offset.x > 100 && page > 0) {
+      handlePrevPage();
+    }
+  }}
+  transition={{ duration: 0.5 }}
+>
+  {visibleThumbnails.map((photo, idx) => {
+    const realIndex = startIndex + idx;
+    return (
+      <button
+  key={realIndex}
+  className={`thumbnail ${realIndex === selectedIndex ? "selected" : ""}`}
+  onClick={() => handleSelect(realIndex)}
+>
+  <img src={photo.src} alt={photo.name} className="mini-photos" />
+</button>
+    );
+  })}
+</motion.div>
 
 
        

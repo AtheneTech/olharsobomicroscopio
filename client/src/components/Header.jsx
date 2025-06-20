@@ -43,31 +43,39 @@ export default function Header() {
             </li>
           ))}
 
-          {/* Dropdown dentro do <li> */}
-          <li ref={dropdownRef} className="dropdown-li">
-            <a
-              href="#"
-              className={`dropdown-toggle ${dropdownOpen ? "active" : ""}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setDropdownOpen(!dropdownOpen);
-              }}
-            >
-              {selectedYear} <span className="arrow">{dropdownOpen ? "✖" : ""}</span>
-            </a>
+         {/* Dropdown dentro do <li> */}
+<li ref={dropdownRef} className="dropdown-li">
+  <a
+    href="#"
+    className={`dropdown-toggle ${dropdownOpen ? "active" : ""}`}
+    onClick={(e) => {
+      e.preventDefault();
+      setDropdownOpen(!dropdownOpen);
+    }}
+  >
+    {selectedYear} <span className="arrow">{dropdownOpen ? "✖" : ""}</span>
+  </a>
 
-            {dropdownOpen && (
-              <ul className="dropdown-menu">
-                {years.map((year) => (
-                  <li key={year}>
-                    <a
-                      href={`/pagina-${year}`}
-                      className={year === selectedYear ? "active" : ""}
-                    >
-                      {year}
-                    </a>
-                  </li>
-                ))}
+  {dropdownOpen && (
+    <ul className="dropdown-menu">
+      {years.map((year) => (
+        <li key={year}>
+          <a
+            href={`/pagina-${year}`}
+            className={year === selectedYear ? "active" : ""}
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedYear(year); // atualiza o ano principal
+              setDropdownOpen(false); // fecha o menu
+              // Se quiser redirecionar:
+              window.location.href = `/pagina-${year}`;
+            }}
+          >
+            {year}
+          </a>
+        </li>
+      ))}
+   
               </ul>
             )}
           </li>

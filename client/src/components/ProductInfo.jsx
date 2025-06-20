@@ -1,20 +1,66 @@
-import React from "react";
+
 //import "./ShoeGallery.css"; // ou crie um novo css separado, como ProductInfo.css
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
 import './ProductInfo.css';
 
-export default function ProductInfo() {
-  return (
-    <section className="extra-section">
-      <h2>Sobre o Produto</h2>
-      <p>
-        Descubra o Fusion – onde conforto encontra design moderno. Cada detalhe foi pensado para o seu dia a dia.
-      </p>
+import { EffectCoverflow, Pagination } from 'swiper/modules';
 
-      <ul>
-        <li>✅ Respirável</li>
-        <li>✅ Leveza incomparável</li>
-        <li>✅ Design urbano</li>
-      </ul>
-    </section>
+export default function ProductInfo() {
+    return (
+    <>
+    <div className='carousel-wrapper'>
+      <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={'auto'}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img className="img-slide" src="/img1.png" />
+        </SwiperSlide>
+      </Swiper>
+      </div>
+    </>
   );
 }
