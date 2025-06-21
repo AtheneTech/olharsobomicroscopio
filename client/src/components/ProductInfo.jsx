@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import './ProductInfo.css';
+import '../styles/ProductInfo.css';
 
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 

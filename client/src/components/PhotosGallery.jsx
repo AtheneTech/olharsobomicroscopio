@@ -4,8 +4,8 @@ import Header from './Header';
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaDribbble } from "react-icons/fa";
-import Button from '../components/ui/Button';
-import './PhotosGallery.css';
+import Button from './Button';
+import '../styles/PhotosGallery.css';
 
 
 const photosOptions = [

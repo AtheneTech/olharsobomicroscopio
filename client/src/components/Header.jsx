@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Header.css";
+import "../styles/Header.css";
 
 export default function Header() {
   const [activeIndex, setActiveIndex] = useState(1);
