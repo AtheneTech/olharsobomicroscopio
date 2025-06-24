@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body{
+    background-color: black;
+    font-family: "Inter", sans-serif;
+}
+
+h1,p{
+    color: white;
+    text-align: left;
+}
+
+h1{
+    font-size: 64px;
+}
+
+p{
+    font-size: 24px;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.direita, .esquerda{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.direita{
+    background-image: url("../assets/img/Rectangle1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 24px 0 0 24px;
+}
+
+.content-container{
+    width: 80%;
+}
+
+.cta{
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 15px 10px;
+    border-radius: 12px;
+    width: 80%;
+}
+
+.mouse {
+	width: 50px;
+	height: 90px;
+	border: 5px solid white;
+	border-radius: 60px;
+	position: absolute;
+    bottom: 30px;
+    left: calc(50% - 25px);
+}
+
+.mouse::before {
+	content: '';
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: white;
+	border-radius: 50%;
+	opacity: 1;
+	animation: wheel 2s infinite;
+	-webkit-animation: wheel 2s infinite;
+}
+
+@keyframes wheel {
+	to {
+		top: 60px;
+	}
+}
+
+@-webkit-keyframes wheel {
+	to {
+		top: 60px;
+	}
+}
