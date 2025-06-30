@@ -7,7 +7,6 @@
   }
 }
 
-
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -15,18 +14,14 @@ html, body, #root {
   height: 100%;
 }
 
-
 .gallery-container {
   position: relative;
    width: 100vw;  
-  min-height: 100vh; /* ou altura desejada */
+  min-height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-
-
-
 
 .step-label {
   position: absolute;
@@ -84,7 +79,7 @@ html, body, #root {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  z-index: 10; /* <-- Adicione isso */
+  z-index: 10; 
 }
 
 .nav-button.left {
@@ -95,6 +90,38 @@ html, body, #root {
   right: 1rem;
 }
 
+.photo-name {
+  top: 50%;
+  left: 100%;
+  transform: translateY(10%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  width: 450px;
+  height: 60px;
+}
+
+.photo-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 60px;
+  background-color: orange; /* só pra confirmar que aparece */
+  z-index: 5;
+}
+
+
+.photo-name h2 {
+  font-size: 20px;
+  font-weight: 100;
+  margin-left: 20px;
+}
+
+/*
 .photos-info {
   text-align: center;
   margin-top: 1rem;
@@ -115,7 +142,9 @@ html, body, #root {
 .go-next-label {
   margin-top: 0.5rem;
   font-weight: bold;
-}
+}*/
+
+
 
 .selected-preview {
   width: 96px;
@@ -132,62 +161,119 @@ html, body, #root {
   object-fit: cover;
 }
 
-.thumbnails-navigation {
+.thumbnails-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.thumbnails-track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  position: relative;
 }
 
-.thumbnails {
+.thumbnail-item {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  max-width: 800px;
-  margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
 }
 
-.thumbnail {
+.thumbnail-circle {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  border: 4px solid white;
+  background-color: black;
   overflow: hidden;
-  border: 2px solid transparent;
-  background: rgb(0, 0, 0);
-  cursor: pointer;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 0;
-  margin-bottom: 40px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
-.thumbnail.selected {
-   border: 4px solid transparent;
-  border-color: rgb(255, 255, 255);
-  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
-  padding: 0;
+.thumbnail-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.thumbnail.selected:hover{
-   border: 5px solid transparent;
-   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
-  border-color: aqua;
+.thumbnail-circle:hover{
+   box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8);
+   transform: translateY(-2px);
 }
 
-.thumbnail:hover{
-   border: 5px solid transparent;
-   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
-  border-color: aqua;
+
+.connector-line {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-left: -4px;
+  width: 45px;
+  height: 4px;
+  background-color: white;
+  z-index: 1;
 }
 
-.thumbnail img {
-  height: 80px;
-  object-fit: contain;
-  border-radius: 50%; /* ESSENCIAL para a imagem ficar circular */
-  display: block;
-  padding: 0;
+.thumbnail-indicator {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid white;
+  margin-top: 10px;
 }
+
+.dots-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dots-indicator {
+  color: white;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  display: inline-block;
+  animation: bounceDot 2s infinite;
+}
+
+.bounce1 {
+  animation-delay: 0s;
+}
+.bounce2 {
+  animation-delay: 0.3s;
+}
+.bounce3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes bounceDot {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+
+
+
 
 .footer {
   position: absolute;
@@ -242,7 +328,46 @@ html, body, #root {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.538); /* preto com 30% de opacidade */
+  background-color: rgba(0, 0, 0, 0.538); 
   pointer-events: none; /* para não interferir em cliques */
 }
 
+.floating-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  z-index: 9999;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 300px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-button {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}

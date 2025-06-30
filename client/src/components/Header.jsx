@@ -28,10 +28,8 @@ export default function Header() {
   return (
     <header className="fixed-header">
       <nav className="nav-container">
-        {/* LOGO À ESQUERDA */}
-        <div className="logo">Logo</div>
+        <div className="logo"><img src="/icons/logo.png"></img></div>
 
-        {/* MENU À DIREITA */}
         <ul className="nav-list">
           {navItems.map((item, index) => (
             <li
@@ -43,7 +41,6 @@ export default function Header() {
             </li>
           ))}
 
-         {/* Dropdown dentro do <li> */}
 <li ref={dropdownRef} className="dropdown-li">
   <a
     href="#"
