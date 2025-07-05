@@ -2,248 +2,17 @@ import React, { useState } from "react";
 import ProductInfo from "./ProductInfo";
 import Header from './Header';
 import Mapc from './Mapc';
-import ZoomPreview from "./ZoomPreview";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import InnerImageZoom from 'react-inner-image-zoom';
 import '../styles/PhotosGallery.css';
+import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
 
-const galleriesByYear = {
-  2024: [{
-    name: "A saída explosiva do Trypanosoma cruzi",
-    src: "/photos/chagas.png",
-     extraIcon: {
-    icon: <img src="/icons/chagas.png" style={{ width: 32, height: 32 }} />,},
-
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 2",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 3",
-    src: "/photos/image2.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 4",
-    src: "/photos/image1.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 5",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 6",
-    src: "/photos/image3.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-  {
-    name: "Nome 7",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 8",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 9",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 10",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 11",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 12",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 13",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 14",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },
-    {
-    name: "Nome 15",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }}/>, label: "Detalhes", position: { top: "12%", left: "85%" }, size: 75},
-      { icon: <img src="/icons/iconzoomin.png" style={{ width: 65, height: 65}}/>, label: "Amostra", position: { top: "20%", left: "50%" }, size: 90, popupContent: <ZoomPreview src="/photos/chagas.png" />},
-      { icon: <img src="/icons/iconautor.png" style={{ width: 55, height: 55}}/>, label: "Autor", position: { top: "20%", left: "30%" }, size: 65},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 30, height: 30}}/>, label: "Som", position: { top: "15%", left: "10%" }, size: 45},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 40, height: 40}} />, label: "Predominância", position: { top: "25%", left: "70%", size: 55}}
-    ]
-  },],
-  2025: [{
-    name: "Nome 1.1",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 32, height: 32 }}
-/>, label: "GitHub", position: { top: "30%", left: "70%" }},
-      { icon: <img src="/icons/iconsearch.png" style={{ width: 25, height: 25}}/>, label: "LinkedIn", position: { top: "10%", left: "15%" }},
-      { icon: <img src="/icons/iconuser.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "25%", left: "30%" }},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "10%", left: "70%" }},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 32, height: 32 }} />, label: "LinkedIn", position: { top: "15%", left: "50%" }}
-    ]
-  },
-    {
-    name: "Nome 1.2",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 32, height: 32 }}/>, label: "GitHub", position: { top: "30%", left: "70%" },
-    popupContent: (
-        <>
-          <h3>GitHub</h3>
-          <p>Repositórios e projetos disponíveis no GitHub.</p>
-          <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer">Visitar GitHub</a>
-          <img src="/photos/github-example.png" alt="GitHub preview" style={{ width: "100%", marginTop: 10 }} />
-        </>
-      )
-    },
-      { icon: <img src="/icons/iconsearch.png" style={{ width: 25, height: 25}}/>, label: "LinkedIn", position: { top: "10%", left: "15%" }},
-      { icon: <img src="/icons/iconuser.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "25%", left: "30%" }},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "10%", left: "70%" }},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 32, height: 32 }} />, label: "LinkedIn", position: { top: "15%", left: "50%" }}
-    ]
-  },],
-  2026: [{
-    name: "Nome 1.1.1",
-    src: "/photos/image.png",
-    icons: [
-      { icon: <img src="/icons/iconi.png" style={{ width: 32, height: 32 }}/>, label: "GitHub", position: { top: "30%", left: "70%" }, popupContent: (
-        <>
-          <h3>GitHub</h3>
-          <p>Repositórios e projetos disponíveis no LSLDLD.</p>
-          <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer">Teste KKKKK</a>
-          <img src="/photos/github-example.png" alt="GitHub preview" style={{ width: "100%", marginTop: 10 }} />
-        </>
-      )},
-      { icon: <img src="/icons/iconsearch.png" style={{ width: 25, height: 25}}/>, label: "LinkedIn", position: { top: "10%", left: "15%" }},
-      { icon: <img src="/icons/iconuser.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "25%", left: "30%" }},
-      { icon: <img src="/icons/iconsound.png" style={{ width: 32, height: 32 }}/>, label: "LinkedIn", position: { top: "10%", left: "70%" }},
-      { icon: <img src="/icons/iconworldmap.png" style={{ width: 32, height: 32 }} />, label: "LinkedIn", position: { top: "15%", left: "50%" }}
-    ]
-  },],
-};
-
-
-const ITEMS_PER_PAGE = 5;
 
 export default function PhotosGallery() {
   const [selectedYear] = useState(2024); //antes era com ,setSelectedYear
-  //const [showYears, setShowYears] = useState(false); // teste
-  //const years = Object.keys(galleriesByYear).map(Number); ///teste
-  //const years = Object.keys(galleriesByYear).map(Number).sort(); // ordena para facilitar troca de ano
-  //const currentYearIndex = years.indexOf(selectedYear);
-
-  //const [zoomed, setZoomed] = useState(false); // teste zoom
-
   const [selectedIndex, setSelectedIndex] = useState(0);
-  //const [sidebarOpen, setSidebarOpen] = useState(false);
  
   const [activeIcon, setActiveIcon] = useState(null);
   const [page, setPage] = useState(0);
@@ -276,13 +45,6 @@ export default function PhotosGallery() {
     }
   };
 
-  //const handleIconClick = (label) => {
-   // setActiveIcon(label);
-  //  setSidebarOpen(true);
- // };
-
- // const closeSidebar = () => setSidebarOpen(false);
-
    const handleIconClick = (label) => {
     setActiveIcon(label);
   };
@@ -299,43 +61,10 @@ export default function PhotosGallery() {
       <Header />
       <Mapc />
       <div className="gallery-container">
-          {/* nome das imagens*/}
       <div className="photo-name">
           <div className="photo-icon"><div className="photo-icon"> {photosOptions[selectedIndex].extraIcon?.icon} </div></div>
           <h2>{photosOptions[selectedIndex].name}</h2>
         </div>
-
-
-    
-{/* 
-     <div className="year-selector-bubble pulsating">
-  <button
-    className="arrow-button"
-    onClick={() => {
-      const prevIndex = (currentYearIndex - 1 + years.length) % years.length;
-      setSelectedYear(years[prevIndex]);
-      setSelectedIndex(0);
-      setPage(0);
-    }}
-  >
-    
-  </button>
-
-  <span className="year-text">{selectedYear}</span>
-
-  <button
-    className="arrow-button"
-    onClick={() => {
-      const nextIndex = (currentYearIndex + 1) % years.length;
-      setSelectedYear(years[nextIndex]);
-      setSelectedIndex(0);
-      setPage(0);
-    }}
-  >
-    
-  </button>
-</div> */}
-
 
 
         <motion.div
@@ -354,7 +83,6 @@ export default function PhotosGallery() {
             backgroundPositionY: "center",
           }}
         />
-
 
         <div className="photos-display">
           <button className="nav-button left" onClick={handlePrev} disabled={selectedIndex === 0}>
@@ -509,7 +237,7 @@ export default function PhotosGallery() {
     cursor: "pointer",
     zIndex: "999"
   }}
-  whileHover={{ y: -5 }} // Pula 5px pra cima
+  whileHover={{ y: -5 }} 
   transition={{ type: "spring", stiffness: 300 }}
 >
   ✕
@@ -520,8 +248,7 @@ export default function PhotosGallery() {
           </motion.div>
         )}
       </AnimatePresence>
-
-        <ProductInfo />
+         <ProductInfo />
       </div>
     </>
   );

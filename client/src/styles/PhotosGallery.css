@@ -16,7 +16,7 @@ html, body, #root {
 
 .gallery-container {
   position: relative;
-   width: 100vw;  
+  width: 100vw;  
   min-height: 100vh;
   overflow: hidden;
   display: flex;
@@ -121,29 +121,6 @@ html, body, #root {
   font-weight: 100;
   margin-left: 20px;
 }
-
-/*
-.photos-info {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.model-label {
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.color-name {
-  font-size: 3rem;
-  font-weight: 900;
-  transform: rotate(-6deg);
-}
-
-.go-next-label {
-  margin-top: 0.5rem;
-  font-weight: bold;
-}*/
 
 
 
@@ -330,24 +307,8 @@ html, body, #root {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.538); 
-  pointer-events: none; /* para não interferir em cliques */
+  pointer-events: none; 
 }
-
-/*.floating-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: white;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  position: absolute;
-  z-index: 9999;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}*/
 
 
 .floating-icon-wrapper {
@@ -364,8 +325,6 @@ html, body, #root {
    display: flex;
   justify-content: center;
   align-items: center;
-   /*width: 50px;
-  height: 50px;*/
   background-color: white;
   padding: 4px;
   border-radius: 50%;
@@ -484,66 +443,4 @@ html, body, #root {
   font-size: 18px;
   user-select: none;
   color: black;
-}
-
-/* 
-.year-strip-wrapper {
-  position: fixed;
-  top: 40%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 1000;
-}
-
-
-.year-strip {
-  background-color: #ffffff44; 
-  border-radius: 50PX;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-.year-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 20px 0;
-  cursor: pointer;
-  position: relative;
-}
-
-
-.year-circle {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: white;
-  opacity: 0.8;
-  transition: all 0.3s;
-}
-
-
-.year-nav-item.active .year-circle {
-  border: 2px solid white;
-  background-color: white;
-  opacity: 1;
-}
-
-
-.year-label {
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  position: absolute;
-  right: 40px;
-}*/
-
-.close-popup-btn:focus {
-   outline: none;
-  box-shadow: none;
-
 }
