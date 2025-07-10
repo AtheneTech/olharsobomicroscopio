@@ -60,7 +60,7 @@ export default function PhotosGallery() {
     <>
       <Header />
       <Mapc />
-      <div className="gallery-container">
+      <div id="galeria" className="gallery-container">
       <div className="photo-name">
           <div className="photo-icon"><div className="photo-icon"> {photosOptions[selectedIndex].extraIcon?.icon} </div></div>
           <h2>{photosOptions[selectedIndex].name}</h2>
@@ -154,10 +154,10 @@ export default function PhotosGallery() {
       cursor: "pointer",
       zIndex: 10,
     }}
-    animate={{ y: [0, -5, 0] }} 
+    animate={{ y: [0, -20, 0] }} 
     whileHover={{ scale: 1.2}}
     transition={{
-      duration: 3 + index * 0.2,
+      duration: 3 + index * 0.5,
       ease: "easeInOut",
       repeat: Infinity,
       repeatType: "loop",

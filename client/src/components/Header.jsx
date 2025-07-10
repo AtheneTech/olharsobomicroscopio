@@ -9,13 +9,22 @@ export default function Header() {
 
   const navItems = [
     { label: "Home", href: "#" },
-    { label: "Galeria", href: "#" },
-    { label: "Curiosidades", href: "#" }
+    { label: "Galeria", href: "#galeria" },
+    { label: "Curiosidades", href: "#curiosidades" }
   ];
 
   const years = ["2024", "2025"];
 
   useEffect(() => {
+    const path = window.location.pathname; // Exemplo: "/pagina-2025"
+    const match = path.match(/pagina-(\d{4})/); // Extrai o ano
+    if (match && match[1] && years.includes(match[1])) {
+      setSelectedYear(match[1]);
+    } else {
+      setSelectedYear("2025"); // fallback
+    }
+
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
@@ -62,9 +71,8 @@ export default function Header() {
             className={year === selectedYear ? "active" : ""}
             onClick={(e) => {
               e.preventDefault();
-              setSelectedYear(year); // atualiza o ano principal
-              setDropdownOpen(false); // fecha o menu
-              // Se quiser redirecionar:
+              setSelectedYear(year); 
+              setDropdownOpen(false); 
               window.location.href = `/pagina-${year}`;
             }}
           >
