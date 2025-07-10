@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 
+
 export default function ColaboradorForm() {
   const [success, setSuccess] = useState(false);
   const [imageFile, setImageFile] = useState(null);
@@ -19,19 +20,48 @@ export default function ColaboradorForm() {
     return errors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const errors = validateForm(formData);
+const uploadImageToCloudinary = async (file) => {
+  const url = `https://api.cloudinary.com/v1_1/dkqkuehmq/upload`;
 
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "preset_abc123");
+
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    return data.secure_url;
+  } else {
+    throw new Error(data.error.message);
+  }
+};
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const errors = validateForm(formData);
+
+  if (Object.keys(errors).length > 0) {
+    setFormErrors(errors);
+    return;
+  }
+
+  setFormErrors({});
+
+  let imageUrl = null;
+
+  try {
+    if (imageFile) {
+      imageUrl = await uploadImageToCloudinary(imageFile);
     }
 
-    setFormErrors({});
-
-    // Preparar os dados para o template EmailJS
     const templateParams = {
       nome: formData.get("nome"),
       email: formData.get("email"),
@@ -39,38 +69,51 @@ export default function ColaboradorForm() {
       cargo: formData.get("cargo"),
       descricao: formData.get("descricao"),
       consent: formData.get("consent") ? "Sim" : "Não",
+      image_url: imageUrl, 
     };
 
-    emailjs
-      .sendForm(
-        "athene_mic25",      
-        "SEU_TEMPLATE_ID",    
-        e.target,
-        "SEU_USER_ID"       
-      )
-      .then(
-        (result) => {
-          setSuccess(true);
-          setImagePreview(null);
-          e.target.reset(); // limpa o form
-        },
-        (error) => {
-          alert("Erro ao enviar o formulário. Tente novamente mais tarde.");
-        }
-      );
-  };
+    await emailjs.send(
+  "athene_mic25",
+  "template_g7mx8eu",
+  templateParams,
+  "RcLK9pCLZ0QoIz_3m" 
+);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    setSuccess(true);
+    setImagePreview(null);
+    setImageFile(null);
+    e.target.reset();
+
+  } catch (error) {
+    alert("Erro ao enviar o formulário: " + error.message);
+  }
+};
+
+
+
+const [imageBase64, setImageBase64] = useState(null);
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) { 
+      alert("A imagem deve ter no máximo 5MB.");
+      e.target.value = null;
+      setImageFile(null);
+      setImagePreview(null);
+      setImageBase64(null);
+      return;
     }
-  };
+    setImageFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+      setImageBase64(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center p-4" style={{ backgroundImage: 'url("/background.jpg")' }}>
