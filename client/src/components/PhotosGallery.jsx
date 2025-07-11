@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductInfo from "./ProductInfo";
+import CuriosidadesSec from "./CuriosidadesSec";
 import Header from './Header';
 import Mapc from './Mapc';
 // eslint-disable-next-line no-unused-vars
@@ -248,7 +248,7 @@ export default function PhotosGallery() {
           </motion.div>
         )}
       </AnimatePresence>
-         <ProductInfo />
+         <CuriosidadesSec />
       </div>
     </>
   );

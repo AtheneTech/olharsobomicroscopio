@@ -1,0 +1,396 @@
+  /* Fundo com imagem */
+.curiosidades-bg {
+  background-image: url('/images/bg-curiosidades2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  min-height: 850px;
+  max-height: 1300px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 30px;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1000px;
+  color: white;
+  position: relative;
+  padding: 0 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 40px);
+}
+
+/* Lado esquerdo */
+.esquerda {
+  position: relative;
+}
+
+.esquerda h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 60px);
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0px;
+  color: rgb(0, 0, 0);
+}
+
+.esquerda em {
+  font-size: clamp(16px, 2vw, 32px);
+  color: #444;
+  margin-left: 30px;
+  margin-bottom: 0px; 
+}
+
+.titulo-com-icone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  right: clamp(40px, 12vw, 180px);
+}
+
+.titulo-com-icone img {
+  height: 70px;
+  width: auto;
+}
+
+/* Lado direito */
+.direita {
+  max-width: 400px;
+  padding-top: 10px;
+  text-align: right;
+  position: relative;
+  left: clamp(20px, 12vw, 180px);
+ 
+}
+
+.direita p {
+  font-size: clamp(14px, 1.5vw, 15px);
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.direita button {
+  background-color: #FF702E;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+  font-size: clamp(12px, 1.2vw, 16px);
+  margin-right: 0px;
+  margin-bottom: 20px;
+}
+
+.direita button:hover {
+  background-color: #333;
+}
+
+/* PILHA DE CARTAS */
+.pilha-cards {
+  position: absolute;
+  top: 370px;
+  width: clamp(200px, 25vw, 300px);
+  pointer-events: auto;
+}
+
+.carta {
+  position: absolute;
+  padding-top: 80px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carta1 {
+  z-index: 4;
+  background-color: white;
+  padding-top: clamp(60px, 8vh, 100px);
+  padding-bottom: 10px;
+}
+
+.carta2, .carta3, .carta4 {
+  background-color: white;
+  padding-top: 50px;
+}
+
+.carta2 {
+  transform: rotate(4deg) translate(6px, 6px);
+  z-index: 3;
+}
+.carta3 {
+  transform: rotate(8deg) translate(12px, 12px);
+  z-index: 2;
+}
+.carta4 {
+  transform: rotate(12deg) translate(18px, 18px);
+  z-index: 1;
+}
+
+.pilha-cards:hover .carta1 {
+  transform: rotate(-2deg) translate(-2px, -2px);
+}
+.pilha-cards:hover .carta2 {
+  transform: rotate(1deg) translate(4px, 4px);
+}
+.pilha-cards:hover .carta3 {
+  transform: rotate(4deg) translate(10px, 8px);
+}
+.pilha-cards:hover .carta4 {
+  transform: rotate(7deg) translate(16px, 14px);
+}
+
+/* Texto acima da pilha de cartas */
+.info-curiosidade {
+  margin-top: 120px;
+  position: relative;
+  right: clamp(150px, 15vw, 150px);
+  max-width: 500px;
+  color: white;
+}
+
+.info-curiosidade h3 {
+ font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.info-curiosidade p {
+  font-size: 18px;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.titulo-carta {
+  font-size: clamp(14px, 1.2vw, 18px);
+  position: relative;
+  bottom: clamp(20px, 3vw, 40px);
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.img-microscopio {
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  bottom: clamp(15px, 2vw, 30px);
+  border-radius: 8px;
+}
+
+.pilha-cards-direita {
+  position: absolute;
+  display: flex;
+  top: 430px;
+  right: clamp(50px, 15vw, 100px);
+  width: clamp(200px, 25vw, 400px);
+  pointer-events: auto;
+}
+
+.cartaEq {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-equipe {
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.carta1b {
+  z-index: 4;
+  background-color: white;
+  padding-top: clamp(40px, 10vh, 40px);
+  padding-bottom: clamp(20px, 5vh, 60px);
+}
+
+.carta2b, .carta3b, .carta4b {
+  background-color: white;
+  padding-top: 40px;
+  height: 250px;
+}
+
+.carta2b {
+  transform: rotate(3deg) translate(5px, 5px);
+  z-index: 3;
+}
+.carta3b {
+  transform: rotate(6deg) translate(10px, 10px);
+  z-index: 2;
+}
+.carta4b {
+  transform: rotate(9deg) translate(15px, 15px);
+  z-index: 1;
+}
+
+.pilha-cards-direita:hover .carta1b {
+  transform: rotate(-2deg) translate(-2px, -2px);
+}
+.pilha-cards-direita:hover .carta2b {
+  transform: rotate(1deg) translate(3px, 3px);
+}
+.pilha-cards-direita:hover .carta3b {
+  transform: rotate(4deg) translate(8px, 6px);
+}
+.pilha-cards-direita:hover .carta4b {
+  transform: rotate(7deg) translate(12px, 10px);
+}
+
+.info-curiosidade-direita {
+  position: relative;
+  text-align: left;
+  right: clamp(50px, 25vw, 200px);
+  margin-top: 50px;
+  max-width: 400px;
+  color: white;
+}
+
+.info-curiosidade-direita h3 {
+font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+
+.info-curiosidade-direita p {
+  font-size: 18px;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.dividerEsquerda {
+  width: 90%;
+  height: 1.5px;
+  position: relative;
+  top: 100px;
+  right: 150px;
+  background-color: rgb(255, 255, 255);
+  margin: 0px;
+  opacity: 0.8; 
+}
+
+.dividerDireita {
+  width: 100%;
+  height: 2px;
+  position: relative;
+  top: 30px;
+  right: 200px;
+  background-color: rgb(255, 255, 255);
+  margin: 0px;
+  opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .conteudo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .titulo-com-icone {
+    right: 0;
+    justify-content: center;
+  }
+
+  .esquerda em {
+    margin-left: 0;
+    font-size: clamp(16px, 2vw, 20px);
+  }
+
+  .pilha-cards, .pilha-cards-direita {
+    position: static;
+    margin-top: 40px;
+    width: 90vw;
+  }
+
+  .direita {
+    margin-top: 40px;
+    left: 0;
+    padding: 0 10px;
+    max-width: 90vw;
+    text-align: center;
+  }
+
+  .info-curiosidade, .info-curiosidade-direita {
+    right: 0;
+    left: 0;
+    max-width: 90vw;
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  .dividerCuriosidades, .dividerDireita {
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .titulo-com-icone img {
+    height: 32px;
+  }
+
+  .esquerda h1 {
+    font-size: 24px;
+  }
+
+  .direita p {
+    font-size: 13px;
+  }
+
+  .direita button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .pilha-cards, .pilha-cards-direita {
+    position: static;
+    margin-top: 20px;
+    width: 2vw;
+  }
+
+  .img-microscopio, .img-equipe {
+    width: 95%;
+    max-height: 160px;
+  }
+
+  .info-curiosidade h3, .info-curiosidade-direita h3 {
+    font-size: 16px;
+  }
+
+  .info-curiosidade p, .info-curiosidade-direita p {
+    font-size: 13px;
+  }
+}
