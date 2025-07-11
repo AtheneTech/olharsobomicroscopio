@@ -1,5 +1,6 @@
 import React from 'react';
-import '../style/curiosidades.css'
+import '../styles/curiosidades.css';
+
 
 const Curiosidades = () => {
   return (
@@ -66,7 +67,11 @@ const Curiosidades = () => {
 
       </div>
     </div>
+
+    
   );
+
+  
 };
 
 export default Curiosidades;

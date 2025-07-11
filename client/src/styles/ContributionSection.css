@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+body, html {
+  font-family: 'Helvetica Neue', sans-serif;
+  height: 100%;
+}
+
+.contribution-section {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('/images/backgrodunContribuicao.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 150px 20px;
+  text-align: center;
+  
+}
+
+.backgroundContribution {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/backgrodunContribuicao.png');
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transform: scale(1); /* evita que as bordas do blur fiquem visíveis */
+}
+
+.overlayContribution {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+.contentContribution  {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  
+}
+
+.section-title {
+  font-size: 52px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 650px;
+  height: 0.5px;
+  background-color: white;
+  margin: 10px auto 0;
+  opacity: 1;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .card-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.cardContribution  {
+  background-color: #f4f4f4;
+  color: black;
+  padding: 30px 20px;
+  border-radius: 20px;
+  flex: 1;
+  max-width: 450px;
+  box-shadow: 0 0 10px #00000040;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  background: black;
+  border-radius: 50%;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.cardContribution  h3 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.cardContribution  p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.button {
+  background-color: #272829;
+  color: white;
+  border: none;
+  padding: 12px 100px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background-color: black;
+}
