@@ -11,7 +11,7 @@ import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
 
 
 export default function PhotosGallery() {
-  const [selectedYear] = useState(2024); //antes era com ,setSelectedYear
+  const [selectedYear] = useState(2025); //antes era com ,setSelectedYear
   const [selectedIndex, setSelectedIndex] = useState(0);
  
   const [activeIcon, setActiveIcon] = useState(null);

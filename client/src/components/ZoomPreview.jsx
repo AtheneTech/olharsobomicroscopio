@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function ZoomPreview({ src }) {
-  const [zoomLevel, setZoomLevel] = useState(1); // valor inicial: sem zoom
+  const [zoomLevel, setZoomLevel] = useState(1); 
 
   return (
     <div style={{ textAlign: "center" }}>

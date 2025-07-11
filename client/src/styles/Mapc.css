@@ -56,7 +56,7 @@
 .disease-image {
   position: absolute;
   width: auto;
-  height: 30px;
+  height: 35px;
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.2s ease;
