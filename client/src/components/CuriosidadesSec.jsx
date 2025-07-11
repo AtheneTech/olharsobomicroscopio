@@ -40,7 +40,7 @@ const CuriosidadesSec = () => {
             Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores
             para você mergulhar em mais experiências
           </p>
-          <button onClick={() => window.location.href = '/visitante'}>CONHEÇA</button>
+          <button onClick={() => window.location.href = '/curiosidades'}>CONHEÇA</button>
 
           <div className="dividerDireita"></div>
           <div className="info-curiosidade info-curiosidade-direita">

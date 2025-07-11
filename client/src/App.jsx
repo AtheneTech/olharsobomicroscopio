@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ColaboradorForm from "./components/ColaboradorForm"; 
 import VisitForm from "./components/VisitForm"; 
+import Curiosidades from "./components/Curiosidades";
 import PhotosGallery from "./components/PhotosGallery";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/pagina-2025" element={<PhotosGallery />} />
         <Route path="/colaborador" element={<ColaboradorForm />} />
         <Route path="/visitante" element={< VisitForm />} />
+        <Route path="/curiosidades" element={< Curiosidades />} />
       </Routes>
     </Router>
   );

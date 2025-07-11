@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import CuriosidadesSec from "./CuriosidadesSec";
 import Header from './Header';
 import Mapc from './Mapc';
+import Home from './Home';
+import Resumo from './Resumo';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -59,6 +61,8 @@ export default function PhotosGallery() {
   return (
     <>
       <Header />
+      <Home />
+      <Resumo />
       <Mapc />
       <div id="galeria" className="gallery-container">
       <div className="photo-name">
