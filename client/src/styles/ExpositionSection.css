@@ -1,0 +1,89 @@
+/* src/styles/ExpositionSection.css - DIRECTIONAL DIAGONAL FLOW */
+
+.exposition-section {
+  display: flex;
+  align-items: flex-start; 
+  gap: 3rem;
+  margin: 20rem auto;
+  max-width: 900px;
+  
+  /* The transition handles all animations smoothly */
+  transition: opacity 1.2s ease-out, 
+              filter 1.2s ease-out, 
+              transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* HIDDEN STATE 1: When the section is BELOW the viewport */
+/* This is for entering from the bottom or exiting towards the bottom. */
+.exposition-section.is-below {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate(30%, 30%) scale(0.8);
+}
+
+/* HIDDEN STATE 2: When the section is ABOVE the viewport */
+/* This is for entering from the top or exiting towards the top. */
+.exposition-section.is-above {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate(-30%, -30%) scale(0.8);
+}
+
+/* VISIBLE STATE: When the section is ON-SCREEN */
+.exposition-section.is-visible {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translate(0%, 0%) scale(1.1);
+}
+
+/* --- All other styles remain the same --- */
+
+.exposition-section .text-content {
+  flex: 2;
+}
+
+.exposition-section h2 {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1.0;
+  margin-bottom: 3rem;
+  color: #000000;
+}
+
+.exposition-section .exposition-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-top: 2px solid #000000; 
+}
+
+.exposition-section p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 40ch;
+}
+
+.exposition-section .image-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.exposition-section img {
+  width: 300px;
+  height: 280px;
+  /* border-radius: 50%; */
+  object-fit: cover;
+  box-shadow: none;
+}
+
+/* Style for the new source text */
+.source-text {
+  font-style: italic; /* Makes the text italic */
+  font-size: 0.9rem; /* Makes the text slightly smaller */
+  color: #555;      /* Makes the text a bit lighter to de-emphasize it */
+  margin-top: 2rem;  /* Adds some space between it and the main paragraph */
+}
