@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Header.css";
+import Logo from "../assets/img/logoArteSobOMicroscopio.png"
 
 const Header = () => {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -29,7 +30,7 @@ const Header = () => {
     <header className="fixed-header">
       <nav className="nav-container">
         {/* LOGO À ESQUERDA */}
-        <div className="logo">Logo</div>
+        <div className="logo"><img src={Logo}/></div>
 
         {/* MENU À DIREITA */}
         <ul className="nav-list">
@@ -53,7 +54,7 @@ const Header = () => {
       setDropdownOpen(!dropdownOpen);
     }}
   >
-    {selectedYear} <span className="arrow">{dropdownOpen ? "✖" : ""}</span>
+    {selectedYear} <span className="arrow-year">{dropdownOpen ? "✖" : ""}</span>
   </a>
 
   {dropdownOpen && (
