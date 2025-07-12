@@ -1,5 +1,6 @@
+
 .fixed-header {
-  position: sticky;
+  position: fixed;
   top: 0;
   background-color: black;
   color: white;
@@ -8,6 +9,10 @@
   align-items: center;
   z-index: 10000;
   width: 100vw;
+  transition: top 0.3s ease;
+}
+.hidden-header {
+  top: -60px; 
 }
 
 .nav-container {

@@ -10,10 +10,30 @@ export default function Header() {
   const navItems = [
     { label: "Home", href: "#" },
     { label: "Galeria", href: "#galeria" },
-    { label: "Curiosidades", href: "#curiosidades" }
+    { label: "Curiosidades", href: "/curiosidades" }
   ];
 
   const years = ["2024", "2025"];
+
+  useEffect(() => {
+  let lastScrollY = window.scrollY;
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const header = document.querySelector(".fixed-header");
+
+    if (currentScrollY > lastScrollY && currentScrollY > 60) {
+      header.classList.add("hidden-header");
+    } else {
+      header.classList.remove("hidden-header");
+    }
+
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   useEffect(() => {
     const path = window.location.pathname; // Exemplo: "/pagina-2025"
