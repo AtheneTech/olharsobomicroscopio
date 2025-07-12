@@ -85,11 +85,7 @@ const Mapc = () => {
      {selectedDisease && (
   <div className="popup" onClick={closePopup}>
     <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-      <div
-        className="popup-card"
-        style={{ position: "relative"}} 
-      >
-        {/* Botão animado de fechar ✕ */}
+      <div className="popup-card" style={{ position: "relative"}} >
       <motion.button
   onClick={closePopup}
   style={{

@@ -1,24 +1,34 @@
-.noticia-banner {
+.credits-banner {
   width: 100%;
+  height: 40px;
   overflow: hidden;
-  background: #fff;          /* fundo claro, ou o que preferir */
-  border-top: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
+  background-color: #ffffff;
   padding: 10px 0;
+}
+
+.credits-texto {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100px;
+}
+
+.credits-image-wrapper {
+  height: 60px;
+  overflow: hidden;
+  width: 100%;
   position: relative;
 }
 
-.noticia-texto {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%;
-  animation: correrTexto 25s linear infinite;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #333;
+.credits-image {
+  position: absolute;
+  left: 100%;
+  height: 50px;
+  width: auto;
+  animation: scrollImage 30s linear infinite;
 }
 
-@keyframes correrTexto {
+@keyframes scrollImage {
   from {
     transform: translateX(0%);
   }

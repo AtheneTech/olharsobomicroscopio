@@ -10,6 +10,7 @@
   }
 }
 
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -20,7 +21,7 @@ html, body, #root {
 .gallery-container {
   position: relative;
   width: 100vw;  
-  min-height: 100vh;
+  min-height: 800px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -147,6 +148,7 @@ html, body, #root {
   justify-content: center;
   overflow: hidden;
   padding: 2rem 0;
+  margin-top: 100px;
 }
 
 .thumbnails-track {

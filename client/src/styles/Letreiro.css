@@ -1,14 +1,16 @@
 .noticia-banner {
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   background: #000000;          
   border-top: 2px solid #000000;
   border-bottom: 2px solid #ccc;
   padding: 0px;
   margin: 0px;
+  height: 100px;
 }
 
 .noticia-texto {
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18,7 +20,7 @@
   white-space: nowrap;
   padding-left: 100%;
   animation: correrTexto 15s linear infinite;
-  font-size: 50px;
+  font-size: 40px;
   color: #ffffff;
 }
 

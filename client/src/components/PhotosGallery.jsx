@@ -10,7 +10,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import InnerImageZoom from 'react-inner-image-zoom';
 import '../styles/PhotosGallery.css';
 import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
-import Foooter from './Footer';
+import Footer from './Footer';
 import Credits from './Credits';
 import Letreiro from './Letreiro';
 
@@ -63,6 +63,7 @@ export default function PhotosGallery() {
 
   return (
     <>
+    <div className="all" style={{minHeight: '100vh'}}>
       <Header />
       <Home />
       <Letreiro />
@@ -74,23 +75,36 @@ export default function PhotosGallery() {
           <h2>{photosOptions[selectedIndex].name}</h2>
         </div>
 
+<motion.div
+  key={photosOptions[selectedIndex].src}
+  className="background-image"
+  initial={{ opacity: 0, backgroundPositionX: "0%" }}
+  animate={{
+    opacity: 1,
+    backgroundPositionX: ["0%", "100%"],
+  }}
+  transition={{
+    opacity: { duration: 1 },
+    backgroundPositionX: {
+      duration: 60,
+      repeat: Infinity,
+      ease: "linear",
+    },
+  }}
+  style={{
+    backgroundImage: `url(${photosOptions[selectedIndex].src})`,
+    backgroundRepeat: "repeat-x",
+    backgroundSize: "130% auto", 
+    backgroundPositionY: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+  }}
+/>
 
-        <motion.div
-          key={photosOptions[selectedIndex].src}
-          className="background-image"
-          initial={{ backgroundPositionX: "0%", opacity: 0 }}
-          animate={{ backgroundPositionX: ["0%", "100%"], opacity: 1 }}
-          transition={{
-            backgroundPositionX: { duration: 30, repeat: Infinity, ease: "linear" },
-            opacity: { duration: 0.6 },
-          }}
-          style={{
-            backgroundImage: `url(${photosOptions[selectedIndex].src})`,
-            backgroundRepeat: "repeat-x",
-            backgroundSize: "auto 100%",
-            backgroundPositionY: "center",
-          }}
-        />
 
         <div className="photos-display">
           <button className="nav-button left" onClick={handlePrev} disabled={selectedIndex === 0}>
@@ -256,10 +270,11 @@ export default function PhotosGallery() {
           </motion.div>
         )}
       </AnimatePresence>
-         <CuriosidadesSec />
-           <Credits/>
       </div>
-          <Foooter />
+           <CuriosidadesSec />
+           <Credits/>
+           <Footer />
+</div>  
     </>
   );
 }
