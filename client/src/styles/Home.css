@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-body{
+body {
     background-color: black;
     font-family: "Inter", sans-serif;
 }
 
-h1,p{
+h1,
+p {
     color: white;
     text-align: left;
 }
 
-h1{
+.h1-esquerda {
+    font-size: 48px;
+}
+
+.h1-direita {
     font-size: 64px;
 }
 
-p{
+p {
     font-size: 24px;
 }
 
@@ -22,9 +27,11 @@ p{
     display: flex;
     width: 100vw;
     height: 100vh;
+    position: relative;
 }
 
-.direita, .esquerda{
+.direita,
+.esquerda {
     width: 50vw;
     height: 100vh;
     display: flex;
@@ -34,57 +41,93 @@ p{
 
 }
 
-.direita{
-    background-image: url("../assets/img/Rectangle1.png");
+.direita {
+    background-image: url("../assets/img/Rectangle12.png");
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 24px 0 0 24px;
 }
 
-.content-container{
+.content-container {
     width: 80%;
 }
 
-.cta{
+.cta {
     background-color: rgba(255, 255, 255, 0.25);
-    padding: 15px 10px;
+    padding: 15px 30px;
     border-radius: 12px;
     width: 80%;
 }
 
-.mouse {
-	width: 50px;
-	height: 90px;
-	border: 5px solid white;
-	border-radius: 60px;
-	position: absolute;
-    bottom: 30px;
-    left: calc(50% - 25px);
+#sd-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.mouse::before {
-	content: '';
-	width: 12px;
-	height: 12px;
-	position: absolute;
-	top: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: white;
-	border-radius: 50%;
-	opacity: 1;
-	animation: wheel 2s infinite;
-	-webkit-animation: wheel 2s infinite;
+.arrow {
+    position: relative;
+    width: 42px;
+    height: 16px;
+
+    &::before,
+    &::after {
+        content: "";
+        width: 21px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 2px;
+        display: inline-block;
+    }
+
+    &::before {
+        transform: rotate(45deg) translateX(25%);
+    }
+
+    &::after {
+        transform: rotate(-45deg) translateX(-25%);
+    }
+
+    &:nth-child(1) {
+        top: -50px;
+        animation: arrow2 1s ease 0s infinite;
+    }
+
+    &:nth-child(2) {
+        top: -25px;
+        animation: arrow1 1s ease 0.25s infinite;
+    }
 }
 
-@keyframes wheel {
-	to {
-		top: 60px;
-	}
+@keyframes arrow1 {
+    0% {
+        opacity: 0;
+        top: -25px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 0px;
+    }
 }
 
-@-webkit-keyframes wheel {
-	to {
-		top: 60px;
-	}
+@keyframes arrow2 {
+    0% {
+        opacity: 0;
+        top: -35px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: -10px;
+    }
 }
