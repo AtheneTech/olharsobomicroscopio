@@ -13,6 +13,7 @@ import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
 import Footer from './Footer';
 import Credits from './Credits';
 import Letreiro from './Letreiro';
+import Contribution from "./Contribution";
 
 
 export default function PhotosGallery() {
@@ -272,6 +273,7 @@ export default function PhotosGallery() {
       </AnimatePresence>
       </div>
            <CuriosidadesSec />
+           <Contribution />
            <Credits/>
            <Footer />
 </div>  

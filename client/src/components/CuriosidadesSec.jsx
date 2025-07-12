@@ -15,7 +15,7 @@ const CuriosidadesSec = () => {
           <em>por trás da ciência</em>
 
 
-          <div className="dividerEsquerda"></div>
+          <div className="dividerEsquerda1"></div>
           <div className="info-curiosidade">
             <h3>Origem microscópio</h3>
             <p>
@@ -43,7 +43,7 @@ const CuriosidadesSec = () => {
           <button onClick={() => window.location.href = '/curiosidades'}>CONHEÇA</button>
 
           <div className="dividerDireita"></div>
-          <div className="info-curiosidade info-curiosidade-direita">
+          <div className="info-curiosidade-direita">
             <h3>Origem do Laboratório
               Arte sob microscópio</h3>
             <p>Conheça os rostos por trás da produção, pesquisa e paixão pelos microscópios.</p>
