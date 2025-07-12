@@ -295,9 +295,35 @@ font-family: 'Montserrat', sans-serif;
   top: 100px;
   right: 150px;
   background-color: rgb(255, 255, 255);
-  margin: 0px;
+  margin-left: 15px;
   opacity: 0.8; 
 }
+
+.dividerEsquerda::before {
+  content: "";
+  position: absolute;
+  top: -5px;    
+  left: -15px;      
+  width: 10px;        
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FF702E;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.dividerDireita::before {
+  content: "";
+  position: absolute;
+  top: -5px;    
+  left: -15px;      
+  width: 10px;        
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FF702E;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 
 .dividerDireita {
   width: 100%;
@@ -306,7 +332,7 @@ font-family: 'Montserrat', sans-serif;
   top: 30px;
   right: 200px;
   background-color: rgb(255, 255, 255);
-  margin: 0px;
+  margin-left: 15px;
   opacity: 0.8;
 }
 

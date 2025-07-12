@@ -1,0 +1,32 @@
+.noticia-banner {
+  width: 100%;
+  overflow: hidden;
+  background: #000000;          
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #ccc;
+  padding: 0px;
+  margin: 0px;
+}
+
+.noticia-texto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: correrTexto 15s linear infinite;
+  font-size: 50px;
+  color: #ffffff;
+}
+
+@keyframes correrTexto {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

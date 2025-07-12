@@ -10,6 +10,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import InnerImageZoom from 'react-inner-image-zoom';
 import '../styles/PhotosGallery.css';
 import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
+import Foooter from './Footer';
+import Credits from './Credits';
+import Letreiro from './Letreiro';
 
 
 export default function PhotosGallery() {
@@ -62,6 +65,7 @@ export default function PhotosGallery() {
     <>
       <Header />
       <Home />
+      <Letreiro />
       <Resumo />
       <Mapc />
       <div id="galeria" className="gallery-container">
@@ -253,7 +257,9 @@ export default function PhotosGallery() {
         )}
       </AnimatePresence>
          <CuriosidadesSec />
+           <Credits/>
       </div>
+          <Foooter />
     </>
   );
 }

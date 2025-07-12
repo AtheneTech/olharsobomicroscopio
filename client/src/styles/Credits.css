@@ -1,0 +1,28 @@
+.noticia-banner {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;          /* fundo claro, ou o que preferir */
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  padding: 10px 0;
+  position: relative;
+}
+
+.noticia-texto {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: correrTexto 25s linear infinite;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+@keyframes correrTexto {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
