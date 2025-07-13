@@ -72,9 +72,9 @@ export default function CardsImagens() {
     <section className="containerCards">
       <div className="backgroundCards"></div>
       <div className="overlayCards"></div>
-      <h1 className="title">Microscópios</h1>
-      <div className="divider"></div>
-      <p className="subtitle">Descubra mais sobre cada microscópio já existente</p>
+      <h1 className="title">Amostra de microscópios</h1>
+      <img src="/images/divisor.png" className="divisorAm" />
+      <p className="subtitle"> <b> Toque </b> no card e descubra como era cada imagem vista pelo microscopio </p>
 
       <Swiper
         effect={'coverflow'}
@@ -91,15 +91,15 @@ export default function CardsImagens() {
         pagination={{ clickable: true }}
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
+        className="mySwiperAm"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index} onClick={() => toggleFlip(index)}>
-            <div className={`card ${flippedSlides.includes(index) ? 'flipped' : ''}`}>
-              <div className="card-face front">
+            <div className={`cardAM ${flippedSlides.includes(index) ? 'flipped' : ''}`}>
+              <div className="card-faceAM frontAM">
                 <img src={slide.image} alt={slide.name} />
               </div>
-              <div className="card-face back">
+              <div className="card-faceAM backAM">
                 <h3>{slide.name}</h3>
                 <p><strong>Nível de Zoom:</strong> {slide.zoom}</p>
                 <p>{slide.description}</p>
@@ -112,9 +112,9 @@ export default function CardsImagens() {
 
     {/* <section className='Contribuicoes'>
       <ContributionSection/>
-    </section>
+    </section> */}
 
-    <section className='Curiosidades'>
+    {/* <section className='Curiosidades'>
       <Curiosidades/>
     </section> */}
 

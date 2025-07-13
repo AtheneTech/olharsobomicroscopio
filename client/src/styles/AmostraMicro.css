@@ -1,22 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
-body, html {
-  height: 100%;
-  font-family: "Inter", sans-serif;
-  
-}
 
 .containerCards {
   position: relative;
-  min-height: 100vh;
-  background-image: url('/images/backgrodunContribuicao.png');
   background-size: cover;
   background-position: center;
   color: white;
@@ -27,40 +13,37 @@ body, html {
 .backgroundCards {
   position: absolute;
   inset: 0;
-  background-image: url('/images/backgrodunCards.png');
-  background-size:cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 0;
+  /* background-image: url('/images/backgrodunCards.png'); */
+ 
 }
 
 .overlayCards {
   position: absolute;
-  inset: 0;
   backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.7); /* escurecimento */
-  z-index: 0;
+  background-color: rgba(78, 16, 16, 0.7);
+  
+
 }
 
-.title, .subtitle, .mySwiper {
+.title,
+.subtitle,
+.mySwiperAm {
   position: relative;
-  z-index: 1;
+
 }
 
 .title {
   font-size: 3rem;
   font-weight: bolder;
-  /* margin-bottom: 10px; */
+ 
   color: white;
 
 }
 
-.divider {
-  width: 50%;
-  height: 1px;
-  background-color: white;
-  margin: 10px auto;
-  opacity: 0.8;
+.divisorAm {
+  width: 35%;
+  margin: 0.5vw;
+  
 }
 
 .subtitle {
@@ -69,15 +52,20 @@ body, html {
   margin-bottom: 30px;
 }
 
-.mySwiper {
+.subtitle b {
+
+  color: #FF702E;
+
+}
+
+.mySwiperAm {
   width: 100%;
   padding-bottom: 80px;
-   min-height: 70vh; /* ajuste conforme o necessário */
+  min-height: 10vh;
 }
 
 .swiper-slide {
-  width: 300px;
-  height: auto;
+  width: 22vw;
   background: transparent;
   display: flex;
   flex-direction: column;
@@ -86,8 +74,8 @@ body, html {
 
 .slide-content img {
   width: 100%;
-
-  box-shadow: 0 0 10px #00000080;
+  height: 100%;
+  box-shadow: 0 0 10px #a0979780;
 }
 
 .slide-text {
@@ -97,16 +85,30 @@ body, html {
   border-radius: 8px;
   font-size: 0.9rem;
   color: white;
+
 }
 
-.card {
+.swiper-pagination-bullet {
+  width: 0.8vw;
+  height: 0.8vw;
+  border-radius: 50%;
+  background-color: white; /* ou qualquer outra cor */
+  opacity: 0.1;  
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FF702E; /* destaque */
+  opacity: 1;
+}
+
+.cardAM {
   width: 300px;
   height: 400px;
   perspective: 1000px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
-.card-face {
+.card-faceAM {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -119,29 +121,30 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  /* padding: 15px; */
 }
 
-.front img {
+.frontAM img {
   width: 100%;
   height: 100%;
+  border-radius: 5%;
   object-fit: cover;
 }
 
-.back {
-  background-color: rgba(0, 0, 0, 0.8);
+.backAM {
+  background-color: rgba(55, 50, 50, 0.8);
   color: white;
   transform: rotateY(180deg);
   text-align: center;
   font-size: 0.95rem;
 }
 
-.card {
+.cardAM {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
 }
 
-.card.flipped {
+.cardAM.flipped {
   transform: rotateY(180deg);
 }
