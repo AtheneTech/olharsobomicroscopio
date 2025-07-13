@@ -1,0 +1,25 @@
+.animated-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.animated-popup.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 6px solid #4caf50;
+}
+
+.animated-popup.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 6px solid #f44336;
+}

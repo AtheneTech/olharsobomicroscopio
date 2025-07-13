@@ -30,7 +30,7 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
-  transform: scale(1); /* evita que as bordas do blur fiquem visíveis */
+  transform: scale(1);
 }
 
 .overlayContribution {
@@ -128,7 +128,7 @@ body, html {
 }
 
 .button {
-  background-color:#383838;
+  background-color:#000000;
   color: white;
   border: none;
   padding: 12px 100px;
@@ -140,7 +140,7 @@ body, html {
 }
 
 .button2 {
-  background-color:#383838;
+  background-color:#000000;
   color: white;
   border: none;
   padding: 12px 100px;
@@ -153,13 +153,13 @@ body, html {
 }
 
 .button:hover {
-  background-color: black;
+  background-color: #FF702E;
   border: none;
   scale: 1.1;
 }
 
 .button2:hover {
-  background-color: black;
+  background-color: #FF702E;
   border: none;
   scale: 1.1;
 }

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import AnimatedPopup from "./AnimatedPopup";
 import '../styles/VisitForm.css';
 
 
 export default function VisitForm() {
   const [success, setSuccess] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [popup, setPopup] = useState({ show: false, type: "", message: "" });
 
   const validateForm = (formData) => {
     const errors = {};
@@ -43,18 +45,15 @@ export default function VisitForm() {
     };
 
     try {
-      await emailjs.send(
-        "athene_mic25",        
+  await emailjs.send("athene_mic25",        
         "template_hfiwpnm",  
         templateParams,
-        "RcLK9pCLZ0QoIz_3m"  
-      );
-
-      setSuccess(true);
-      e.target.reset();
-    } catch (error) {
-      alert("Erro ao enviar o formulário: " + error.message);
-    }
+        "RcLK9pCLZ0QoIz_3m");
+  setPopup({ show: true, type: "success", message: "Formulário enviado com sucesso!" });
+  e.target.reset();
+} catch (error) {
+  setPopup({ show: true, type: "error", message: "Erro ao enviar: " + error.message });
+}
   };
 
   return (
@@ -63,6 +62,7 @@ export default function VisitForm() {
     <h1>Visitante</h1>
     <p>Leve sua escola para a exposição</p>
 
+      <div className="divider"></div>
     <form onSubmit={handleSubmit}>
   <div className="form-grid">
     <div className="form-fields">
@@ -127,20 +127,12 @@ export default function VisitForm() {
 </form>
 
 
-    {success && (
-      <div className="popup success">
-        <p>✔️ Formulário enviado com sucesso!</p>
-        <p>Obrigado pelo interesse! Entraremos em contato em breve.</p>
-        <button onClick={() => setSuccess(false)}>Fechar</button>
-      </div>
-    )}
-
-    {formErrors.submit && (
-      <div className="popup error">
-        <p>❌ {formErrors.submit}</p>
-        <button onClick={() => setFormErrors({})}>Fechar</button>
-      </div>
-    )}
+    <AnimatedPopup
+  type={popup.type}
+  message={popup.message}
+  show={popup.show}
+  onClose={() => setPopup({ ...popup, show: false })}
+/>
   </div>
 </div>
   );
