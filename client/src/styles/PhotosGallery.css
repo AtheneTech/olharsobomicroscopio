@@ -387,7 +387,6 @@ html, body, #root {
 }
 
 
-
 .year-selector-bubble {
   position: fixed;
   right: 40px;
@@ -435,3 +434,37 @@ html, body, #root {
   user-select: none;
   color: black;
 }
+
+.popup-content {
+  max-width: 800px;
+}
+
+.popup-content.autor {
+  max-width: 340px;
+}
+
+.popup-content.predominancia {
+  max-width: 500px;
+}
+
+.popup-content.detalhes {
+  max-width: 500px;
+}
+
+.popup-content.som {
+  max-width: 500px;
+}
+
+.popup-content.amostra {
+  display: flex;
+  max-width: 950px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .popup-content {
+    width: 95%;
+  }
+}
+

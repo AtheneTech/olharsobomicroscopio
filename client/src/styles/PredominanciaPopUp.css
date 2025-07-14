@@ -1,0 +1,46 @@
+.doenca-popup {
+  font-family: sans-serif;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 420px;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.doenca-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.barra-laranja {
+  width: 5px;
+  height: 28px;
+  background-color: #FF702E;
+  border-radius: 2px;
+}
+
+.doenca-titulo {
+  font-size: 2rem;
+  font-weight: 800px;
+  color: #000000;
+  margin: 0;
+}
+
+.doenca-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.doenca-lista li {
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.doenca-lista strong {
+  color: #000;
+}

@@ -1,0 +1,57 @@
+.autor-popup {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.autor-foto {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 100%;
+  margin: 0 auto 12px;
+}
+
+.autor-nome {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0 4px;
+}
+
+.autor-cargo {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+}
+
+.autor-bio {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.autor-redes img {
+  width: 20px;
+  margin: 0 6px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.autor-redes img:hover {
+  opacity: 1;
+}
+
+.autor-info-adicional {
+  text-align: left;
+  margin-top: 12px;
+}
+
+.autor-info-adicional h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.autor-info-adicional ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 13px;
+  color: #444;
+}

@@ -203,74 +203,73 @@ export default function PhotosGallery() {
 ))}
 
 
-      <AnimatePresence>
-        {activeIcon && (
-          <motion.div
-            className="popup-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closePopup}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(0,0,0,0.5)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              zIndex: 1000,
-            }}
-          >
-            <motion.div
-              className="popup-content"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onClick={(e) => e.stopPropagation()} 
-              style={{
-                 display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-                background: "#fff",
-                padding: "2rem",
-                borderRadius: "10px",
-                maxWidth: "1000px",
-                maxHeight: "100vh",
-                width: "90%",
-                boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
-                position: "relative",
-                color:"black"
-              }}
-            >
-              <motion.button
-  onClick={closePopup}
-  style={{
-    position: "absolute",
-    top: "10px",
-    color: "black",
-    right: "10px",
-    background: "transparent",
-    outline: "none",
-    border: "none",
-    fontSize: "1.5rem",
-    cursor: "pointer",
-    zIndex: "999"
-  }}
-  whileHover={{ y: -5 }} 
-  transition={{ type: "spring", stiffness: 300 }}
->
-  ✕
-</motion.button>
-              {activeIconObj?.popupContent || <p>Conteúdo não disponível.</p>}
+ <AnimatePresence>
+  {activeIcon && (
+    <motion.div
+      className="popup-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={closePopup}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <motion.div
+        className={`popup-content ${activeIconObj?.popupType || ""}`}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "#fff",
+          padding: "2rem",
+          borderRadius: "10px",
+          width: "90%",
+          maxHeight: "100vh",
+          boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+          position: "relative",
+          color: "black",
+          overflowY: "auto"
+        }}
+      >
+        <motion.button
+          onClick={closePopup}
+          style={{
+            position: "absolute",
+            top: "0px",
+            right: "-15px",
+            background: "transparent",
+            border: "none",
+            fontSize: "1.5rem",
+            cursor: "pointer",
+            zIndex: 999,
+            color: "black",
+            outline: "none",
+            boxShadow: "none",
+          }}
+          whileHover={{ y: -5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          ✕
+        </motion.button>
 
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {activeIconObj?.popupContent || <p>Conteúdo não disponível.</p>}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
       </div>
            <CuriosidadesSec />
            <Contribution />
