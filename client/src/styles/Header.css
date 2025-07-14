@@ -11,9 +11,15 @@
   width: 100vw;
   transition: top 0.3s ease;
 }
-.hidden-header {
-  top: -60px; 
+
+.fixed-header.hidden {
+  transform: translateY(-100%);
 }
+
+.fixed-header.visible {
+  transform: translateY(0);
+}
+
 
 .nav-container {
   display: flex;

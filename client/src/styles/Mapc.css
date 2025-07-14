@@ -69,7 +69,7 @@
   z-index: 10;
 }
 
-.popup {
+.popup-map {
   position: fixed;
   top: 0;
   left: 0;
@@ -82,7 +82,7 @@
   z-index: 1000;
 }
 
-.popup-content {
+.popup-content-map {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +96,7 @@
   position: relative;
 }
 
-.popup-header {
+.popup-header-map {
   display: flex;
   justify-content: flex-start;
   height: 140px;
@@ -107,7 +107,7 @@
   color: #000;
 }
 
-.popup-number {
+.popup-number-map {
   position: absolute;
   bottom: 0;
   left: 15px;
@@ -124,7 +124,7 @@
   text-align: center;
 }
 
-.popup-header h3 {
+.popup-header-map h3 {
   margin: 0;
   padding: 0;
   font-style: italic;
@@ -142,7 +142,7 @@
   border-radius: 0px;
 }
 
-.popup-body {
+.popup-body-map {
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -150,17 +150,17 @@
   color: #222;
 }
 
-.popup-section {
+.popup-section-map {
   flex: 1;
   padding: 0 10px;
   border-left: 1px solid #ccc;
 }
 
-.popup-section:first-child {
+.popup-section-map:first-child {
   border-left: none;
 }
 
-.popup-section strong {
+.popup-section-map strong {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
@@ -173,7 +173,7 @@
   margin-top: 0px;
 }
 
-.popup-footer {
+.popup-footer-map {
   font-size: 12px;
   padding: 10px 20px;
   font-style: italic;

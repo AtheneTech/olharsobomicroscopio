@@ -50,7 +50,7 @@ const Mapc = () => {
     setSelectedDisease(disease);
   };
 
-  const closePopup = () => {
+  const closePopupmap = () => {
     setSelectedDisease(null);
   };
 
@@ -83,11 +83,11 @@ const Mapc = () => {
       </div>
 
      {selectedDisease && (
-  <div className="popup" onClick={closePopup}>
-    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-      <div className="popup-card" style={{ position: "relative"}} >
+  <div className="popup-map" onClick={closePopupmap}>
+    <div className="popup-content-map" onClick={(e) => e.stopPropagation()}>
+      <div className="popup-card-map" style={{ position: "relative"}} >
       <motion.button
-  onClick={closePopup}
+  onClick={closePopupmap}
   style={{
     position: "absolute",
     top: "10px", 
@@ -112,15 +112,15 @@ const Mapc = () => {
   ✕
 </motion.button>
 
-        <div className="popup-header" style={{ backgroundImage: `url(${selectedDisease.image})` }}>
-          <div className="popup-number">{selectedDisease.id}</div>
+        <div className="popup-header-map" style={{ backgroundImage: `url(${selectedDisease.image})` }}>
+          <div className="popup-number-map">{selectedDisease.id}</div>
           <h3>
             <i>{selectedDisease.name}</i>
           </h3>
         </div>
 
-        <div className="popup-body">
-          <div className="popup-section">
+        <div className="popup-body-map">
+          <div className="popup-section-map">
             <p className="highlight">{selectedDisease.victims}</p>
             <strong>Número de Vítimas</strong>
             <p>{selectedDisease.victims}{" "}
@@ -130,19 +130,19 @@ const Mapc = () => {
   : "."}
             </p>
           </div>
-          <div className="popup-section">
+          <div className="popup-section-map">
             <img src='/icons/besouro.svg' style={{marginBottom:'8px'}}></img>
             <strong>Meio de transmissão</strong>
             <p>{selectedDisease.transmission}</p>
           </div>
-          <div className="popup-section">
+          <div className="popup-section-map">
              <p className="highlight">{selectedDisease.contaminationIndex}</p>
             <strong>Número de Infectados</strong>
             <p>{selectedDisease.contaminationDesc}</p>
           </div>
         </div>
 
-        <p className="popup-footer">
+        <p className="popup-footer-map">
           <em>Fonte: www.fonte.com.br</em>
         </p>
       </div>
