@@ -8,7 +8,7 @@ export default function Header() {
   const [selectedYear, setSelectedYear] = useState("2025");
 
   const navItems = [
-    { label: "Home", href: "#" },
+    { label: "Home", href: "/pagina-2025" },
     { label: "Galeria", href: "#galeria" },
     { label: "Curiosidades", href: "/curiosidades" }
   ];
@@ -61,14 +61,27 @@ export default function Header() {
 
         <ul className="nav-list">
           {navItems.map((item, index) => (
-            <li
-              key={index}
-              className={index + 1 === activeIndex ? "active" : ""}
-              onClick={() => setActiveIndex(index + 1)}
-            >
-              <a href={item.href}>{item.label}</a>
-            </li>
-          ))}
+  <li
+    key={index}
+    className={index + 1 === activeIndex ? "active" : ""}
+    onClick={() => {
+      setActiveIndex(index + 1);
+      if (item.label === "Galeria") {
+        const isHome = window.location.pathname.includes("pagina");
+        if (isHome) {
+          window.location.hash = "#galeria";
+        } else {
+          window.location.href = "/pagina-2025#galeria";
+        }
+      } else {
+        window.location.href = item.href;
+      }
+    }}
+  >
+    <a href={item.href}>{item.label}</a>
+  </li>
+))}
+
 
 <li ref={dropdownRef} className="dropdown-li">
   <a

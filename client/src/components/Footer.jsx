@@ -15,9 +15,10 @@ const Footer = () => {
         </p>
         <p><strong>(85) 99123-4567</strong></p>
         <div className="social-icons">
-          <img src='/icons/insta.svg' alt="Instagram" />
-          <img src='/icons/whats.svg' alt="WhatsApp" />
-          <img src='/icons/face.svg' alt="Facebook" />
+          <a href='https://www.instagram.com/artesobomicroscopio/' target="_blank" rel="noopener noreferrer"><img src='/icons/insta.svg' alt="Instagram"/></a>
+          <a href="https://wa.me/5599999999999?text=Olá%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais" target="_blank" rel="noopener noreferrer"><img src='/icons/whats.svg' alt="WhatsApp" /></a>
+          <a href="https://www.facebook.com/profile.php?id=100077322255115&locale=pt_BR" target="_blank" rel="noopener noreferrer"><img src="/icons/face.svg" alt="Facebook" /></a>
+
         </div>
       </div>
 

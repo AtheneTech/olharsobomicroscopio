@@ -254,19 +254,6 @@ html, body, #root {
 }
 
 
-
-
-
-.footer {
-  position: absolute;
-  bottom: 1rem;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1.5rem;
-  align-items: center;
-}
-
 .back-label {
   font-size: 0.75rem;
   font-weight: bold;
