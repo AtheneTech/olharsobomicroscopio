@@ -186,6 +186,10 @@ export default function Resumo() {
               </p>
               <img src='/photos/alencar.png' alt="Dr. Alencar" className="foto-galeria" />
             </div>
+
+            <div className='galeria-card'>
+              <img src='/photos/realizacao.svg' style={{width:'auto', height:'200px'}}/>
+            </div>
             </div>
           </div>
         </div>

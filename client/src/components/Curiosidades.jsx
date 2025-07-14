@@ -17,6 +17,8 @@ import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
 import Header from './Header'
 import Footer from './Footer';
+import Credits from './Credits';
+import Contribution from './Contribution';
 
 
 
@@ -304,6 +306,8 @@ const Curiosidades = () => {
 
        
         </div >
+    <Contribution />
+    <Credits/>
      <Footer/>
      </>
     );

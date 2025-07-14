@@ -7,17 +7,17 @@ const CuriosidadesSec = () => {
       <div className="conteudo">
 
         {/* LADO ESQUERDO */}
-        <div className="esquerda">
+        <div className="esquerdasecc">
           <div className="titulo-com-icone">
             <img src="/images/icone-curiosidades.png" alt="ícone" />
-            <h1>Curiosidades</h1>
+            <h1 className='esquerda-h1'>Curiosidades</h1>
           </div>
           <em>por trás da ciência</em>
 
 
           <div className="dividerEsquerda1"></div>
           <div className="info-curiosidade">
-            <h3>Origem microscópio</h3>
+            <h3 className='h3-secc'>Origem microscópio</h3>
             <p>
               Confira a História da evolução dos microscópios e sua contribuição para a ciência
             </p>
@@ -35,7 +35,7 @@ const CuriosidadesSec = () => {
         </div>
 
         {/* LADO DIREITO */}
-        <div className="direita">
+        <div className="direitasecc">
           <p>
             Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores
             para você mergulhar em mais experiências

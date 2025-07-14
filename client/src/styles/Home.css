@@ -1,5 +1,162 @@
-.home {
-    background-color: rgb(102, 102, 102);
+
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: black;
+    font-family: "Montserrat", sans-serif;
+}
+
+.h1-home,
+.p-home {
+    color: white;
+    text-align: left;
+}
+
+.h1-esquerda {
+    font-size: 48px;
+}
+
+.h1-direita {
+    font-size: 64px;
+}
+
+.p-home, .p-direita {
+    font-size: 20px;
+}
+
+.p-home::before {
+  content: "";             
+  display: inline-block;   
+  width: 11px;          
+  height: 11px;
+  border-radius: 50%;    
+  background-color: #FF702E;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-right: 20px;      
+  vertical-align: middle;  
+}
+
+.container {
+    display: flex;
     width: 100vw;
-    min-height: 400px;
+    height: 100vh;
+    position: relative;
+}
+
+.direita,
+.esquerda {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.direita {
+  position: relative; 
+  overflow: hidden;
+}
+
+.bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  padding: 5vw;
+  color: white;
+  width: 80%;
+}
+
+
+.cta {
+    margin-top: 40px;
+    background-color: rgba(91, 89, 89, 0.6);
+    padding: 15px 30px;
+    border-radius: 12px;
+    width: 80%;
+}
+
+#sd-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrowh {
+    position: relative;
+    width: 42px;
+    height: 16px;
+
+    &::before,
+    &::after {
+        content: "";
+        width: 21px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 2px;
+        display: inline-block;
+    }
+
+    &::before {
+        transform: rotate(45deg) translateX(25%);
+    }
+
+    &::after {
+        transform: rotate(-45deg) translateX(-25%);
+    }
+
+    &:nth-child(1) {
+        top: -50px;
+        animation: arrowh2 1s ease 0s infinite;
+    }
+
+    &:nth-child(2) {
+        top: -25px;
+        animation: arrowh1 1s ease 0.25s infinite;
+    }
+}
+
+@keyframes arrowh1 {
+    0% {
+        opacity: 0;
+        top: -25px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 0px;
+    }
+}
+
+@keyframes arrowh2 {
+    0% {
+        opacity: 0;
+        top: -35px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: -10px;
+    }
 }

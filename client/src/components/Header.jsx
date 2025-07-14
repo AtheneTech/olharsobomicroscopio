@@ -15,25 +15,38 @@ export default function Header() {
 
   const years = ["2024", "2025"];
 
-  useEffect(() => {
-  let lastScrollY = window.scrollY;
+ useEffect(() => {
+  const path = window.location.pathname;
+  const hash = window.location.hash;
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const header = document.querySelector(".fixed-header");
+  // Define activeIndex com base na rota atual
+  if (path.includes("/curiosidades")) {
+    setActiveIndex(3);
+  } else if (path.includes("/pagina-") && hash === "#galeria") {
+    setActiveIndex(2);
+  } else if (path.includes("/pagina-")) {
+    setActiveIndex(1);
+  } else {
+    setActiveIndex(1); // padrão para Home
+  }
 
-    if (currentScrollY > lastScrollY && currentScrollY > 60) {
-      header.classList.add("hidden-header");
-    } else {
-      header.classList.remove("hidden-header");
+  // O resto do seu useEffect para dropdown permanece igual
+  const match = path.match(/pagina-(\d{4})/); // Extrai o ano
+  if (match && match[1] && years.includes(match[1])) {
+    setSelectedYear(match[1]);
+  } else {
+    setSelectedYear("2025"); // fallback
+  }
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
     }
-
-    lastScrollY = currentScrollY;
   };
-
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
 }, []);
+
 
   useEffect(() => {
     const path = window.location.pathname; // Exemplo: "/pagina-2025"
