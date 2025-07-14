@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-
+import AnimatedPopup from "./AnimatedPopup";
+import '../styles/ColaboradorForm.css'
 
 export default function ColaboradorForm() {
   const [success, setSuccess] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [formErrors, setFormErrors] = useState({});
+    const [popup, setPopup] = useState({ show: false, type: "", message: "" });
 
   const validateForm = (formData) => {
     const errors = {};
@@ -20,180 +22,169 @@ export default function ColaboradorForm() {
     return errors;
   };
 
-const uploadImageToCloudinary = async (file) => {
-  const url = `https://api.cloudinary.com/v1_1/dkqkuehmq/upload`;
+  const uploadImageToCloudinary = async (file) => {
+    const url = `https://api.cloudinary.com/v1_1/dkqkuehmq/upload`;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "preset_abc123");
 
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", "preset_abc123");
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
 
-  const response = await fetch(url, {
-    method: "POST",
-    body: formData,
-  });
+    const data = await response.json();
 
-  const data = await response.json();
-
-  if (response.ok) {
-    return data.secure_url;
-  } else {
-    throw new Error(data.error.message);
-  }
-};
-
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const errors = validateForm(formData);
-
-  if (Object.keys(errors).length > 0) {
-    setFormErrors(errors);
-    return;
-  }
-
-  setFormErrors({});
-
-  let imageUrl = null;
-
-  try {
-    if (imageFile) {
-      imageUrl = await uploadImageToCloudinary(imageFile);
+    if (response.ok) {
+      return data.secure_url;
+    } else {
+      throw new Error(data.error.message);
     }
+  };
 
-    const templateParams = {
-      nome: formData.get("nome"),
-      email: formData.get("email"),
-      instituicao: formData.get("instituicao"),
-      cargo: formData.get("cargo"),
-      descricao: formData.get("descricao"),
-      consent: formData.get("consent") ? "Sim" : "Não",
-      image_url: imageUrl, 
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const errors = validateForm(formData);
 
-    await emailjs.send(
-  "athene_mic25",
-  "template_g7mx8eu",
-  templateParams,
-  "RcLK9pCLZ0QoIz_3m" 
-);
-
-    setSuccess(true);
-    setImagePreview(null);
-    setImageFile(null);
-    e.target.reset();
-
-  } catch (error) {
-    alert("Erro ao enviar o formulário: " + error.message);
-  }
-};
-
-
-
-const [imageBase64, setImageBase64] = useState(null);
-
-const handleImageChange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    if (file.size > 5 * 1024 * 1024) { 
-      alert("A imagem deve ter no máximo 5MB.");
-      e.target.value = null;
-      setImageFile(null);
-      setImagePreview(null);
-      setImageBase64(null);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
       return;
     }
-    setImageFile(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-      setImageBase64(reader.result);
-    };
-    reader.readAsDataURL(file);
-  }
-};
 
+    setFormErrors({});
+    let imageUrl = null;
+
+
+    try {
+      if (imageFile) {
+        imageUrl = await uploadImageToCloudinary(imageFile);
+      }
+
+      const templateParams = {
+        nome: formData.get("nome"),
+        email: formData.get("email"),
+        instituicao: formData.get("instituicao"),
+        cargo: formData.get("cargo"),
+        descricao: formData.get("descricao"),
+        consent: formData.get("consent") ? "Sim" : "Não",
+        image_url: imageUrl,
+      };
+
+      await emailjs.send(
+        "athene_mic25",
+        "template_g7mx8eu",
+        templateParams,
+        "RcLK9pCLZ0QoIz_3m"
+      );
+
+      setPopup({ show: true, type: "success", message: "Formulário enviado com sucesso!" });
+      setImagePreview(null);
+      setImageFile(null);
+      e.target.reset();
+
+    } catch (error) {
+       setPopup({ show: true, type: "error", message: "Erro ao enviar: " + error.message });
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("A imagem deve ter no máximo 5MB.");
+        e.target.value = null;
+        setImageFile(null);
+        setImagePreview(null);
+        return;
+      }
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-center p-4" style={{ backgroundImage: 'url("/background.jpg")' }}>
-      <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-4xl relative">
-        <h1 className="text-4xl font-black text-black mb-2">Colaborador</h1>
-        <p className="text-lg text-black mb-6">Contribua com imagens para nossa exposição</p>
+    <div className="form-container">
+      <div className="form-card">
+        <h1 className="form-title">Colaborador</h1>
+        <p className="form-subtitle">Contribua com imagens para nossa exposição</p>
+       <div className="divider2"></div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <input type="text" name="nome" placeholder="Nome" className="border p-2 rounded w-full" />
-              {formErrors.nome && <p className="text-red-500 text-sm mt-1">{formErrors.nome}</p>}
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="form-grid">
+            <div className="form-fields-left">
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="nome">Nome</label>
+                  <input type="text" id="nome" name="nome" />
+                  {formErrors.nome && <p className="error-message">{formErrors.nome}</p>}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">E-mail</label>
+                  <input type="email" id="email" name="email" />
+                  {formErrors.email && <p className="error-message">{formErrors.email}</p>}
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="instituicao">Instituição/Universidade</label>
+                  <input type="text" id="instituicao" name="instituicao" />
+                  {formErrors.instituicao && <p className="error-message">{formErrors.instituicao}</p>}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="cargo">Cargo ou área de atuação</label>
+                  <input type="text" id="cargo" name="cargo" />
+                  {formErrors.cargo && <p className="error-message">{formErrors.cargo}</p>}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="descricao">Descrição da imagem enviada</label>
+                <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva brevemente o que é a imagem, técnica usada, contexto, etc"></textarea>
+                {formErrors.descricao && <p className="error-message">{formErrors.descricao}</p>}
+              </div>
+
+              <div className="form-consent">
+                <input type="checkbox" id="consent" name="consent" />
+                <label htmlFor="consent">Autorizo o uso da imagem enviada para fins da exposição</label>
+              </div>
+              {formErrors.consent && <p className="error-message">{formErrors.consent}</p>}
+              
+              <button type="submit" className="submit-button">ENVIAR</button>
             </div>
-            <div>
-              <input type="email" name="email" placeholder="E-mail" className="border p-2 rounded w-full" />
-              {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
-            </div>
-            <div>
-              <input type="text" name="instituicao" placeholder="Instituição/Universidade" className="border p-2 rounded w-full" />
-              {formErrors.instituicao && <p className="text-red-500 text-sm mt-1">{formErrors.instituicao}</p>}
-            </div>
-            <div>
-              <input type="text" name="cargo" placeholder="Cargo ou área de atuação" className="border p-2 rounded w-full" />
-              {formErrors.cargo && <p className="text-red-500 text-sm mt-1">{formErrors.cargo}</p>}
+
+            <div className="upload-area-right">
+              <label htmlFor="image-upload" className="upload-label">Upload de imagem</label>
+              <div className="upload-box">
+                <input type="file" id="image-upload" name="image" accept="image/*" onChange={handleImageChange} className="upload-input" />
+                <label htmlFor="image-upload" className="upload-box-label">
+                  {imagePreview ? (
+                    <img src={imagePreview} alt="Prévia da imagem" className="image-preview" />
+                  ) : (
+                    <>
+                      <svg className="upload-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                      <p>Solte o arquivo ou faça <span className="upload-link">upload</span></p>
+                      <p className="upload-size-limit">Tamanho máximo: 5GB</p>
+                    </>
+                  )}
+                </label>
+              </div>
+              {formErrors.image && <p className="error-message">{formErrors.image}</p>}
             </div>
           </div>
-
-          <div>
-            <textarea
-              name="descricao"
-              placeholder="Descrição da imagem enviada (técnica usada, contexto, etc)"
-              className="w-full border p-2 rounded"
-              rows={4}
-            ></textarea>
-            {formErrors.descricao && <p className="text-red-500 text-sm mt-1">{formErrors.descricao}</p>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Upload de imagem</label>
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 p-6 rounded-lg">
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="mb-2"
-              />
-              {imagePreview && (
-                <img src={imagePreview} alt="Prévia da imagem" className="mb-2 max-w-xs max-h-48 object-contain border rounded" />
-              )}
-              {formErrors.image && <p className="text-red-500 text-sm mt-1">{formErrors.image}</p>}
-              <p className="text-xs text-gray-500">Tamanho máximo: 5MB</p>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input type="checkbox" id="consent" name="consent" className="w-4 h-4" />
-            <label htmlFor="consent" className="text-sm text-gray-800">
-              Autorizo o uso da imagem enviada para fins da exposição
-            </label>
-          </div>
-          {formErrors.consent && <p className="text-red-500 text-sm mt-1">{formErrors.consent}</p>}
-
-          <button type="submit" className="bg-black text-white py-2 px-6 rounded">ENVIAR</button>
         </form>
 
-        {success && (
-          <div className="absolute bottom-6 right-6 bg-white shadow-lg rounded-lg p-4 border-l-4 border-green-500">
-            <p className="font-bold text-green-600 flex items-center mb-1">
-              <span className="mr-2">✔️</span>
-              Contribuição enviada com sucesso!
-            </p>
-            <p className="text-sm text-gray-800">
-              Obrigada por colaborar com a exposição. Sua imagem foi recebida e será analisada pela curadoria. Entraremos em contato caso necessário!
-            </p>
-            <button onClick={() => setSuccess(false)} className="mt-2 px-4 py-1 bg-black text-white rounded text-sm">
-              VOLTAR
-            </button>
-          </div>
-        )}
+       <AnimatedPopup
+         type={popup.type}
+         message={popup.message}
+         show={popup.show}
+         onClose={() => setPopup({ ...popup, show: false })}
+       />
       </div>
     </div>
   );

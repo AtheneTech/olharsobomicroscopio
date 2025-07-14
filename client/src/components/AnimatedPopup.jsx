@@ -5,7 +5,7 @@ import "../styles/AnimatedPopup.css";
 export default function AnimatedPopup({ type, message, show, onClose }) {
   useEffect(() => {
     if (show) {
-      const timer = setTimeout(onClose, 3500); // 3.5s até desaparecer
+      const timer = setTimeout(onClose, 3500); 
       return () => clearTimeout(timer);
     }
   }, [show, onClose]);
