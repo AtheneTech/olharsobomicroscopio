@@ -63,11 +63,11 @@ A tabela abaixo detalha o escopo e o status atual das funcionalidades planejadas
 | | Validar todos os campos obrigatórios dos formulários. | ✅ |
 | | Enviar respostas para um e-mail pré-definido. | ✅ |
 | | Mostrar mensagem de sucesso após envio dos formulários. | ✅ |
-| **CURIOSIDADES** | Exibir seções com conteúdo interativo sobre o microscópio. | ⏳ |
+| **CURIOSIDADES** | Exibir seções com conteúdo interativo sobre o microscópio. | ✅ |
 | | Mostrar curiosidades com ícones e textos interativos. | ⏳ |
-| | Cada curiosidade deve abrir em pop-up ou card animado. | ⏳ |
+| | Cada curiosidade deve abrir em pop-up ou card animado. | ✅ |
 | | Exibir área interativa sobre a história dos microscópios. | ⏳ |
-| **CRÉDITOS** | Exibir créditos em animação contínua (estilo jornal). | ⏳ |
+| **CRÉDITOS** | Exibir créditos em animação contínua (estilo jornal). | ✅ |
 | **FOOTER** | Exibir informações institucionais, links e redes sociais. | ✅ |
 | **ÁREA ADMINISTRATIVA** | Acesso restrito para administradores com login e senha. | ✅ |
 | | Painel para adicionar, editar e excluir exposições. | ✅ |
@@ -89,32 +89,32 @@ A tabela abaixo detalha o escopo e o status atual das funcionalidades planejadas
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Maria Vitória" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592899/vitoria_he5fdl.jpg" alt="Maria Vitória" width="100" /></td>
       <td><strong>Maria Vitória</strong></td>
-      <td>Líder da Equipe</td>
+      <td>Líder da Equipe e Dev Frontend</td>
     </tr>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Vinícius Vasconcelos" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592900/vinicius_aohgnm.jpg" alt="Vinícius Vasconcelos" width="100" /></td>
       <td><strong>Vinícius Vasconcelos</strong></td>
       <td>Dev Fullstack</td>
     </tr>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Lucas Mineiro" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592900/lucas_u3vlbk.jpg" alt="Lucas Mineiro" width="100" /></td>
       <td><strong>Lucas Mineiro</strong></td>
       <td>Dev Frontend</td>
     </tr>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Tainara Nascimento" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592900/tainara_j4kach.jpg" alt="Tainara Nascimento" width="100" /></td>
       <td><strong>Tainara Nascimento</strong></td>
       <td>UX Designer & Dev Frontend</td>
     </tr>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Eduarda Castro" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592899/eduarda_qu6u3d.jpg" alt="Eduarda Castro" width="100" /></td>
       <td><strong>Eduarda Castro</strong></td>
       <td>Designer UI</td>
     </tr>
     <tr>
-      <td><img src="https://cdn-icons-png.flaticon.com/512/9187/9187532.png" alt="Isabele Meireles" width="100" /></td>
+      <td><img src="https://res.cloudinary.com/dkqkuehmq/image/upload/v1752592900/isabele_vrv6r5.jpg" alt="Isabele Meireles" width="100" /></td>
       <td><strong>Isabele Meireles</strong></td>
       <td>Documentadora</td>
     </tr>
