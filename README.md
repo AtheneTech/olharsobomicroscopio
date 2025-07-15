@@ -174,9 +174,3 @@ Siga os passos abaixo para configurar e rodar o ambiente de desenvolvimento loca
     npm run dev
     ```
     A interface estará disponível no endereço indicado pelo Vite (geralmente `http://localhost:5173`).
-
------
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://www.google.com/search?q=LICENSE) para mais detalhes.
