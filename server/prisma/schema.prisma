@@ -35,22 +35,24 @@ model Section {
 }
 
 model Image {
-  id         String   @id @default(cuid())
-  name       String
-  description String
-  source     String
-  url        String
-  section    Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  sectionId  String
-  author     Author   @relation(fields: [authorId], references: [id])
-  authorId   String
+  id           String  @id @default(cuid())
+  name         String
+  description  String
+  source       String
+  url          String
+  section      Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId    String
+  author       Author  @relation(fields: [authorId], references: [id])
+  authorId     String
+  song         String
+  predominance Json
 }
 
 model Author {
-  id         String   @id @default(cuid())
-  name       String
-  location   String
-  bio        String
-  links      String[]
-  images     Image[]
+  id       String   @id @default(cuid())
+  name     String
+  location String
+  bio      String
+  links    String[]
+  images   Image[]
 }

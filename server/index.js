@@ -9,6 +9,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
 import sectionRoutes from "./routes/sectionRoutes.js";
 import publicRoutes from "./routes/publicRoutes.js";
+import spotifyRoutes from "./routes/spotifyRoutes.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/api/exhibitions", exhibitionRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/authors", authorRoutes);
 app.use("/api/sections", sectionRoutes);
+app.use("/api/spotify", spotifyRoutes);
 app.use("/", publicRoutes);
 
 // Manipulador de rota não encontrada

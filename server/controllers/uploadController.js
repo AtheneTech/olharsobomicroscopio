@@ -1,15 +1,26 @@
 import { prisma } from "../prisma/client.js";
 import { uploadToCloudinary } from "../services/uploadService.js";
+import { imageSchema } from "../utils/zodSchemas.js";
 
 export async function uploadImage(req, res) {
   try {
-    const { name, description, source, authorId, sectionId } = req.body;
+    if (req.body.predominance && typeof req.body.predominance === "string") {
+      try {
+        req.body.predominance = JSON.parse(req.body.predominance);
+      } catch (e) {
+        return res.status(400).json({ error: "O campo 'predominance' contém um JSON inválido." });
+      }
+    }
+
+    const validation = imageSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(400).json({ error: "Dados inválidos", details: validation.error.format() });
+    }
+
+    const { name, description, source, authorId, sectionId, song, predominance } = validation.data;
 
     if (!req.file) {
       return res.status(400).json({ error: "Arquivo de imagem ausente." });
-    }
-    if (!name || !authorId || !sectionId) {
-      return res.status(400).json({ error: "Dados obrigatórios ausentes: nome, autor e seção." });
     }
 
     const author = await prisma.author.findUnique({ where: { id: authorId } });
@@ -32,6 +43,8 @@ export async function uploadImage(req, res) {
         url: imageUrl,
         section: { connect: { id: sectionId } },
         author: { connect: { id: authorId } },
+        song,
+        predominance,
       },
     });
 

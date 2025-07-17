@@ -22,6 +22,16 @@ export const imageSchema = z.object({
   source: z.string().optional(),
   authorId: z.string().cuid("ID de autor inválido"),
   sectionId: z.string().cuid("ID de seção inválido"),
+  song: z.string().url("URL do Spotify inválida"),
+  predominance: z.object({
+    source: z.string().min(1, "A fonte da informação é obrigatória."),
+    data: z.array(
+      z.object({
+        state: z.string().min(1, "O nome do estado é obrigatório."),
+        description: z.string().min(1, "A descrição da predominância é obrigatória."),
+      })
+    ),
+  }),
 });
 
 export const authorSchema = z.object({

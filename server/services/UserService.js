@@ -52,3 +52,19 @@ export async function approveUserById(userId) {
 
   return updatedUser;
 }
+
+export async function getAllUsers() {
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      isApproved: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  return users;
+}

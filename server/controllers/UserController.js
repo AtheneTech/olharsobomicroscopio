@@ -2,7 +2,8 @@ import {
   createUser,
   authenticateUser,
   approveUserById,
-} from "../services/userService.js";
+  getAllUsers,
+} from "../services/UserService.js";
 import { userSchema } from "../utils/zodSchemas.js";
 
 export async function register(req, res) {
@@ -44,5 +45,15 @@ export async function approveUser(req, res) {
   } catch (err) {
     console.error(`Erro ao aprovar usuário '${req.params.id}':`, err);
     res.status(500).json({ error: "Erro interno ao aprovar o usuário." });
+  }
+}
+
+export async function listUsers(req, res) {
+  try {
+    const users = await getAllUsers();
+    res.json(users);
+  } catch (err) {
+    console.error("Erro ao listar usuários:", err);
+    res.status(500).json({ error: "Erro interno ao listar os usuários." });
   }
 }
