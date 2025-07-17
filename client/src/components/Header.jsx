@@ -66,9 +66,8 @@ const Header = () => {
             className={year === selectedYear ? "active" : ""}
             onClick={(e) => {
               e.preventDefault();
-              setSelectedYear(year); // atualiza o ano principal
-              setDropdownOpen(false); // fecha o menu
-              // Se quiser redirecionar:
+              setSelectedYear(year);
+              setDropdownOpen(false);
               window.location.href = `/pagina-${year}`;
             }}
           >
