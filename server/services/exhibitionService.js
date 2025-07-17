@@ -13,6 +13,26 @@ export async function createExhibition(data) {
   });
 }
 
+export async function getAllExhibitions() {
+  return prisma.exhibition.findMany({
+    orderBy: {
+      edition: 'desc',
+    },
+  });
+}
+
+export async function getExhibitionById(id) {
+  const exhibition = await prisma.exhibition.findUnique({
+    where: { id },
+  });
+
+  if (!exhibition) {
+    throw new Error("Exposição não encontrada.");
+  }
+
+  return exhibition;
+}
+
 export async function getExhibitionByEdition(edition) {
   const exhibition = await prisma.exhibition.findUnique({
     where: { edition },
@@ -86,6 +106,8 @@ export async function duplicateExhibition(originalId, newData) {
               author: {
                 connect: { id: image.authorId },
               },
+              song: image.song,
+              predominance: image.predominance,
             })),
           },
         })),

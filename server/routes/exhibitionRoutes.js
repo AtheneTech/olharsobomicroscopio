@@ -5,6 +5,8 @@ import {
   handleUpdate,
   handleDelete,
   handleDuplicate,
+  handleGetAll,
+  handleGetById
 } from "../controllers/exhibitionController.js";
 import validate from "../middlewares/validateMiddleware.js";
 import auth from "../middlewares/authMiddleware.js";
@@ -14,9 +16,13 @@ const router = express.Router();
 
 router.use(auth);
 
+router.get("/", handleGetAll);
+
 router.post("/", validate(exhibitionSchema), handleCreate);
 
 router.get("/admin/:edition", handleGetByEdition);
+
+router.get("/:id", handleGetById);
 
 router.put("/:id", handleUpdate);
 

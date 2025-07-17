@@ -26,3 +26,15 @@ export function uploadToCloudinary(buffer, folder = "arte-sob-o-microscopio") {
     streamifier.createReadStream(buffer).pipe(stream);
   });
 }
+
+export async function deleteFromCloudinary(imageUrl) {
+  const publicId = imageUrl.split('/').slice(-2).join('/').split('.')[0];
+  
+  if (publicId) {
+    try {
+      await cloudinary.uploader.destroy(publicId);
+    } catch (error) {
+      console.error("Erro ao deletar imagem do Cloudinary:", error);
+    }
+  }
+}

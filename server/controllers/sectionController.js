@@ -1,41 +1,31 @@
-import { prisma } from "../prisma/client.js";
+import * as sectionService from "../services/sectionService.js";
 
 export async function createSection(req, res) {
   try {
-    const { name, exhibitionId } = req.body;
-
-    const exhibition = await prisma.exhibition.findUnique({ where: { id: exhibitionId } });
-    if (!exhibition) {
-      return res.status(404).json({ error: "Exposição não encontrada para vincular a seção." });
-    }
-
-    const section = await prisma.section.create({
-      data: {
-        name,
-        exhibition: {
-          connect: { id: exhibitionId },
-        },
-      },
-    });
-
+    const section = await sectionService.createSection(req.body);
     res.status(201).json(section);
   } catch (err) {
-    console.error("Erro ao criar seção:", err);
-    res.status(500).json({ error: "Erro interno ao criar a seção." });
+    const statusCode = err.message.includes("não encontrada") ? 404 : 500;
+    res.status(statusCode).json({ error: err.message });
   }
 }
 
 export async function getSectionsByExhibition(req, res) {
   try {
     const { exhibitionId } = req.params;
-
-    const sections = await prisma.section.findMany({
-      where: { exhibitionId },
-    });
-
+    const sections = await sectionService.getSectionsByExhibition(exhibitionId);
     res.json(sections);
   } catch (err) {
-    console.error(`Erro ao buscar seções para a exposição '${req.params.exhibitionId}':`, err);
+    res.status(500).json({ error: "Erro interno ao buscar as seções." });
+  }
+}
+
+export async function handleGetAll(req, res) {
+  try {
+    const sections = await sectionService.getAllSections();
+    res.json(sections);
+  } catch (err) {
+    console.error("Erro ao buscar todas as seções:", err);
     res.status(500).json({ error: "Erro interno ao buscar as seções." });
   }
 }

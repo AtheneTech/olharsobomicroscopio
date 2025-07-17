@@ -4,6 +4,8 @@ import {
   updateExhibition,
   deleteExhibition,
   duplicateExhibition,
+  getAllExhibitions,
+  getExhibitionById
 } from "../services/exhibitionService.js";
 import { exhibitionSchema } from "../utils/zodSchemas.js";
 
@@ -33,6 +35,26 @@ export async function handleGetByEdition(req, res) {
   } catch (err) {
     console.error(`Erro ao buscar exposição '${req.params.edition}':`, err);
     res.status(500).json({ error: "Erro interno ao buscar a exposição." });
+  }
+}
+
+export async function handleGetById(req, res) {
+  try {
+    const { id } = req.params;
+    const data = await getExhibitionById(id);
+    res.json(data);
+  } catch (err) {
+    const statusCode = err.message.includes("não encontrada") ? 404 : 500;
+    res.status(statusCode).json({ error: err.message });
+  }
+}
+
+export async function handleGetAll(req, res) {
+  try {
+    const exhibitions = await getAllExhibitions();
+    res.json(exhibitions);
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao buscar exposições." });
   }
 }
 

@@ -10,25 +10,26 @@ import authorRoutes from "./routes/authorRoutes.js";
 import sectionRoutes from "./routes/sectionRoutes.js";
 import publicRoutes from "./routes/publicRoutes.js";
 import spotifyRoutes from "./routes/spotifyRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
+import imageRoutes from "./routes/imageRoutes.js";
 
 const app = express();
 
-// Middlewares globais
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rotas da API
 app.use("/api/users", userRoutes);
 app.use("/api/exhibitions", exhibitionRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/authors", authorRoutes);
 app.use("/api/sections", sectionRoutes);
 app.use("/api/spotify", spotifyRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/images", imageRoutes);
 app.use("/", publicRoutes);
 
-// Manipulador de rota não encontrada
 app.use("*", (req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
