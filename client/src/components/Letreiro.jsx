@@ -1,14 +1,18 @@
 import React from 'react';
-import '../styles/Letreiro.css'; // opcional se tiver CSS separado
+import '../styles/Letreiro.css';
 
-const Letreiro = () => {
+const Letreiro = ({ texto = "Revelando Beleza na Ciência das Doenças Tropicais Negligenciadas" }) => {
   return (
-   <div className="noticia-banner">
-  <div className="noticia-texto">
-    <img src='icons/detailsorange.svg' style={{height: '75px', width:'auto', marginRight: '15px'}}></img>
-    <p>Revelando Beleza na Ciência das Doenças Tropicais Negligenciadas</p>
-  </div>
-</div>
+    <div className="noticia-banner">
+      <div className="noticia-marquee">
+        {[...Array(5)].map((_, i) => (
+          <div className="noticia-texto" key={i}>
+            <img src='icons/detailsorange.svg' alt="ícone" />
+            <p>{texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

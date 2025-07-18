@@ -221,7 +221,7 @@ html, body, #root {
 
 .dots-indicator {
   color: white;
-  font-size: 1.2rem;
+  font-size: 3rem;
   white-space: nowrap;
   display: flex;
   align-items: center;

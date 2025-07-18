@@ -14,7 +14,7 @@ import Footer from './Footer';
 import Credits from './Credits';
 import Letreiro from './Letreiro';
 import Contribution from "./Contribution";
-
+import Letreiro2 from "./Letreiro2";
 
 export default function PhotosGallery() {
   const [selectedYear] = useState(2025); //antes era com ,setSelectedYear
@@ -71,6 +71,7 @@ export default function PhotosGallery() {
       <Resumo />
       <Mapc />
       <div id="galeria" className="gallery-container">
+      <Letreiro2 />
       <div className="photo-name">
           <div className="photo-icon"><div className="photo-icon"> {photosOptions[selectedIndex].extraIcon?.icon} </div></div>
           <h2>{photosOptions[selectedIndex].name}</h2>
@@ -106,14 +107,13 @@ export default function PhotosGallery() {
   }}
 />
 
-
-        <div className="photos-display">
+   <div className="photos-display">
           <button className="nav-button left" onClick={handlePrev} disabled={selectedIndex === 0}>
-            <ArrowLeft size={1} />
+            <ArrowLeft size={0.2} />
           </button>
 
           <button className="nav-button right" onClick={handleNext} disabled={selectedIndex === photosOptions.length - 1}>
-            <ArrowRight size={1} />
+            <ArrowRight size={0.2} />
           </button>
         </div>
          

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/Header.css";
 
 export default function Header() {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedYear, setSelectedYear] = useState("2025");
   const dropdownRef = useRef(null);
@@ -10,9 +10,9 @@ export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
 
   const navItems = [
-    { label: "Home", href: "/pagina-2025" },
-    { label: "Galeria", href: "#galeria" },
-    { label: "Curiosidades", href: "/curiosidades" }
+    { label: "Exposição", href: "#galeria" },
+    { label: "Faça Parte", href: "#faça-parte" },
+    { label: "Curiosidades", href: "/curiosidades" },
   ];
 
   const years = ["2024", "2025"];
@@ -23,12 +23,12 @@ export default function Header() {
 
     if (path.includes("/curiosidades")) {
       setActiveIndex(3);
-    } else if (path.includes("/pagina-") && hash === "#galeria") {
+    } else if (hash === "#galeria") {
+      setActiveIndex(1);
+    } else if (hash === "#faça-parte") {
       setActiveIndex(2);
-    } else if (path.includes("/pagina-")) {
-      setActiveIndex(1);
     } else {
-      setActiveIndex(1);
+      setActiveIndex(0);
     }
 
     const match = path.match(/pagina-(\d{4})/);
@@ -53,9 +53,9 @@ export default function Header() {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        setIsVisible(false); // Rolando para baixo
+        setIsVisible(false);
       } else {
-        setIsVisible(true); // Rolando para cima
+        setIsVisible(true);
       }
 
       lastScrollY.current = currentScrollY;
@@ -69,7 +69,9 @@ export default function Header() {
     <header className={`fixed-header ${isVisible ? "visible" : "hidden"}`}>
       <nav className="nav-container">
         <div className="logo">
-          <img src="/icons/logo.png" alt="Logo" />
+          <a href="/pagina-2025">
+            <img src="/icons/logo.png" alt="Logo" />
+          </a>
         </div>
 
         <ul className="nav-list">
@@ -79,12 +81,14 @@ export default function Header() {
               className={index + 1 === activeIndex ? "active" : ""}
               onClick={() => {
                 setActiveIndex(index + 1);
-                if (item.label === "Galeria") {
-                  const isHome = window.location.pathname.includes("pagina");
+                const isHome = window.location.pathname.includes("pagina");
+
+                if (item.href.startsWith("#")) {
+                  const fullHref = `/pagina-2025${item.href}`;
                   if (isHome) {
-                    window.location.hash = "#galeria";
+                    window.location.hash = item.href;
                   } else {
-                    window.location.href = "/pagina-2025#galeria";
+                    window.location.href = fullHref;
                   }
                 } else {
                   window.location.href = item.href;

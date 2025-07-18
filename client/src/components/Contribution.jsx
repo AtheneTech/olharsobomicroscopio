@@ -3,7 +3,7 @@ import '../styles/Contribution.css';
 
 export default function Contribution() {
   return (
-    <section className="contribution-section">
+    <section className="contribution-section" id='faça-parte'>
        <div className="backgroundContribution"></div>
       <div className="overlayContribution"></div>
       <div className="contentContribution ">

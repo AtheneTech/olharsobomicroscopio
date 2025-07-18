@@ -3,27 +3,28 @@
   overflow: hidden;
   background: #000000;
   border-top: 2px solid #000000;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 0px solid #ccc;
   height: 100px;
+  display: flex;
+  align-items: center;
 }
 
 .noticia-marquee {
   display: flex;
   width: fit-content;
   animation: correrTexto 20s linear infinite;
+  white-space: nowrap;
 }
 
-.noticia-texto {
-  padding-top: 10px;
+.noticia-texto1 {
   display: flex;
   align-items: center;
-  white-space: nowrap;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   font-style: italic;
   font-size: 40px;
   color: #ffffff;
-  padding-right: 70px;
+  padding-right: 100px; 
 }
 
 .noticia-texto img {
@@ -37,6 +38,6 @@
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-10%);
+    transform: translateX(-60%);
   }
 }
