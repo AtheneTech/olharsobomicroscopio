@@ -12,7 +12,7 @@ export default function Header() {
   const navItems = [
     { label: "Exposição", href: "#galeria" },
     { label: "Faça Parte", href: "#faça-parte" },
-    { label: "Curiosidades", href: "/curiosidades" },
+    { label: "Curiosidades", href: "#curiosidades" },
   ];
 
   const years = ["2024", "2025"];

@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/Resumo.css';
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { galleriesByYear} from "./galleriesByYear";
 
 export default function Resumo({ exposicaoData }) {
   const scrollRef = useRef(null);
   const [lockDiagonal, setLockDiagonal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+    const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
-  // Dados padrão caso não sejam fornecidos
+  
   const defaultData = {
     titulo: "Doenças\nTropicais\nNegligenciadas",
     icone: "/icons/detailsblack.png",
@@ -22,7 +26,7 @@ export default function Resumo({ exposicaoData }) {
         { src: "photos/asm/chagas.png", name: "Chagas" },
         { src: "photos/asm/ancilostomose.png", name: "Anciolostomose" },
         { src: "photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
-        { src: "photos/asm/dengue.jpg", name: "Dengue" },
+        { src: "photos/asm/filariose2.png", name: "Dengue" },
         { src: "photos/asm/esquistossomose.png", name: "Esquistossomose" },
         { src: "photos/asm/tracoma.png", name: "Tracoma" },
         { src: "photos/asm/escamacobra.png", name: "Cobra" },
@@ -33,7 +37,7 @@ export default function Resumo({ exposicaoData }) {
         { src: "photos/asm/chagas.png", name: "Chagas" },
         { src: "photos/asm/ancilostomose.png", name: "Anciolostomose" },
         { src: "photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
-        { src: "photos/asm/dengue.png", name: "Dengue" },
+        { src: "photos/asm/dengue.jpg", name: "Dengue" },
         { src: "photos/asm/esquistossomose.png", name: "Esquistossomose" },
         { src: "photos/asm/tracoma.png", name: "Tracoma" },
         { src: "photos/asm/escamacobra.png", name: "Cobra" },
@@ -66,17 +70,31 @@ export default function Resumo({ exposicaoData }) {
     }
   };
 
-  // Mescla os dados fornecidos com os padrão
   const data = { ...defaultData, ...exposicaoData };
   const images = data.galeria.imagens;
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+  setCurrentIndex((prev) =>
+    prev + 5 < images.length ? prev + 5 : prev
+  );
+};
+
+const prevImage = () => {
+  setCurrentIndex((prev) =>
+    prev - 5 >= 0 ? prev - 5 : prev
+  );
+};
+
+  const openModal = (img) => {
+    setModalImage(img);
+    setModalOpen(true);
   };
 
-  const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalImage(null);
   };
+
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -138,297 +156,57 @@ export default function Resumo({ exposicaoData }) {
           </section>
 
           <div className="galerias diagonal">
-            <div className='galeria-card'>
-              <div
-                style={{
-                  width: 700,
-                  height: 250,
-                  margin: "0px",
-                  position: "relative",
-                  borderRadius: '10px',
-                  background: "none",
-                  overflow: "visible",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {/* Container das imagens em leque */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "300px",
-                    height: "220px",
-                    cursor: "pointer",
-                  }}
-                  onClick={nextImage}
-                >
-                  {/* Imagem mais atrás (direita) */}
-                  <motion.div
-                    key={`far-back-${getImageIndex(2)}`}
-                    initial={{ x: 150, y: 15, scale: 0.9, opacity: 0.7 }}
-                    animate={{ x: 150, y: 15, scale: 0.9, opacity: 0.7 }}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: 1,
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={images[getImageIndex(2)].src}
-                        alt={images[getImageIndex(2)].name}
-                        style={{
-                          width: 150,
-                          height: 200,
-                          borderRadius: 8,
-                          objectFit: "cover",
-                          boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-                          border: "2px solid #fff",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
+          <div className="galeria-card">
+      <div className="carousel-3d">
+        {images.slice(currentIndex, currentIndex + 5).map((img, idx) => (
+          <img
+            key={idx}
+            src={img.src}
+            alt={img.name}
+            className="carousel-item"
+            onClick={() => openModal(img)}
+            style={{ cursor: "pointer" }}
+          />
+        ))}
+      </div>
 
-                  {/* Imagem do meio (centro-direita) */}
-                  <motion.div
-                    key={`back-right-${getImageIndex(1)}`}
-                    initial={{ x: 80, y: 8, scale: 0.95, opacity: 0.85 }}
-                    animate={{ x: 80, y: 8, scale: 0.95, opacity: 0.85 }}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: 2,
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={images[getImageIndex(1)].src}
-                        alt={images[getImageIndex(1)].name}
-                        style={{
-                          width: 170,
-                          height: 220,
-                          borderRadius: 10,
-                          objectFit: "cover",
-                          boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-                          border: "2px solid #fff",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
+      <div className="carousel-controls">
+        <button onClick={prevImage} disabled={currentIndex === 0}>
+              <ChevronLeft size={14} color="#333" />
+        </button>
+        <span>
+          {Math.floor(currentIndex / 5) + 1} / {Math.ceil(images.length / 5)}
+        </span>
+        <button
+          onClick={nextImage}
+          disabled={currentIndex + 5 >= images.length}
+        >
+              <ChevronRight size={14} color="#333" />
+        </button>
+      </div>
 
-                  <AnimatePresence mode="wait">
-                    {/* Imagem principal (frente) */}
-                    <motion.div
-                      key={`main-${currentIndex}`}
-                      initial={{ scale: 0.8, opacity: 0, zIndex: 4 }}
-                      animate={{ scale: 1, opacity: 1, zIndex: 4 }}
-                      exit={{ scale: 0.8, opacity: 0, zIndex: 1 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                      }}
-                    >
-                      <div style={{ position: "relative" }}>
-                        <img
-                          src={images[currentIndex].src}
-                          alt={images[currentIndex].name}
-                          style={{
-                            width: 180,
-                            height: 240,
-                            borderRadius: 12,
-                            objectFit: "cover",
-                            boxShadow: "0 8px 25px rgba(0,0,0,0.4)",
-                            border: "3px solid #fff",
-                          }}
-                        />
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
+      <div className="dividerimgs"></div>
+      <h2>
+        {data.galeria.quantidadeImagens} {data.galeria.textoGaleria}
+      </h2>
 
-                  {/* Imagem da esquerda (parcialmente visível) */}
-                  <motion.div
-                    key={`back-left-${getImageIndex(-1)}`}
-                    initial={{ x: -50, y: 8, scale: 0.95, opacity: 0.85 }}
-                    animate={{ x: -50, y: 8, scale: 0.95, opacity: 0.85 }}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: 2,
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={images[getImageIndex(-1)].src}
-                        alt={images[getImageIndex(-1)].name}
-                        style={{
-                          width: 170,
-                          height: 220,
-                          borderRadius: 10,
-                          objectFit: "cover",
-                          boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-                          border: "2px solid #fff",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-
-                  {/* Imagem mais atrás (esquerda) */}
-                  <motion.div
-                    key={`far-left-${getImageIndex(-2)}`}
-                    initial={{ x: -90, y: 15, scale: 0.9, opacity: 0.7 }}
-                    animate={{ x: -90, y: 15, scale: 0.9, opacity: 0.7 }}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: 1,
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={images[getImageIndex(-2)].src}
-                        alt={images[getImageIndex(-2)].name}
-                        style={{
-                          width: 150,
-                          height: 200,
-                          borderRadius: 8,
-                          objectFit: "cover",
-                          boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-                          border: "2px solid #fff",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Controles de navegação */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: -150,
-                    left: "42%",
-                    transform: "translateX(-50%)",
-                    display: "flex",
-                    gap: "10px",
-                    alignItems: "center",
-                  }}
-                >
-                  <button
-                    onClick={prevImage}
-                    style={{
-                      background: "rgba(255,255,255,0.9)",
-                      border: "1px solid rgba(0,0,0,0.1)",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
-                      transition: "all 0.3s ease",
-                      color: "#333",
-                      backdropFilter: "blur(10px)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,1)";
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.2)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.9)";
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.15)";
-                    }}
-                  >
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <path d="m15 18-6-6 6-6"/>
-                    </svg>
-                  </button>
-
-                  <span
-                    style={{
-                      background: "rgba(0,0,0,0.8)",
-                      color: "white",
-                      padding: "6px 12px",
-                      borderRadius: "20px",
-                      fontSize: "11px",
-                      fontWeight: "600",
-                      backdropFilter: "blur(10px)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                    }}
-                  >
-                    {currentIndex + 1} / {images.length}
-                  </span>
-
-                  <button
-                    onClick={nextImage}
-                    style={{
-                      background: "rgba(255,255,255,0.9)",
-                      border: "1px solid rgba(0,0,0,0.1)",
-                      borderRadius: "50%",
-                      width: "36px",
-                      height: "36px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
-                      transition: "all 0.3s ease",
-                      color: "#333",
-                      backdropFilter: "blur(10px)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,1)";
-                      e.currentTarget.style.transform = "scale(1.1)";
-                      e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.2)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.9)";
-                      e.currentTarget.style.transform = "scale(1)";
-                      e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.15)";
-                    }}
-                  >
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <path d="m9 18 6-6-6-6"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Texto dinâmico da legenda */}
-              <p>
-                {images[currentIndex].name}
-              </p>
-
-              <div className="dividerimgs"></div>
-              <h2>+{data.galeria.quantidadeImagens} {data.galeria.textoGaleria}</h2>
-            </div>
-            
+      {/* Modal Fullscreen */}
+      {modalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()} 
+          >
+            <button className="modal-close" onClick={closeModal}>
+              &times;
+            </button>
+            <img src={modalImage.src} alt={modalImage.name} />
+            <p>{modalImage.name}</p>
+          </div>
+        </div>
+      )}
+    </div>
+        
             {/* Renderizar galerias dinamicamente */}
             {data.galerias.map((galeria, index) => (
               <div key={index} className="galeria-card">

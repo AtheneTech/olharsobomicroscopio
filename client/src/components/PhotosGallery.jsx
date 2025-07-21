@@ -6,7 +6,7 @@ import Home from './Home';
 import Resumo from './Resumo';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import InnerImageZoom from 'react-inner-image-zoom';
 import '../styles/PhotosGallery.css';
 import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
@@ -15,6 +15,7 @@ import Credits from './Credits';
 import Letreiro from './Letreiro';
 import Contribution from "./Contribution";
 import Letreiro2 from "./Letreiro2";
+import Letreiro3 from "./Letreiro3";
 
 export default function PhotosGallery() {
   const [selectedYear] = useState(2025); //antes era com ,setSelectedYear
@@ -31,15 +32,23 @@ export default function PhotosGallery() {
 
   const handleSelect = (index) => {
     setSelectedIndex(index);
-    if ((index + 1) % ITEMS_PER_PAGE === 0 && index < photosOptions.length - 1) setPage(page + 1);
-    else if (index % ITEMS_PER_PAGE === 0 && index > 0) setPage(page - 1);
+    // Atualiza a página automaticamente se necessário
+    const newPage = Math.floor(index / ITEMS_PER_PAGE);
+    if (newPage !== page) {
+      setPage(newPage);
+    }
   };
 
   const handleNext = () => {
     if (selectedIndex < photosOptions.length - 1) {
       const newIndex = selectedIndex + 1;
       setSelectedIndex(newIndex);
-      if ((newIndex + 1) % ITEMS_PER_PAGE === 1 && page < totalPages - 1) setPage(page + 1);
+      
+      // Verifica se precisa mudar de página (quando a nova imagem não está na página atual)
+      const newPage = Math.floor(newIndex / ITEMS_PER_PAGE);
+      if (newPage !== page) {
+        setPage(newPage);
+      }
     }
   };
 
@@ -47,7 +56,12 @@ export default function PhotosGallery() {
     if (selectedIndex > 0) {
       const newIndex = selectedIndex - 1;
       setSelectedIndex(newIndex);
-      if (newIndex % ITEMS_PER_PAGE === ITEMS_PER_PAGE - 1 && page > 0) setPage(page - 1);
+      
+      // Verifica se precisa mudar de página (quando a nova imagem não está na página atual)
+      const newPage = Math.floor(newIndex / ITEMS_PER_PAGE);
+      if (newPage !== page) {
+        setPage(newPage);
+      }
     }
   };
 
@@ -108,63 +122,135 @@ export default function PhotosGallery() {
 />
 
    <div className="photos-display">
-          <button className="nav-button left" onClick={handlePrev} disabled={selectedIndex === 0}>
-            <ArrowLeft size={0.2} />
-          </button>
-
-          <button className="nav-button right" onClick={handleNext} disabled={selectedIndex === photosOptions.length - 1}>
-            <ArrowRight size={0.2} />
-          </button>
-        </div>
+  </div>
          
        
 
-<motion.div
-  key={page}
-  className="thumbnails-wrapper"
-  drag="x"
-  dragConstraints={{ left: -300, right: 0 }}
-  dragElastic={0.2}
-  onDragEnd={(event, info) => {
-    if (info.offset.x < -100 && page < totalPages - 1) setPage(page + 1);
-    else if (info.offset.x > 100 && page > 0) setPage(page - 1);
-  }}
-  transition={{ duration: 0.5 }}
->
-  <div className="thumbnails-track">
-    {page > 0 && <div className="dots-indicator"><span className="dots">
-  <span className="dot bounce1">•</span>
-  <span className="dot bounce2">•</span>
-  <span className="dot bounce3">•</span>
-</span>
-</div>}
+<div className="thumbnails-navigation-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
 
-    {visibleThumbnails.map((photo, idx) => {
-      const realIndex = startIndex + idx;
-      const isLast = idx === visibleThumbnails.length - 1;
-      const isSelected = realIndex === selectedIndex;
+  {/* Container das Thumbnails */}
+  <motion.div
+    key={page}
+    className="thumbnails-wrapper"
+    initial={{ x: page > Math.floor(selectedIndex / ITEMS_PER_PAGE) ? 100 : -100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    transition={{ 
+      type: "spring", 
+      stiffness: 200, 
+      damping: 25,
+      duration: 0.6 
+    }}
+    drag="x"
+    dragConstraints={{ left: -300, right: 0 }}
+    dragElastic={0.2}
+    onDragEnd={(event, info) => {
+      if (info.offset.x < -100 && selectedIndex < photosOptions.length - 1) {
+        handleNext();
+      } else if (info.offset.x > 100 && selectedIndex > 0) {
+        handlePrev();
+      }
+    }}
+  >
+    <div className="thumbnails-track">
+       {/* Seta Esquerda */}
+  <motion.button 
+    className="thumbnail-nav-button left" 
+    onClick={handlePrev} 
+    disabled={selectedIndex === 0}
+    whileHover={selectedIndex > 0 ? { scale: 1.1, x: -3 } : {}}
+    whileTap={selectedIndex > 0 ? { scale: 0.9 } : {}}
+    style={{
+      opacity: selectedIndex === 0 ? 0.3 : 1,
+      cursor: selectedIndex === 0 ? 'not-allowed' : 'pointer',
+      backgroundColor: 'rgba(255,255,255,0.9)',
+      border: 'none',
+      borderRadius: '50%',
+      width: '45px',
+      height: '45px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+      zIndex: 10,
+    }}
+  >
+    <ChevronLeft size={24} color="#333" />
+  </motion.button>
 
-      return (
-        <div className="thumbnail-item" key={realIndex}>
-          {!isLast && <div className="connector-line" />}
+      {visibleThumbnails.map((photo, idx) => {
+        const realIndex = startIndex + idx;
+        const isLast = idx === visibleThumbnails.length - 1;
+        const isSelected = realIndex === selectedIndex;
 
-          <div className={`thumbnail-circle ${isSelected ? 'selected' : ''}`} onClick={() => handleSelect(realIndex)}>
-            <img src={photo.src} alt={photo.name}/>
-          </div>
+        return (
+          <motion.div 
+            className="thumbnail-item" 
+            key={realIndex}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: idx * 0.1, duration: 0.3 }}
+          >
+            {!isLast && <div className="connector-line" />}
 
-          {isSelected && <div className="thumbnail-indicator" />}
-        </div>
-      );
-    })}
+            <motion.div 
+              className={`thumbnail-circle ${isSelected ? 'selected' : ''}`} 
+              onClick={() => handleSelect(realIndex)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={isSelected ? { 
+                boxShadow: [
+                  "0 0 0 0px rgba(255,255,255,0.4)",
+                  "0 0 0 10px rgba(255,255,255,0.1)",
+                  "0 0 0 0px rgba(255,255,255,0)"
+                ]
+              } : {}}
+              transition={isSelected ? {
+                duration: 2,
+                repeat: Infinity,
+              } : {}}
+            >
+              <img src={photo.src} alt={photo.name}/>
+            </motion.div>
 
-    {page < totalPages - 1 && <div className="dots-indicator"><span className="dots">
-  <span className="dot bounce1">•</span>
-  <span className="dot bounce2">•</span>
-  <span className="dot bounce3">•</span>
-</span>
-</div>}
-  </div>
-</motion.div>
+            {isSelected && (
+              <motion.div 
+                className="thumbnail-indicator" 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              />
+            )}
+          </motion.div>
+        );
+      })}
+
+      {/* Seta Direita */}
+  <motion.button 
+    className="thumbnail-nav-button right" 
+    onClick={handleNext} 
+    disabled={selectedIndex === photosOptions.length - 1}
+    whileHover={selectedIndex < photosOptions.length - 1 ? { scale: 1.1, x: 3 } : {}}
+    whileTap={selectedIndex < photosOptions.length - 1 ? { scale: 0.9 } : {}}
+    style={{
+      opacity: selectedIndex === photosOptions.length - 1 ? 0.3 : 1,
+      cursor: selectedIndex === photosOptions.length - 1 ? 'not-allowed' : 'pointer',
+      backgroundColor: 'rgba(255,255,255,0.9)',
+      border: 'none',
+      borderRadius: '50%',
+      width: '45px',
+      height: '45px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+      zIndex: 10,
+    }}
+  >
+    <ChevronRight size={24} color="#333" />
+  </motion.button>
+    </div>
+  </motion.div>
+</div>
 
 {photosOptions[selectedIndex].icons.map(({ icon, label, position, size = 50 }, index) => (
   <motion.div

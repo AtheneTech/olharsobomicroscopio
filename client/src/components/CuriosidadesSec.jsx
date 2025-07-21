@@ -3,7 +3,7 @@ import '../styles/CuriosidadesSec.css'
 
 const CuriosidadesSec = () => {
   return (
-    <div className="curiosidades-bg">
+    <div id="curiosidades" className="curiosidades-bg">
       <div className="conteudo">
 
         {/* LADO ESQUERDO */}
