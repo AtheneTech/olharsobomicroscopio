@@ -11,7 +11,17 @@ const config = {
   initialColorMode: 'dark',
   useSystemColorMode: false,
 };
-const theme = extendTheme({ config });
+
+const styles = {
+  global: (props) => ({
+    body: {
+      bg: 'black', 
+      color: 'white',
+    },
+  }),
+};
+
+const theme = extendTheme({ config, styles });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
