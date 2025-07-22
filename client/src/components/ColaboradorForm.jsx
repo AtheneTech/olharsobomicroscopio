@@ -5,6 +5,7 @@ import '../styles/ColaboradorForm.css'
 
 export default function ColaboradorForm() {
   const [success, setSuccess] = useState(false);
+  const [showClearConfirmation, setShowClearConfirmation] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -277,7 +278,7 @@ export default function ColaboradorForm() {
     }
   };
 
-  // Função para limpar manualmente o formulário (opcional)
+
   const clearForm = () => {
     setFormData({
       nome: '',
@@ -387,7 +388,7 @@ export default function ColaboradorForm() {
               
               <div className="form-buttons">
                 <button type="submit" className="submit-button">ENVIAR</button>
-                <button type="button" onClick={clearForm} className="clear-button" style={{marginLeft: '10px', background: '#6b7280c9', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '6px', cursor: 'pointer', fontSize: '15px'}}>
+                <button type="button" onClick={() => setShowClearConfirmation(true)} className="clear-button" style={{ marginLeft: '10px', background: '#6b7280c9', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '6px', cursor: 'pointer', fontSize: '15px' }}>
                   LIMPAR FORMULÁRIO
                 </button>
               </div>
@@ -414,7 +415,7 @@ export default function ColaboradorForm() {
           </div>
         </form>
 
-        {/* Popup de Confirmação */}
+
         {showConfirmation && (
           <div className="confirmation-popup-container">
             <div className="confirmation-popup">
@@ -437,6 +438,33 @@ export default function ColaboradorForm() {
             </div>
           </div>
         )}
+
+            {showClearConfirmation && (
+      <div className="confirmation-popup-container">
+        <div className="confirmation-popup">
+          <div className="confirmation-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h3>Limpar formulário?</h3>
+          </div>
+          <p>Todos os dados preenchidos serão apagados. Tem certeza que deseja continuar?</p>
+          <div className="confirmation-buttons">
+            <button onClick={() => setShowClearConfirmation(false)} className="cancel-button">
+              Cancelar
+            </button>
+            <button onClick={() => {
+              clearForm();
+              setShowClearConfirmation(false);
+            }} className="confirm-button">
+              Sim, limpar
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
 
         <AnimatedPopup
           type={popup.type}
