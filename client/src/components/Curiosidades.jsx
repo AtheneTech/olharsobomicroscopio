@@ -1,77 +1,92 @@
 import React from 'react';
 import '../styles/curiosidades.css';
 
-
 const Curiosidades = () => {
   return (
-    <div className="curiosidades-bg">
-      <div className="conteudo">
+    <div className='bg-section'>
 
-        {/* LADO ESQUERDO */}
-        <div className="esquerda">
-          <div className="titulo-com-icone">
-            <img src="/images/icone-curiosidades.png" alt="ícone" />
-            <h1>Curiosidades</h1>
-          </div>
-          <em>por trás da ciência</em>
+<div className='bgRetangulo'>
+      <div className='conteuSecCuiriosidades'>
+        <div className='cabecalhoCuriosidades'>
+          <div className='titleEChamada'>
+            <div className='titleEVetor'>
+              <img src="/images/icone-curiosidades.png" alt="ícone" />
+              <h1> Curiosidades </h1>
+            </div>
 
-
-          <div className="dividerCuriosidades"></div>
-          <div className="info-curiosidade">
-            <h3>Origem microscópio</h3>
-            <p>
-              Confira a História da evolução dos microscópios e sua contribuição para a ciência
+            <p className='textoChamada'>
+              Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores para você mergulhar em mais experiências
             </p>
           </div>
 
-
-
-
-          <div className="pilha-cards">
-            <div className="carta carta1">
-              <div className="titulo-carta">Microscopio Simples</div>
-              <img src="/images/img-carta2.png" className="img-microscopio" />
-            </div>
-            <img src="/images/img-carta.png" className="carta carta2" />
-            <img src="/images/img-carta.png" className="carta carta3" />
-            <img src="/images/img-carta.png" className="carta carta4" />
+          <div className='subEBotao'>
+            <h3> por trás da ciência </h3>
+            <button className='conhecaBtn'> CONHEÇA </button>
           </div>
+
         </div>
 
-        {/* LADO DIREITO */}
-        <div className="direita">
-          <p>
-            Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores
-            para você mergulhar em mais experiências
-          </p>
-          <button>CONHEÇA</button>
+        
 
-          <div className="dividerCuriosidades dividerDireita"></div>
-          <div className="info-curiosidade info-curiosidade-direita">
-            <h3>Origem do Laboratório
-              Arte sob microscópio</h3>
-            <p>Conheça os rostos por trás da produção, pesquisa e paixão pelos microscópios.</p>
-          </div>
+          <div className='mainSecCuriosidades'>
 
-          {/* Pilha de cartas no card direito */}
-          <div className="pilha-cards-direita">
-            <div className="cartaEq carta1b">
-              {/* <div className="titulo-cartaEq">Microscópio Eletrônico</div> */}
-              <img src="/images/img-carta3.png" className="img-equipe" />
+            {/* CARD PRETO 1 */}
+            <div className='cardPreto1'>
+              <div className='introducaoCards'>
+                <img src="/images/divisor.png" alt="ícone" className='divisorSec' />
+                <h3> Origem do microscópio </h3>
+                <sub> Confira a História da evolução dos microscópios e sua contribuição para a ciência </sub>
+              </div>
+
+              <div className='bgPilhaCards'>
+                <div className="pilha-cards1">
+                  <div className="carta1 carta1-topo">
+                    <p className="texto-carta1">Microscópio Simples</p>
+                    <img src="/images/img-carta.png" alt="Exemplo" className="imagemCardPreto1" />
+                  </div>
+                  <div className="carta1 carta1-2"></div>
+                  <div className="carta1 carta1-3"></div>
+                  <div className="carta1 carta1-4"></div>
+                  <div className="carta1 carta1-5"></div>
+                  <div className="carta1 carta1-6"></div>
+                  <div className="carta1 carta1-7"></div>
+                </div>
+              </div>
             </div>
-            <div className="carta carta2b"></div>
-            <div className="carta carta3b"></div>
-            <div className="carta carta4b"></div>
+
+            {/* CARD PRETO 2 */}
+            <div className='cardPreto2'>
+              <div className='introducaoCards'>
+                <img src="/images/divisor.png" alt="ícone" className='divisorSec' />
+                <h3> Origem do Laboratório Arte sob Microscópio </h3>
+                <sub> Conheça a trajetória do projeto e sua importância no cenário científico e educacional </sub>
+              </div>
+
+              <div className='bgPilhaCards2'>
+                <div className="pilha-cards2">
+                  <div className="carta2 carta2-topo">
+                    <img src="/images/imgEquipe.png" alt="Exemplo" className="imagemCardPreto2" />
+                  </div>
+                  <div className="carta2 carta2-2"></div>
+                  <div className="carta2 carta2-3"></div>
+                  <div className="carta2 carta2-4"></div>
+                  <div className="carta2 carta2-5"></div>
+                </div>
+
+              </div>
+
+            </div>
           </div>
+
         </div>
+
 
       </div>
+
     </div>
 
-    
-  );
 
-  
+  );
 };
 
 export default Curiosidades;
