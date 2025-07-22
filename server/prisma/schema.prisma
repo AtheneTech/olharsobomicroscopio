@@ -32,22 +32,24 @@ model Section {
   exhibition   Exhibition @relation(fields: [exhibitionId], references: [id], onDelete: Cascade)
   exhibitionId String
   images       Image[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Image {
-  id           String  @id @default(cuid())
+  id           String   @id @default(cuid())
   name         String
   description  String
   source       String
   url          String
-  section      Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  section      Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   sectionId    String
-  author       Author  @relation(fields: [authorId], references: [id])
+  author       Author   @relation(fields: [authorId], references: [id])
   authorId     String
   song         String
   predominance Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Author {

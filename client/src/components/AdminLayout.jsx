@@ -1,45 +1,48 @@
 import React, { useContext } from 'react';
-import { Box, Flex, VStack, Link, Button, Image } from '@chakra-ui/react';
-import { Link as RouterLink, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import AdminLogo from '../assets/img/logoAdministração.png';
+import { Button } from '@/components/ui/button';
+import AdminLogo from '@/assets/img/logoAdministração.png';
 
-const SidebarLink = ({ to, children }) => (
-  <Link
-    as={RouterLink}
-    to={to}
-    w="full"
-    p={3}
-    borderRadius="md"
-    _hover={{ bg: 'gray.600' }}
-  >
-    {children}
-  </Link>
-);
+const SidebarLink = ({ to, children }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
+  return (
+    <Link
+      to={to}
+      className={`w-full p-3 rounded-md text-left transition-colors ${
+        isActive ? 'bg-gray-800 text-white' : 'hover:bg-gray-700/50'
+      }`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const AdminLayout = () => {
   const { logout } = useContext(AuthContext);
 
   return (
-    <Flex minH="100vh" bg="#171717">
-      <Box w="250px" bg="#0e0e0e" color="white" p={4}>
-        <VStack align="stretch" spacing={4}>
-          <Image src={AdminLogo} alt="Logo do Painel Administrativo" mb={4} />
+    <div className="flex min-h-screen bg-[#171717] text-white">
+      <aside className="w-64 bg-[#0E0E0E] p-4 flex flex-col">
+        <img src={AdminLogo} alt="Logo Olhar Sob o Microscópio" className="mb-8" />
+        <nav className="flex flex-col gap-2">
           <SidebarLink to="/admin">Dashboard</SidebarLink>
           <SidebarLink to="/admin/exposicoes">Exposições</SidebarLink>
           <SidebarLink to="/admin/autores">Autores</SidebarLink>
-          <SidebarLink to="/admin/usuarios">Usuários</SidebarLink>
           <SidebarLink to="/admin/imagens">Imagens</SidebarLink>
-          <Button onClick={logout} mt="auto" colorScheme="red">
-            Sair
-          </Button>
-        </VStack>
-      </Box>
+          <SidebarLink to="/admin/usuarios">Usuários</SidebarLink>
+        </nav>
+        <Button onClick={logout} variant="destructive" className="mt-auto">
+          Sair
+        </Button>
+      </aside>
 
-      <Box flex="1" p={8}>
+      <main className="flex-1 p-8 overflow-auto">
         <Outlet />
-      </Box>
-    </Flex>
+      </main>
+    </div>
   );
 };
 

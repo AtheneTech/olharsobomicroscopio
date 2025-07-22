@@ -1,15 +1,23 @@
 import { prisma } from "../prisma/client.js";
 
 export async function createExhibition(data) {
+  const { title, edition, sections } = data;
+
   const existing = await prisma.exhibition.findUnique({
-    where: { edition: data.edition },
+    where: { edition },
   });
   if (existing) {
     throw new Error("Uma exposição com esta edição já existe.");
   }
 
   return prisma.exhibition.create({
-    data,
+    data: {
+      title,
+      edition,
+      sections: {
+        create: sections,
+      },
+    },
   });
 }
 
@@ -24,6 +32,20 @@ export async function getAllExhibitions() {
 export async function getExhibitionById(id) {
   const exhibition = await prisma.exhibition.findUnique({
     where: { id },
+    include: {
+      sections: {
+        include: {
+          images: {
+            orderBy: {
+              createdAt: 'asc',
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'asc',
+        },
+      },
+    },
   });
 
   if (!exhibition) {
@@ -55,9 +77,37 @@ export async function getExhibitionByEdition(edition) {
 }
 
 export async function updateExhibition(id, data) {
+  const { title, edition, sections } = data;
+
+  const existingExhibition = await prisma.exhibition.findUnique({
+    where: { id },
+    include: { sections: true },
+  });
+  const existingSectionIds = existingExhibition.sections.map(s => s.id);
+
+  const sectionIdsToKeep = sections.map(s => s.id).filter(Boolean);
+  const sectionIdsToDelete = existingSectionIds.filter(id => !sectionIdsToKeep.includes(id));
+
   return prisma.exhibition.update({
     where: { id },
-    data,
+    data: {
+      title,
+      edition,
+      sections: {
+        deleteMany: {
+          id: { in: sectionIdsToDelete },
+        },
+        updateMany: sections
+          .filter(s => s.id)
+          .map(s => ({
+            where: { id: s.id },
+            data: { name: s.name },
+          })),
+        create: sections
+          .filter(s => !s.id)
+          .map(s => ({ name: s.name })),
+      },
+    },
   });
 }
 

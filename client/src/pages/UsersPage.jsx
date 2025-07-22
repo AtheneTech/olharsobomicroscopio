@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Button,
-  useToast,
-  Spinner,
-  Flex,
-  Badge,
-} from '@chakra-ui/react';
 import api from '../services/api';
+
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from 'lucide-react';
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const toast = useToast();
+  const { toast } = useToast();
 
   const fetchUsers = async () => {
     setIsLoading(true);
@@ -30,9 +21,7 @@ const UsersPage = () => {
       toast({
         title: 'Erro ao buscar usuários',
         description: error.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -48,68 +37,67 @@ const UsersPage = () => {
       await api.put(`/api/users/approve/${userId}`);
       toast({
         title: 'Usuário aprovado!',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+        description: 'O acesso do usuário foi liberado.',
       });
       fetchUsers();
     } catch (error) {
       toast({
         title: 'Erro ao aprovar usuário',
         description: error.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        variant: 'destructive',
       });
     }
   };
 
   if (isLoading) {
     return (
-      <Flex justify="center" align="center" height="100%">
-        <Spinner size="xl" />
-      </Flex>
+      <div className="flex justify-center items-center h-full">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
     );
   }
 
-return (
-    <Box color="white">
-      <Heading mb={6}>Gerenciamento de Usuários</Heading>
-      <Table variant="simple" bg="#373737" borderRadius="md">
-        <Thead>
-          <Tr>
-            <Th color="white" borderColor="gray.400">Nome</Th>
-            <Th color="white" borderColor="gray.400">Email</Th>
-            <Th color="white" borderColor="gray.400">Status</Th>
-            <Th color="white" borderColor="gray.400">Ação</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {users.map((user) => (
-            <Tr key={user.id}>
-              <Td borderColor="gray.400">{user.name}</Td>
-              <Td borderColor="gray.400">{user.email}</Td>
-              <Td borderColor="gray.400">
-                <Badge colorScheme={user.isApproved ? 'green' : 'yellow'}>
-                  {user.isApproved ? 'Aprovado' : 'Pendente'}
-                </Badge>
-              </Td>
-              <Td borderColor="gray.400">
-                {!user.isApproved && (
-                  <Button
-                    colorScheme="green"
-                    size="sm"
-                    onClick={() => handleApprove(user.id)}
-                  >
-                    Aprovar
-                  </Button>
-                )}
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </Box>
+  return (
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Gerenciamento de Usuários</h1>
+      <div className="bg-[#373737] rounded-md border border-gray-700">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-gray-600 hover:bg-transparent">
+              <TableHead className="text-white">Nome</TableHead>
+              <TableHead className="text-white">Email</TableHead>
+              <TableHead className="text-white">Status</TableHead>
+              <TableHead className="text-white">Ação</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id} className="border-gray-600 hover:bg-[#373737]">
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  <Badge variant={user.isApproved ? 'default' : 'secondary'} className={user.isApproved ? 'bg-green-600 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-500'}>
+                    {user.isApproved ? 'Aprovado' : 'Pendente'}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  {!user.isApproved && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-green-500 text-green-500 hover:bg-green-500 hover:text-white"
+                      onClick={() => handleApprove(user.id)}
+                    >
+                      Aprovar
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 };
 

@@ -1,34 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box, Heading, SimpleGrid, Stat, StatLabel, StatNumber, StatHelpText, Spinner, Flex, useToast, Icon
-} from '@chakra-ui/react';
-import { FiArchive, FiUsers, FiImage, FiUserCheck } from 'react-icons/fi';
+import { Archive, Users, Image as ImageIcon, UserCheck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
-const StatCard = ({ icon, label, value, helpText }) => (
-  <Stat
-    p={5}
-    shadow="md"
-    borderRadius="lg"
-    bg="black"
-  >
-    <Flex alignItems="center">
-      <Box p={3} bg="green.400" color="white" borderRadius="full" mr={4}>
-        <Icon as={icon} w={6} h={6} />
-      </Box>
-      <Box>
-        <StatLabel color="gray.300">{label}</StatLabel>
-        <StatNumber fontSize="2xl" fontWeight="bold">{value}</StatNumber>
-        {helpText && <StatHelpText>{helpText}</StatHelpText>}
-      </Box>
-    </Flex>
-  </Stat>
-);
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 const DashboardPage = () => {
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const toast = useToast();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -39,36 +21,76 @@ const DashboardPage = () => {
         toast({
           title: 'Erro ao carregar estatísticas',
           description: 'Não foi possível buscar os dados do dashboard.',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
+          variant: 'destructive',
         });
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchStats();
   }, [toast]);
 
   if (isLoading) {
-    return (
-      <Flex justify="center" align="center" height="100%">
-        <Spinner size="xl" />
-      </Flex>
-    );
+    return <div className="flex justify-center items-center h-full">Carregando...</div>;
   }
 
   return (
-    <Box>
-      <Heading mb={6} color="white">Dashboard</Heading>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6} color="white">
-        <StatCard icon={FiArchive} label="Total de Exposições" value={stats?.totalExhibitions ?? 0} />
-        <StatCard icon={FiUsers} label="Total de Autores" value={stats?.totalAuthors ?? 0} />
-        <StatCard icon={FiImage} label="Total de Imagens" value={stats?.totalImages ?? 0} />
-        <StatCard icon={FiUserCheck} label="Usuários Pendentes" value={stats?.pendingUsers ?? 0} helpText="Aguardando aprovação" />
-      </SimpleGrid>
-    </Box>
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <Card
+          className="bg-black border-none cursor-pointer hover:bg-[#444444] transition-colors"
+          onClick={() => navigate('/admin/exposicoes')}
+        >
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-white">Total de Exposições</CardTitle>
+            <Archive className="h-6 w-6 text-white" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-white">{stats?.totalExhibitions ?? 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card
+          className="bg-black border-none cursor-pointer hover:bg-[#444444] transition-colors"
+          onClick={() => navigate('/admin/autores')}
+        >
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-white">Total de Autores</CardTitle>
+            <Users className="h-6 w-6 text-white" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-white">{stats?.totalAuthors ?? 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card
+          className="bg-black border-none cursor-pointer hover:bg-[#444444] transition-colors"
+          onClick={() => navigate('/admin/imagens')}
+        >
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-white">Total de Imagens</CardTitle>
+            <ImageIcon className="h-6 w-6 text-white" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-white">{stats?.totalImages ?? 0}</div>
+          </CardContent>
+        </Card>
+
+        <Card
+          className="bg-black border-none cursor-pointer hover:bg-[#444444] transition-colors"
+          onClick={() => navigate('/admin/usuarios')}
+        >
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-white">Usuários Pendentes</CardTitle>
+            <UserCheck className="h-6 w-6 text-white" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-white">{stats?.pendingUsers ?? 0}</div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 };
 

@@ -14,6 +14,11 @@ export const sectionSchema = z.object({
 export const exhibitionSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   edition: z.string().min(1, "Edição é obrigatória"),
+  sections: z.array(
+    z.object({
+      name: z.string().min(1, "O nome da seção não pode estar vazio."),
+    })
+  ).optional(),
 });
 
 export const imageSchema = z.object({

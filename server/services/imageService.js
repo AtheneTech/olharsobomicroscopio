@@ -6,7 +6,16 @@ export async function getAllImages() {
     orderBy: { createdAt: 'desc' },
     include: {
       author: { select: { name: true } },
-      section: { select: { name: true } },
+      section: {
+        include: {
+          exhibition: {
+            select: {
+              title: true,
+              edition: true,
+            },
+          },
+        },
+      },
     },
   });
 }
