@@ -1,8 +1,8 @@
 import React from 'react';
-import Curiosidades from './components/Curiosidades';
+import CuriosidadesSec from './components/CuriosidadesSec';
 import AmostraMicro from './components/AmostraMicro'
-import ContributionSection from './components/ContributionSection'
-import PagCuriosidades from './components/PagCuriosidades';
+import Contribution from './components/Contribution'
+import Curiosidades from './components/Curiosidades';
 import './App.css';
 
 function App() {

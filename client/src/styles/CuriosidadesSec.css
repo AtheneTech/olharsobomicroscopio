@@ -1,0 +1,311 @@
+ .bg-section {
+   background-color: rgb(255, 255, 255);
+
+ }
+
+ .conteuSecCuiriosidades {
+
+  
+   display: flex;
+   flex-direction: column;
+   gap: 2vw;
+
+
+ }
+
+ .cabecalhoCuriosidades {
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   margin-left: 1vw;
+   padding: 3vw 5vw 0vw 2vw;
+   gap: 0w;
+   color: black;
+
+ }
+
+ .titleEChamada {
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: row;
+   width: 100%;
+
+
+ }
+
+ .titleEVetor {
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 0.5vw;
+
+ }
+
+ .titleEVetor img {
+
+   width: 2vw;
+
+ }
+
+ .titleEVetor h1 {
+
+   font-size: 4vw;
+   font-weight: 900;
+
+ }
+
+ .titleEChamada p {
+
+   text-align: right;
+   font-size: 1.2vw;
+   width: 35vw;
+
+ }
+
+ .subEBotao {
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+
+
+ }
+
+ .subEBotao h3 {
+
+   font-size: 2vw;
+   font-style: italic;
+   margin-left: 17vw;
+   color: #FF702E;
+   
+
+ }
+
+ .subEBotao button {
+
+   background-color: black;
+   color: white;
+   padding: 1vw 1vw;
+   border-radius: 0.5vw;
+   font-weight: bold;
+   font-size: 1vw;
+    border: solid;
+    transition: background 0.3s;
+
+ }
+
+ .subEBotao button:hover {
+
+  background-color: #FF702E;
+
+ }
+
+ .bgRetangulo {
+
+    width: 100%;
+  background-image: url('/images/bg2things.png');
+  background-size: cover;     
+  background-position: top; 
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+
+ }
+
+ .mainSecCuriosidades {
+
+   display: flex;
+   flex-direction: row;
+   gap: 10vw;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .cardPreto1,
+ .cardPreto2 {
+
+   width: 40vw;
+   min-height: 100%;
+   background-color: black;
+   border-radius: 2vw 2vw 0vw 0vw;
+   display: flex;
+   justify-content: baseline;
+   align-items: center;
+   flex-direction: column;
+   text-align: left;
+
+ }
+
+ .cardPreto1 img {
+
+   width: 30vw;
+
+ }
+
+ .cardPreto2 img {
+
+   width: 30vw;
+
+ }
+
+ .introducaoCards {
+
+   margin-top: 3vw;
+   color: white;
+   display: flex;
+   flex-direction: column;
+   gap: 1vw;
+   padding: 1vw 3vw;
+ }
+
+ .introducaoCards h3 {
+
+   font-size: 2vw;
+   width: 27vw;
+   font-weight: 600;
+
+ }
+
+ .introducaoCards sub {
+
+   font-size: 1vw;
+   width: 25vw;
+
+ }
+
+ .bgPilhaCards {
+
+   padding: 1.5vw 1vw 3vw 1vw;
+
+ }
+
+
+
+.pilha-cards1 {
+  position: relative;
+  width: 240px;
+  height: 320px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.carta1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 320px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background-color: #ccc;
+}
+
+.carta1-topo {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  z-index: 10;
+}
+
+.carta1-topo img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.texto-carta1 {
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.carta1-2 { background-color: white; z-index: 9; transform: rotate(1deg) translate(0px, 0px); }
+.carta1-3 { background-color: white; z-index: 8; transform: rotate(2deg) translate(2px, 2px); }
+.carta1-4 { background-color: white; z-index: 7; transform: rotate(3deg) translate(5px, 5px); }
+.carta1-5 { background-color: white; z-index: 6; transform: rotate(5deg) translate(8px, 8px); }
+.carta1-6 { background-color: white; z-index: 5; transform: rotate(7deg) translate(11px, 11px); }
+.carta1-7 { background-color: white; z-index: 4; transform: rotate(9deg) translate(14px, 14px); }
+
+.pilha-cards1:hover .carta1-topo { transform: rotate(-3deg) translate(-3px, -3px); }
+.pilha-cards1:hover .carta1-2 { transform: rotate(2deg) translate(2px, 2px); }
+.pilha-cards1:hover .carta1-3 { transform: rotate(4deg) translate(5px, 5px); }
+.pilha-cards1:hover .carta1-4 { transform: rotate(6deg) translate(8px, 8px); }
+.pilha-cards1:hover .carta1-5 { transform: rotate(8deg) translate(10px, 10px); }
+.pilha-cards1:hover .carta1-6 { transform: rotate(10deg) translate(14px, 14px); }
+.pilha-cards1:hover .carta1-7 { transform: rotate(12deg) translate(17px, 17px); }
+
+
+.bgPilhaCards2 {
+
+padding: 1vw 1vw 1vw 1vw;
+
+} 
+
+.pilha-cards2 {
+  position: relative;
+  width: 400px;
+  height: 313px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.carta2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 300px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  background-color: #ddd;
+}
+
+.carta2-topo {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carta2-topo img {
+  width: 95%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.texto-carta2 {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.carta2-2 { background-color: white; z-index: 9; transform: rotate(-1.5deg) translate(-3px, -2px); }
+.carta2-3 { background-color: white; z-index: 8; transform: rotate(1.2deg) translate(2px, 1px); }
+.carta2-4 { background-color: white; z-index: 7; transform: rotate(2.5deg) translate(5px, 3px); }
+.carta2-5 { background-color: white; z-index: 6; transform: rotate(4deg) translate(8px, 6px); }
+
+.pilha-cards2:hover .carta2-topo{ transform: rotate(2deg) translate(4px, 5px); }
+.pilha-cards2:hover .carta2-2 { transform: rotate(-6deg) translate(-6px, -5px); }
+.pilha-cards2:hover .carta2-3 { transform: rotate(4deg) translate(6px, 4px); }
+.pilha-cards2:hover .carta2-4 { transform: rotate(-5deg) translate(-8px, -6px); }
+.pilha-cards2:hover .carta2-5 { transform: rotate(7deg) translate(11px, 9px); }

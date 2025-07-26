@@ -1,311 +1,1014 @@
- .bg-section {
-   background-color: rgb(255, 255, 255);
-
- }
-
- .conteuSecCuiriosidades {
-
-  
-   display: flex;
-   flex-direction: column;
-   gap: 2vw;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
- }
+.Pagcuriosidades-bg {
+  background-color: white;
+  font-family: "Montserrat", sans-serif;
+}
 
- .cabecalhoCuriosidades {
+.conteudoPage {
 
-   display: flex;
-   flex-direction: column;
-   justify-content: space-evenly;
-   align-items: center;
-   margin-left: 1vw;
-   padding: 3vw 5vw 0vw 2vw;
-   gap: 0w;
-   color: black;
+  margin-top: 3vw;
+  display: flex;
+  /* ====== IMPORTS & FONTS ====== */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
- }
+  /* ====== VARIABLES ====== */
+  :root {
+    --primary-color: #FF702E;
+    --dark-color: #1E1E1E;
+    --light-color: aliceblue;
+    --bg-dark: #292929;
+  }
 
- .titleEChamada {
+  /* ====== BASE STYLES ====== */
+  .Pagcuriosidades-bg {
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+  }
 
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   flex-direction: row;
-   width: 100%;
+  /* ====== LAYOUT COMPONENTS ====== */
+  .conteudoPage {
+    /* margin-top: 3vw; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ====== HEADER SECTION ====== */
+  .CuriosidadesHeader {
+    background-image: url(/images/VectorHeader.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left top;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0vw 8vw 0vw 4vw;
+    align-items: center;
+    margin-bottom: 3vw;
+    height: 200px;
+    margin-top: 1vw;
+    color: black;
+    background-color: white;
+  }
+
+  .tituloHeader {
+    font-size: 6vw;
+    font-weight: 900;
+  }
+
+  .CuriosidadesHeader p {
+    text-align: right;
+    font-size: 1.0vw;
+    width: 23vw;
+  }
+
+  /* ====== ORIGEM SECTION ====== */
+  .bgOrigem {
+    background-color: rgb(0, 0, 0);
+    padding: 5vw 10vw 5vw 10vw;
+  }
+
+  .containerOrigem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2vw;
+    color:white;
+  }
+
+  .containerTitulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    font-size: 2.5vw;
+    text-align: left;
+  }
+
+  .divisor {
+    width: 40vw;
+    margin-bottom: 1vw;
+  }
+
+  .containerConteudo {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 9vw;
+    flex-direction: row;
+  }
+
+  .imgMicrosOrigem {
+    width: 40%;
+    object-fit: cover;
+    border-radius: 2vw;
+  }
+
+  .containerDescp {
+    display: flex;
+    flex-direction: column;
+    color: var(--light-color);
+    font-size: 1.6vw;
+    gap: 4vw;
+    width: 50vw;
+    text-align: left;
+    
+  }
+
+  /* ====== BUTTON & DESCRIPTION ====== */
+  .btnEDesc {
+    font-size: 1.7vw;
+    width: 35vw;
+    display: flex;
+    color: var(--light-color);
+    flex-direction: column;
+    gap: 2vw;
+  }
+
+  .btnEDesc button {
+    background-color: #FF702E;
+    color: black;
+    width: 20vw;
+    border-radius: 0.5vw;
+    border: none;
+    font-size: 1.2vw;
+    font-weight: 600;
+    padding: 1vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Adiciona transição para todas as propriedades */
+    transform-origin: center;
+    /* Faz o botão escalar a partir do centro */
+  }
+
+  .btnEDesc button:hover {
+    background-color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1);
+    /* Aumenta 5% o tamanho do botão */
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+    /* Adiciona sombra para dar profundidade */
+    color: black;
+  }
+
+  .btnEDesc h3 {
+    font-weight: 800;
+  }
+
+  .btnEDesc h3 span {
+    color: #FF702E;
+  }
+
+  /* ====== EVOLUÇÕES SECTION ====== */
+  .bg-conteudoEvolucoes {
+    /* background-image: url('/images/noveEvBg.png'); */
+    padding: 5vw 5vw 5vw 0vw;
+  }
+
+  .iconsCurio {
+
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .conteudoEvolucoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10vw;
+    flex-wrap: wrap;
+    color: #171717;
+  }
+
+  .titleEDesc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+ 
+  .titleEDesc h2 {
+    font-size: 2vw;
+    font-weight: bold;
+    width: 10vw;
+    color: var(--dark-color);
+  }
+
+  /* ====== AMOSTRA MICRO SECTION ====== */
+  .amostraMicro {
+    background-color: black;
+    padding: 1vw 7vw 4vw 7vw;
+  }
+
+  /* ====== CARD FLIP COMPONENT - ATUALIZADO ====== */
+  .mySwiper {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    overflow: visible !important;
+  }
+
+  .swiper-slide {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    cursor: pointer;
+    overflow: visible !important;
+    transform-style: preserve-3d;
+  }
+
+  /* Container do card flip */
+  .cardFlip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
 
 
- }
+  }
 
- .titleEVetor {
+  /* Estado virado */
+  .cardFlip.flipped {
+    transform: rotateY(180deg);
 
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 0.5vw;
+  }
 
- }
+  /* Faces do card */
+  .face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    font-size: large;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
 
- .titleEVetor img {
+  /* Frente do card (visível por padrão) */
+  .front {
+    background-color: white;
+    color: black;
+    z-index: 2;
+     font-size: large;
+    text-align: center;
 
-   width: 2vw;
+  }
 
- }
+  /* Verso do card (escondido por padrão) */
+  .back {
+    background-color: white;
+    color: black;
+    transform: rotateY(180deg);
+    padding: 2vw;
+    font-size: medium;
+    z-index: 1;
+  }
 
- .titleEVetor h1 {
+  /* Efeito de pilha durante hover (somente para cards não virados) */
+  .swiper-slide:hover .cardFlip:not(.flipped) {
+    transform: rotate(-3deg) translate(-5px, -5px);
+  }
 
-   font-size: 4vw;
-   font-weight: 900;
+  .swiper-slide:hover .cardFlip:not(.flipped)~.cardFlip:not(.flipped) {
+    transform: rotate(2deg) translate(5px, 5px);
+  }
 
- }
+  /* Imagem do card */
+  .front .imgCardCurius img {
+    width: 12vw;
+    height: 12vw;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
 
- .titleEChamada p {
+  /* Efeito de hover na imagem */
+  .front:hover .imgCardCurius img {
+    transform: scale(1.05);
+  }
 
-   text-align: right;
-   font-size: 1.2vw;
-   width: 35vw;
+  /* ====== BOTÃO DE CLIQUE (CÍRCULO + VETOR) ====== */
+  .front .btnClickCurious {
+    position: relative;
+    width: 3vw;
+    /* height: 3vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 
- }
+  .front .btnClickCurious img:first-child {
+    /* Círculo laranja */
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+  }
 
- .subEBotao {
+  .front .btnClickCurious img:last-child {
+    /* Vetor de clique */
+    width: 50%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    /* transition: transform 0.3s ease; */
+    animation: pulse 1.5s infinite ease-in-out;
+  }
 
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 100%;
+  /* Definição da animação de pulsação */
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+  }
+
+  /* Efeito hover (opcional) */
+  .front .btnClickCurious:hover img:last-child {
+    /* transform: scale(1.1) rotate(10deg); */
+    animation: pulse 0.8s infinite ease-in-out;
+  }
+
+  /* ====== LAB INTRO SECTION ====== */
+  .bg-labIntro {
+    background-color: whitesmoke;
+    padding: 5vw 10vw 5vw 10vw;
+    background-image: url(/images/vetorHorizontal.png);
+    background-repeat: no-repeat;
+    background-size: auto 150px;
+    background-position: right top;
+  }
+
+  .labIntro {
+    display: flex;
+    flex-direction: column;
+    color: black;
+  }
+
+  .TitleLabIntro {
+    font-size: 3vw;
+  }
+
+  .TitleLabIntro h2 b {
+    color: #FF702E;
+  }
+
+  .contentCardsIntro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4vw;
+  }
+
+  .divisor2 {
+    width: 25vw;
+    margin-bottom: 1vw;
+  }
+
+  .histCard,
+  .missionCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    border: solid black;
+    border-radius: 1vw;
+    padding: 3vw;
+  }
+
+  .lineConecte {
+    width: 3vw;
+    border: solid 0.1vw;
+  }
+
+  .histCard h3,
+  .missionCard h3 {
+    font-size: 2vw;
+  }
+
+  .histCard p,
+  .missionCard p {
+    font-size: 1.5vw;
+  }
+
+  /* ====== QUEM SOMOS SECTION ====== */
+  .bg-quemSomos {
+    background-image: url('/images/quemSomosbg.png');
+    padding: 5vw 10vw 8vw 10vw;
+  }
+
+  .quemSomos {
+    display: flex;
+    flex-direction: column;
+    color: black;
+  }
+
+  .titleQuemsomos {
+    font-size: 3vw;
+  }
+
+  .titleQuemsomos h1 b {
+    color: var(--primary-color);
+  }
+
+  .descEImgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw 5vw;
+    gap: 7vw;
+  }
+
+  .eqDescrip {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+  }
+
+  .eqDescrip h3 {
+    font-size: 3vw;
+  }
+
+  .eqDescrip p {
+    font-size: 1.2vw;
+    text-align: left;
+  }
+
+  .eqImages {
+    width: 25vw;
+    position: relative;
+  }
+
+  .imgEq2 {
+    width: 30vw;
+  }
+
+  /* ====== FOTOS 2025 SECTION ====== */
+  .bg-fotos2025 {
+    background-color: var(--dark-color);
+    padding: 5vw 10vw 5vw 10vw;
+  }
+
+  .fotos2025 {
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+  }
+
+  .titleFotos2025 {
+    color: white;
+    font-size: 3vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+  }
+
+  .titleFotos2025 h1 i {
+    color: var(--primary-color);
+  }
+
+  /* ====== GALLERY STYLES ====== */
+  .galeriaContainer {
+    padding: 2vw;
+  }
+
+  .galeriaContainer h2 {
+    font-size: 2.5vw;
+    margin-bottom: 2vw;
+    text-align: center;
+  }
+
+  .galeriaContainer img {
+    border-radius: 1vw;
+    box-shadow: 0 2vw 2vw rgba(198, 171, 171, 0.1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    object-fit: cover;
+  }
+
+  .galeriaContainer img:hover {
+    transform: scale(1.03);
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
+
+  flex-direction: column;
+
+}
+
+.CuriosidadesHeader {
+  background-image: url(/images/VectorHeader.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left top;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0vw 8vw 0vw 4vw;
+  align-items: center;
+  margin-bottom: 3vw;
+  height: 200px;
+  margin-top: 1vw;
+  color: black;
+  background-color: white;
+}
+
+.tituloHeader {
+
+  font-size: 5vw;
+  font-weight: 900;
+
+}
+
+.CuriosidadesHeader p {
+
+  text-align: right;
+  font-size: 1.0vw;
+  width: 23vw;
+
+}
+
+.bgOrigem {
+
+  background-color: rgb(0, 0, 0);
+  padding: 5vw 10vw 5vw 10vw;
+  background-image: url(/images/Vector4.png);
+  background-repeat: no-repeat;
+  background-size: auto 150px;
+  background-position: right top;
+
+}
+
+.containerOrigem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2vw;
+  color: aliceblue;
+
+}
 
 
- }
+.containerTitulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  font-size: 2.5vw;
+  text-align: left;
+}
 
- .subEBotao h3 {
+.divisor {
+  width: 40vw;
+  margin-bottom: 1vw;
+}
 
-   font-size: 2vw;
-   font-style: italic;
-   margin-left: 17vw;
-   color: #FF702E;
-   
+.containerConteudo {
 
- }
+  display: flex;
+  justify-content: space-evenly;
+  gap: 9vw;
+  flex-direction: row;
 
- .subEBotao button {
+}
 
-   background-color: black;
-   color: white;
-   padding: 1vw 1vw;
-   border-radius: 0.5vw;
-   font-weight: bold;
-   font-size: 1vw;
-    border: solid;
-    transition: background 0.3s;
+.imgMicrosOrigem {
+  width: 40%;
+  object-fit: cover;
+  border-radius: 2vw;
+}
 
- }
+.containerDescp {
 
- .subEBotao button:hover {
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  font-size: 1.6vw;
+  gap: 4vw;
+  width: 50vw;
+  text-align: left;
+
+}
+
+.btnEDesc {
+
+  font-size: 1.7vw;
+  width: 35vw;
+  display: flex;
+  color: aliceblue;
+  flex-direction: column;
+  gap: 2vw;
+
+}
+
+.btnEDesc button {
+
+  background-color: aliceblue;
+  color: #1E1E1E;
+  width: 20vw;
+  border-radius: 0.5vw;
+  border: none;
+  font-size: 1.2vw;
+  font-weight: 600;
+  padding: 1vw;
+  cursor: pointer;
+
+}
+
+.btnEDesc button:hover {
 
   background-color: #FF702E;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: rgb(255, 255, 255);
+  border-color: none;
 
- }
-
- .bgRetangulo {
-
-    width: 100%;
-  background-image: url('/images/bgRetangle.png');
-  background-size: cover;     
-  background-position: top; 
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-
- }
-
- .mainSecCuriosidades {
-
-   display: flex;
-   flex-direction: row;
-   gap: 10vw;
-   justify-content: center;
-   align-items: center;
- }
-
- .cardPreto1,
- .cardPreto2 {
-
-   width: 40vw;
-   min-height: 100%;
-   background-color: black;
-   border-radius: 2vw 2vw 0vw 0vw;
-   display: flex;
-   justify-content: baseline;
-   align-items: center;
-   flex-direction: column;
-   text-align: left;
-
- }
-
- .cardPreto1 img {
-
-   width: 30vw;
-
- }
-
- .cardPreto2 img {
-
-   width: 30vw;
-
- }
-
- .introducaoCards {
-
-   margin-top: 3vw;
-   color: white;
-   display: flex;
-   flex-direction: column;
-   gap: 1vw;
-   padding: 1vw 3vw;
- }
-
- .introducaoCards h3 {
-
-   font-size: 2vw;
-   width: 27vw;
-   font-weight: 600;
-
- }
-
- .introducaoCards sub {
-
-   font-size: 1vw;
-   width: 25vw;
-
- }
-
- .bgPilhaCards {
-
-   padding: 1.5vw 1vw 3vw 1vw;
-
- }
-
-
-
-.pilha-cards1 {
-  position: relative;
-  width: 240px;
-  height: 320px;
-  margin: auto;
-  cursor: pointer;
 }
 
-.carta1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 320px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  background-color: #ccc;
-}
+.btnEDesc h3 {
 
-.carta1-topo {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  gap: 12px;
-  z-index: 10;
-}
-
-.carta1-topo img {
-  width: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.texto-carta1 {
-  color: #333;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.carta1-2 { background-color: white; z-index: 9; transform: rotate(1deg) translate(0px, 0px); }
-.carta1-3 { background-color: white; z-index: 8; transform: rotate(2deg) translate(2px, 2px); }
-.carta1-4 { background-color: white; z-index: 7; transform: rotate(3deg) translate(5px, 5px); }
-.carta1-5 { background-color: white; z-index: 6; transform: rotate(5deg) translate(8px, 8px); }
-.carta1-6 { background-color: white; z-index: 5; transform: rotate(7deg) translate(11px, 11px); }
-.carta1-7 { background-color: white; z-index: 4; transform: rotate(9deg) translate(14px, 14px); }
-
-.pilha-cards1:hover .carta1-topo { transform: rotate(-3deg) translate(-3px, -3px); }
-.pilha-cards1:hover .carta1-2 { transform: rotate(2deg) translate(2px, 2px); }
-.pilha-cards1:hover .carta1-3 { transform: rotate(4deg) translate(5px, 5px); }
-.pilha-cards1:hover .carta1-4 { transform: rotate(6deg) translate(8px, 8px); }
-.pilha-cards1:hover .carta1-5 { transform: rotate(8deg) translate(10px, 10px); }
-.pilha-cards1:hover .carta1-6 { transform: rotate(10deg) translate(14px, 14px); }
-.pilha-cards1:hover .carta1-7 { transform: rotate(12deg) translate(17px, 17px); }
-
-
-.bgPilhaCards2 {
-
-padding: 1vw 1vw 1vw 1vw;
-
-} 
-
-.pilha-cards2 {
-  position: relative;
-  width: 400px;
-  height: 313px;
-  margin: auto;
-  cursor: pointer;
-}
-
-.carta2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 400px;
-  height: 300px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  background-color: #ddd;
-}
-
-.carta2-topo {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  gap: 10px;
-  z-index: 10;
-}
-
-.carta2-topo img {
-  width: 95%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.texto-carta2 {
-  color: #222;
-  font-size: 14px;
   font-weight: 600;
+
+}
+
+.btnEDesc h3 b {
+
+  color: #FF702E;
+
+}
+
+.bg-conteudoEvolucoes {
+
+  /* background-color: whitesmoke; */
+  background-image: url('/images/noveEvBg.png');
+  padding: 5vw 5vw 5vw 2vw;
+}
+
+
+.conteudoEvolucoes {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+  flex-wrap: wrap;
+
+}
+
+.titleEDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+
+}
+
+.iconsCurio {
+  display: flex;
+  flex-direction: row;
+}
+
+.titleEDesc h2 {
+  font-size: 4vw;
+  font-weight: bold;
+  width: 45vw;
+  color: #1E1E1E;
+}
+
+.mySwiper {
+  width: 280px;
+  height: 330px;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+}
+
+
+.cardFlip {
+  width: 280px;
+  height: 330px;
+  perspective: 1000px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  cursor: pointer;
+}
+
+.cardFlip.flipped {
+  transform: rotateY(180deg);
+}
+
+
+.face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  /* padding: 0.5rem 0rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.front {
+  background-color: #171717;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.front h3 {
+  margin-left: 25px;
+}
+
+
+.front img {
+  width: 80%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.front button {
+  background-color: white;
+  color: #ffeae0;
+  border: none;
+  padding: 0.5rem 0.5rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.front button:hover {
+  background-color: #f2f2f2;
+}
+
+.back {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  transform: rotateY(180deg);
+  font-size: 0.9rem;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.back p {
+  margin-bottom: 20px;
+}
+
+.amostraMicro {
+
+  background-color: black;
+  padding: 1vw 0vw 4vw 0vw;
+
+}
+
+.bg-labIntro {
+  background-color: whitesmoke;
+  padding: 5vw 10vw 5vw 10vw;
+  background-image: url(/images/Vector6.png);
+  background-repeat: no-repeat;
+  background-size: auto 150px;
+  background-position: right top;
+}
+
+.labIntro {
+
+  display: flex;
+  flex-direction: column;
+  color: #1E1E1E;
+
+}
+
+.TitleLabIntro {
+
+  font-size: 3vw;
+
+
+}
+
+.TitleLabIntro h2 b {
+  color: #FF702E;
+}
+
+.contentCardsIntro {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 4vw;
+
+}
+
+.divisor2 {
+  width: 25vw;
+  margin-bottom: 1vw;
+}
+
+.histCard,
+.missionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+  border: solid black;
+  border-radius: 1vw;
+  padding: 3vw;
+
+}
+
+.lineConecte {
+
+  width: 3vw;
+  border: solid 0.1vw;
+
+}
+
+.histCard h3 {
+
+  font-size: 2vw;
+
+}
+
+.missionCard h3 {
+
+  font-size: 2vw;
+
+}
+
+.histCard p {
+
+
+  font-size: 1.5vw;
+
+}
+
+.missionCard p {
+
+
+  font-size: 1.5vw;
+
+}
+
+.bg-quemSomos {
+
+  /* background-color: rgb(255, 255, 255); */
+  background-image: url('/images/quemSomosbg.png');
+  padding: 5vw 10vw 8vw 10vw;
+
+
+}
+
+.quemSomos {
+
+  display: flex;
+  flex-direction: column;
+  color: #1E1E1E;
+}
+
+.titleQuemsomos {
+
+  font-size: 3vw;
+
+}
+
+.titleQuemsomos h1 b {
+
+  color: #FF702E;
+
+}
+
+.descEImgs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 3vw 5vw;
+  /* border:#1E1E1E solid; */
+  gap: 7vw;
+}
+
+.eqDescrip {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.eqDescrip h3 {
+  font-size: 3vw;
+}
+
+.eqDescrip p {
+  font-size: 1.2vw;
+}
+
+.eqImages {
+
+  width: 25vw;
+  position: relative;
+
+}
+
+.imgEq2 {
+
+  width: 30vw;
+
+}
+
+.bgFotos2025 {
+
+ background-color: #171717;
+  padding: 5vw 10vw 5vw 10vw;
+
+}
+
+.fotos2025 {
+
+  display: flex;
+  flex-direction: row;
+
+  gap: 2vw;
+
+}
+
+.titleFotos2025 {
+
+  color: white;
+  font-size: 3vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+
+}
+
+.titleFotos2025 h1 i {
+
+  color: #FF702E;
+
+}
+
+/* Estilo da galeria como um todo */
+.galeriaContainer {
+  padding: 2vw;
+
+}
+
+.galeriaContainer h2 {
+  font-size: 2.5vw;
+  margin-bottom: 2vw;
   text-align: center;
 }
 
-.carta2-2 { background-color: white; z-index: 9; transform: rotate(-1.5deg) translate(-3px, -2px); }
-.carta2-3 { background-color: white; z-index: 8; transform: rotate(1.2deg) translate(2px, 1px); }
-.carta2-4 { background-color: white; z-index: 7; transform: rotate(2.5deg) translate(5px, 3px); }
-.carta2-5 { background-color: white; z-index: 6; transform: rotate(4deg) translate(8px, 6px); }
+.galeriaContainer img {
+  border-radius: 1vw;
+  box-shadow: 0 2vw 2vw rgba(198, 171, 171, 0.1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  object-fit: cover;
+}
 
-.pilha-cards2:hover .carta2-topo{ transform: rotate(2deg) translate(4px, 5px); }
-.pilha-cards2:hover .carta2-2 { transform: rotate(-6deg) translate(-6px, -5px); }
-.pilha-cards2:hover .carta2-3 { transform: rotate(4deg) translate(6px, 4px); }
-.pilha-cards2:hover .carta2-4 { transform: rotate(-5deg) translate(-8px, -6px); }
-.pilha-cards2:hover .carta2-5 { transform: rotate(7deg) translate(11px, 9px); }
+.galeriaContainer img:hover {
+  transform: scale(1.03);
+  filter: brightness(0.9);
+  cursor: pointer;
+}

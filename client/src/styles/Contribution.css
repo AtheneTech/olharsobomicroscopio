@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
+
 }
 
-body, html {
-  font-family: 'Helvetica Neue', sans-serif;
+body,
+html {
+  font-family: 'Montserrat', sans-serif;
   height: 100%;
 }
 
@@ -19,18 +20,18 @@ body, html {
   color: white;
   padding: 150px 20px;
   text-align: center;
-  
+
 }
 
 .backgroundContribution {
   position: absolute;
   inset: 0;
   background-image: url('/images/backgrodunContribuicao.png');
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
-  transform: scale(1); /* evita que as bordas do blur fiquem visíveis */
+  transform: scale(1);
 }
 
 .overlayContribution {
@@ -41,12 +42,12 @@ body, html {
   z-index: 0;
 }
 
-.contentContribution  {
+.contentContribution {
   position: relative;
   z-index: 1;
   max-width: 1100px;
   margin: 0 auto;
-  
+
 }
 
 .section-title {
@@ -54,16 +55,32 @@ body, html {
   margin-bottom: 20px;
   position: relative;
   display: inline-block;
+  max-width: 600px;
+  text-align: left;
+  right: 160px;
 }
 
-.section-title::after {
-  content: '';
-  display: block;
-  width: 650px;
-  height: 0.5px;
-  background-color: white;
-  margin: 10px auto 0;
-  opacity: 1;
+.divider1 {
+  width: 60%;
+  height: 1.5px;
+  position: relative;
+  top: 0px;
+  left: 90px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 15px;
+  opacity: 0.8;
+}
+
+.divider1::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FF702E;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .card-container {
@@ -80,7 +97,7 @@ body, html {
   }
 }
 
-.cardContribution  {
+.cardContribution {
   background-color: #f4f4f4;
   color: black;
   padding: 30px 20px;
@@ -90,38 +107,70 @@ body, html {
   box-shadow: 0 0 10px #00000040;
 }
 
-.icon {
+/* .icon {
   width: 60px;
   height: 60px;
-  background: black;
+  background: #FF702E;
+  object-fit: contain;
   border-radius: 50%;
   padding: 12px;
   margin-bottom: 20px;
-}
+} */
 
-.cardContribution  h3 {
+.cardContribution h3 {
   font-size: 30px;
   margin-bottom: 15px;
 }
 
-.cardContribution  p {
+.cardContribution p {
   font-size: 16px;
   margin-bottom: 20px;
   line-height: 1.5;
 }
 
 .button {
-  background-color: #272829;
+  background-color: #FF702E;
   color: white;
   border: none;
   padding: 12px 100px;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  /* Adiciona transição para todas as propriedades */
+  transform-origin: center;
+  /* Faz o botão escalar a partir do centro */
+  text-transform: uppercase;
+
+}
+
+.button2 {
+  background-color: #FF702E;
+  color: white;
+  border: none;
+  padding: 12px 100px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 40px;
+  cursor: pointer;
+   transition: all 0.3s ease;
+  /* Adiciona transição para todas as propriedades */
+  transform-origin: center;
+  /* Faz o botão escalar a partir do centro */
   text-transform: uppercase;
 }
 
 .button:hover {
-  background-color: black;
+  background-color: #FF702E;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: scale(1.1);
+}
+
+.button2:hover {
+  background-color: #FF702E;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: scale(1.1);
+
 }
