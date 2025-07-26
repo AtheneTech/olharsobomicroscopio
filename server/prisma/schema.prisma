@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  password   String
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Exhibition {
+  id        String    @id @default(cuid())
+  title     String
+  edition   String    @unique
+  sections  Section[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Section {
+  id           String     @id @default(cuid())
+  name         String
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id], onDelete: Cascade)
+  exhibitionId String
+  images       Image[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Image {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  source       String
+  url          String
+  section      Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId    String
+  author       Author   @relation(fields: [authorId], references: [id])
+  authorId     String
+  song         String
+  predominance Json
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Author {
+  id       String   @id @default(cuid())
+  name     String
+  location String
+  bio      String
+  links    String[]
+  images   Image[]
+}

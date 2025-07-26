@@ -8,7 +8,7 @@ const images = [
   "/photos/asm/raiva.png",
   "/photos/asm/esporotricose.png",
   "/photos/asm/esporotricose2.png",
-    "/photos/asm/esporotricose3.png"
+  "/photos/asm/esporotricose3.png"
 ];
 
 export default function Home() {
