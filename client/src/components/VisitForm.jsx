@@ -200,8 +200,9 @@ export default function VisitForm() {
             <div className="form-fields">
               <div className="grid-2">
                 <div>
-                  <label>Nome</label>
-                  <input 
+                  <label className="label-form-visit">Nome</label>
+                  <input
+                    className="input-text-visit-form" 
                     type="text" 
                     name="nome" 
                     value={formData.nome}
@@ -210,8 +211,9 @@ export default function VisitForm() {
                   {formErrors.nome && <p className="error-msg">{formErrors.nome}</p>}
                 </div>
                 <div>
-                  <label>E-mail</label>
+                  <label className="label-form-visit">E-mail</label>
                   <input 
+                    className="input-email-visit-form" 
                     type="email" 
                     name="email" 
                     value={formData.email}
@@ -223,8 +225,9 @@ export default function VisitForm() {
 
               <div className="grid-2">
                 <div>
-                  <label>Escola / Instituição</label>
+                  <label className="label-form-visit">Escola / Instituição</label>
                   <input 
+                    className="input-text-visit-form" 
                     type="text" 
                     name="escola" 
                     value={formData.escola}
@@ -233,8 +236,9 @@ export default function VisitForm() {
                   {formErrors.escola && <p className="error-msg">{formErrors.escola}</p>}
                 </div>
                 <div>
-                  <label>Nível de ensino</label>
-                  <select 
+                  <label className="label-form-visit">Nível de ensino</label>
+                  <select
+                    className="input-select-visit-form" 
                     name="nivel_ensino" 
                     value={formData.nivel_ensino}
                     onChange={handleInputChange}
@@ -252,8 +256,9 @@ export default function VisitForm() {
 
               <div className="grid-2">
                 <div>
-                  <label>Cidade / Estado</label>
-                  <input 
+                  <label className="label-form-visit">Cidade / Estado</label>
+                  <input
+                    className="input-text-visit-form" 
                     type="text" 
                     name="cidade_estado" 
                     value={formData.cidade_estado}
@@ -262,8 +267,9 @@ export default function VisitForm() {
                   {formErrors.cidade_estado && <p className="error-msg">{formErrors.cidade_estado}</p>}
                 </div>
                 <div>
-                  <label>Data desejada</label>
+                  <label className="label-form-visit">Data desejada</label>
                   <input 
+                    className="input-date-visit-form" 
                     type="date" 
                     name="data_desejada" 
                     value={formData.data_desejada}
@@ -275,8 +281,9 @@ export default function VisitForm() {
             </div>
 
             <div className="form-textarea">
-              <label>Objetivo/Motivo da visita</label>
+              <label className="label-form-visit">Objetivo/Motivo da visita</label>
               <textarea
+                className="input-textarea-visit-form" 
                 name="objetivo"
                 placeholder="Conte um pouco sobre o interesse da escola, horários ideais, quantidade de estudantes e outros detalhes"
                 value={formData.objetivo}
@@ -287,7 +294,7 @@ export default function VisitForm() {
           </div>
 
           <div className="form-buttons">
-            <button type="submit">QUERO VISITAR</button>
+            <button type="submit" className="botao-submit-visit-form">QUERO VISITAR</button>
              <button type="button" onClick={() => setShowClearConfirmation(true)} className="clear-button" style={{ marginLeft: '10px', background: '#6b7280c9', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '6px', cursor: 'pointer', fontSize: '15px' }}>
                   LIMPAR FORMULÁRIO
                 </button>

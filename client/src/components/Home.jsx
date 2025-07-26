@@ -11,19 +11,41 @@ const images = [
   "/photos/asm/esporotricose3.png"
 ];
 
-export default function Home() {
+export default function Home({ scrollContainerRef }) {
   const [index, setIndex] = useState(0);
+  const [showArrow, setShowArrow] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+
+    const handleScroll = () => {
+      if (scrollContainer && scrollContainer.scrollTop > 100) {
+        setShowArrow(false);
+      } else {
+        setShowArrow(true);
+      }
+    };
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [scrollContainerRef]);
+
   return (
-    <div className="container">
+    <div className="container bg-black">
       <div className="esquerda">
         <div className="content-container">
           <h1 className='h1-home'>Arte<br />Sob o<br />Microscópio</h1>
@@ -56,10 +78,12 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="sd-container">
-        <div className="arrowh"></div>
-        <div className="arrowh"></div>
-      </div>
+      {showArrow && (
+        <div id="sd-container">
+          <div className="arrowh"></div>
+          <div className="arrowh"></div>
+        </div>
+      )}
     </div>
   );
 }
