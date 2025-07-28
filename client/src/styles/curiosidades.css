@@ -312,7 +312,7 @@
   }
 
   .front .btnClickCurious img:first-child {
-    /* Círculo laranja */
+
     position: absolute;
     width: 100%;
     height: auto;
@@ -320,12 +320,11 @@
   }
 
   .front .btnClickCurious img:last-child {
-    /* Vetor de clique */
     width: 50%;
     height: auto;
     position: relative;
     z-index: 2;
-    /* transition: transform 0.3s ease; */
+    transition: transform 0.3s ease;
     animation: pulse 1.5s infinite ease-in-out;
   }
 
@@ -749,12 +748,12 @@
 .front {
   background-color: #171717;
   color: rgb(255, 255, 255);
-  text-align: left;
+  text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .front h3 {
-  margin-left: 25px;
+  margin-left: 0;
 }
 
 
@@ -1011,4 +1010,40 @@
   transform: scale(1.03);
   filter: brightness(0.9);
   cursor: pointer;
+}
+
+/* Estilos para o indicador de swipe */
+
+
+.swipe-indicator p {
+    color: #FF702E;
+    font-size: 14px;
+    font-weight: bold;
+    /* margin-top: 2vw; */
+    text-align: center;
+}
+
+/* Adicione isso ao seu CSS */
+.swipe-indicator {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeInOut 3s infinite;
+    z-index: 10;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
+.cardsInfo {
+    position: relative;
+    margin-bottom: 1vw;
 }

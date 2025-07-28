@@ -30,6 +30,19 @@ const Curiosidades = () => {
         });
     };
 
+     const [showSwipeText, setShowSwipeText] = useState(true);
+    const swiperRef = useRef(null);
+
+    // Adicione este useEffect para detectar o primeiro deslize
+    React.useEffect(() => {
+        if (swiperRef.current) {
+            const swiperInstance = swiperRef.current.swiper;
+            swiperInstance.on('slideChange', () => {
+                setShowSwipeText(false); // Esconde o texto após o primeiro deslize
+            });
+        }
+    }, []);
+
     const cardsEvolucao = [
         {
             titulo: 'Um brinquedo das elites',
@@ -149,6 +162,11 @@ const Curiosidades = () => {
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
+                            {showSwipeText && (
+                            <div className='swipe-indicator'>
+                                <p>Deslize para os lados</p>
+                            </div>
+                        )}
                         </div>
 
                              
