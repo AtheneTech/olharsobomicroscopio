@@ -14,6 +14,7 @@ export const sectionSchema = z.object({
 export const exhibitionSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   edition: z.string().min(1, "Edição é obrigatória"),
+  description: z.string().optional(),
   sections: z.array(
     z.object({
       name: z.string().min(1, "O nome da seção não pode estar vazio."),
@@ -27,21 +28,35 @@ export const imageSchema = z.object({
   source: z.string().optional(),
   authorId: z.string().cuid("ID de autor inválido"),
   sectionId: z.string().cuid("ID de seção inválido"),
-  song: z.string().url("URL do Spotify inválida"),
+  song: z.string().url("URL do Spotify inválida").optional(),
   predominance: z.object({
-    source: z.string().min(1, "A fonte da informação é obrigatória."),
-    data: z.array(
-      z.object({
-        state: z.string().min(1, "O nome do estado é obrigatório."),
-        description: z.string().min(1, "A descrição da predominância é obrigatória."),
-      })
-    ),
-  }),
+    regioes: z.string().optional(),
+    populacao: z.string().optional(),
+    caracteristicas: z.string().optional(),
+    status: z.string().optional(),
+  }).optional(),
+  additionalInfo: z.object({
+    resolucao: z.string().optional(),
+    ampliacao: z.string().optional(),
+    processamento: z.string().optional(),
+    exposicao: z.string().optional(),
+    software: z.string().optional(),
+    formatos: z.string().optional(),
+  }).optional(),
 });
 
 export const authorSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
   location: z.string().min(1, "Localização é obrigatória"),
   bio: z.string().optional(),
-  links: z.array(z.string().url("Link inválido")).optional(),
+
+  links: z.preprocess(
+    (val) => {
+      if (typeof val === 'string' && val.trim() !== '') {
+        return val.split('\n').filter(link => link.trim() !== '');
+      }
+      return [];
+    },
+    z.array(z.string().url("Um dos links é inválido")).optional()
+  ),
 });

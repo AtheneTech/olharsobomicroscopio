@@ -14,6 +14,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 const EditAuthorPage = () => {
   const [formData, setFormData] = useState({ name: '', location: '', bio: '', links: '' });
+  const [photoFile, setPhotoFile] = useState(null);
+  const [currentPhotoUrl, setCurrentPhotoUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const { id } = useParams();
@@ -24,8 +26,9 @@ const EditAuthorPage = () => {
     const fetchAuthor = async () => {
       try {
         const response = await api.get(`/api/authors/${id}`);
-        const { name, location, bio, links } = response.data;
+        const { name, location, bio, links, photoUrl } = response.data;
         setFormData({ name, location, bio, links: (links || []).join('\n') });
+        setCurrentPhotoUrl(photoUrl);
       } catch (error) {
         toast({ title: 'Erro ao buscar dados do autor', variant: 'destructive' });
         navigate('/admin/autores');
@@ -37,14 +40,26 @@ const EditAuthorPage = () => {
   }, [id, navigate, toast]);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFileChange = (e) => setPhotoFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const linksArray = formData.links.split('\n').filter(link => link.trim() !== '');
+    const uploadData = new FormData();
+    uploadData.append('name', formData.name);
+    uploadData.append('location', formData.location);
+    uploadData.append('bio', formData.bio);
+    uploadData.append('links', formData.links);
+
+    if (photoFile) {
+      uploadData.append('photo', photoFile);
+    }
+
     try {
-      await api.put(`/api/authors/${id}`, { ...formData, links: linksArray });
-      toast({ title: 'Autor atualizado com sucesso! ✅' });
+      await api.put(`/api/authors/${id}`, uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      toast({ title: 'Autor atualizado com sucesso!' });
       navigate('/admin/autores');
     } catch (error) {
       toast({ title: error.response?.data?.error || 'Erro ao atualizar autor', variant: 'destructive' });
@@ -64,22 +79,14 @@ const EditAuthorPage = () => {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Nome</Label>
-                <Input id="name" name="name" value={formData.name} onChange={handleChange} className="bg-[#444444] border-none" />
+              <div className="flex items-center gap-4">
+                <img src={currentPhotoUrl || 'https://via.placeholder.com/80'} alt="Foto atual" className="h-20 w-20 rounded-full object-cover" />
+                <div className="grid gap-2 w-full"><Label htmlFor="photo">Alterar Foto</Label><Input id="photo" type="file" onChange={handleFileChange} className="bg-[#444444] file:text-white" /></div>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="location">Localização</Label>
-                <Input id="location" name="location" value={formData.location} onChange={handleChange} className="bg-[#444444] border-none" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="bio">Biografia</Label>
-                <Textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} className="bg-[#444444] border-none" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="links">Links (um por linha)</Label>
-                <Textarea id="links" name="links" value={formData.links} onChange={handleChange} className="bg-[#444444] border-none" />
-              </div>
+              <div className="grid gap-2"><Label htmlFor="name">Nome</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} className="bg-[#444444] border-none" /></div>
+              <div className="grid gap-2"><Label htmlFor="location">Localização</Label><Input id="location" name="location" value={formData.location} onChange={handleChange} className="bg-[#444444] border-none" /></div>
+              <div className="grid gap-2"><Label htmlFor="bio">Biografia</Label><Textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} className="bg-[#444444] border-none" /></div>
+              <div className="grid gap-2"><Label htmlFor="links">Links (um por linha)</Label><Textarea id="links" name="links" value={formData.links} onChange={handleChange} className="bg-[#444444] border-none" /></div>
               <Button type="submit" className="bg-green-600 hover:bg-green-700 w-fit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Atualizar Autor

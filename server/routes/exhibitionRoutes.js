@@ -6,6 +6,7 @@ import {
   handleDelete,
   handleDuplicate,
   handleGetAll,
+  handleGetLatest,
   handleGetById
 } from "../controllers/exhibitionController.js";
 import validate from "../middlewares/validateMiddleware.js";
@@ -13,6 +14,9 @@ import auth from "../middlewares/authMiddleware.js";
 import { exhibitionSchema } from "../utils/zodSchemas.js";
 
 const router = express.Router();
+
+router.get("/public", handleGetAll);
+router.get("/latest", handleGetLatest);
 
 router.use(auth);
 

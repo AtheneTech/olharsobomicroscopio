@@ -18,12 +18,13 @@ model User {
 }
 
 model Exhibition {
-  id        String    @id @default(cuid())
-  title     String
-  edition   String    @unique
-  sections  Section[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  title       String
+  edition     String    @unique
+  description String?
+  sections    Section[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Section {
@@ -37,26 +38,29 @@ model Section {
 }
 
 model Image {
-  id           String   @id @default(cuid())
-  name         String
-  description  String
-  source       String
-  url          String
-  section      Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  sectionId    String
-  author       Author   @relation(fields: [authorId], references: [id])
-  authorId     String
-  song         String
-  predominance Json
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String    @id @default(cuid())
+  name           String
+  description    String
+  source         String
+  url            String
+  sections       Section[]
+  author         Author    @relation(fields: [authorId], references: [id])
+  authorId       String
+  song           String
+  predominance   Json
+  additionalInfo Json?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Author {
-  id       String   @id @default(cuid())
-  name     String
-  location String
-  bio      String
-  links    String[]
-  images   Image[]
+  id        String   @id @default(cuid())
+  name      String
+  location  String
+  bio       String?
+  links     String[]
+  photoUrl  String?
+  images    Image[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

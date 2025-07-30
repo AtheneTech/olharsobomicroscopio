@@ -6,7 +6,7 @@ export async function getAllImages() {
     orderBy: { createdAt: 'desc' },
     include: {
       author: { select: { name: true } },
-      section: {
+      sections: {
         include: {
           exhibition: {
             select: {
@@ -21,15 +21,25 @@ export async function getAllImages() {
 }
 
 export async function getImageById(id) {
-  const image = await prisma.image.findUnique({ where: { id } });
+  const image = await prisma.image.findUnique({ 
+    where: { id },
+    include: { sections: true }
+  });
   if (!image) throw new Error("Imagem não encontrada.");
   return image;
 }
 
 export async function updateImage(id, data) {
+  const { sectionIds, ...otherData } = data;
+
   return prisma.image.update({
     where: { id },
-    data,
+    data: {
+      ...otherData,
+      sections: {
+        set: sectionIds.map(id => ({ id })),
+      },
+    },
   });
 }
 

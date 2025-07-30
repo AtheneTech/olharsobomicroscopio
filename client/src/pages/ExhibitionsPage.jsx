@@ -47,7 +47,7 @@ const ExhibitionsPage = () => {
   const handleDelete = async () => {
     try {
       await api.delete(`/api/exhibitions/${selectedExhibition.id}`);
-      toast({ title: 'Exposição deletada com sucesso! ✅' });
+      toast({ title: 'Exposição deletada com sucesso' });
       fetchExhibitions();
     } catch (error) {
       toast({ title: 'Erro ao deletar exposição', variant: 'destructive' });
@@ -60,12 +60,17 @@ const ExhibitionsPage = () => {
     e.preventDefault();
     try {
       await api.post(`/api/exhibitions/${selectedExhibition.id}/duplicate`, duplicateData);
-      toast({ title: 'Exposição duplicada com sucesso! ✅' });
+      toast({ title: 'Exposição duplicada com sucesso' });
       fetchExhibitions();
-    } catch (error) {
-      toast({ title: error.response?.data?.error || 'Erro ao duplicar', variant: 'destructive' });
-    } finally {
       setIsDialogOpen({ ...isDialogOpen, duplicate: false });
+    } catch (error) {
+      const description = error.response?.data?.error || 'Não foi possível duplicar. Verifique os dados e tente novamente.';
+      
+      toast({ 
+        title: 'Erro ao Duplicar',
+        description: description,
+        variant: 'destructive' 
+      });
     }
   };
 
@@ -87,7 +92,7 @@ const ExhibitionsPage = () => {
             <TableRow className="border-gray-600 hover:bg-transparent">
               <TableHead className="text-white">Edição (Ano)</TableHead>
               <TableHead className="text-white">Título</TableHead>
-              <TableHead className="text-white">Ações</TableHead>
+              <TableHead className="text-white text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -95,10 +100,10 @@ const ExhibitionsPage = () => {
               <TableRow key={exhibition.id} className="border-gray-600 hover:bg-transparent">
                 <TableCell>{exhibition.edition}</TableCell>
                 <TableCell>{exhibition.title}</TableCell>
-                <TableCell className="space-x-2">
+                <TableCell className="text-right space-x-2">
                   <Button className="bg-blue-600 hover:bg-blue-700" size="sm" onClick={() => navigate(`/admin/exposicoes/editar/${exhibition.id}`)}>Editar</Button>
                   <Button className="bg-purple-600 hover:bg-purple-700" size="sm" onClick={() => openDuplicateDialog(exhibition)}>Duplicar</Button>
-                  <Button className="bg-red-600 hover:bg-red-700" size="sm" onClick={() => openDeleteDialog(exhibition)}>Deletar</Button>
+                  <Button variant="destructive" size="sm" onClick={() => openDeleteDialog(exhibition)}>Deletar</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -109,7 +114,7 @@ const ExhibitionsPage = () => {
       <Dialog open={isDialogOpen.delete} onOpenChange={(open) => setIsDialogOpen({...isDialogOpen, delete: open})}>
         <DialogContent className="bg-[#444444] text-white border-gray-700">
           <DialogHeader><DialogTitle>Confirmar Exclusão</DialogTitle></DialogHeader>
-          <DialogDescription className="text-white">
+          <DialogDescription className="text-gray-300">
             Você tem certeza que deseja deletar a exposição <strong>"{selectedExhibition?.title}"</strong>? Esta ação não pode ser desfeita.
           </DialogDescription>
           <DialogFooter>
@@ -126,17 +131,17 @@ const ExhibitionsPage = () => {
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">Novo Título</Label>
-                <Input required id="title" value={duplicateData.title} onChange={(e) => setDuplicateData({ ...duplicateData, title: e.target.value })} className="col-span-3 bg-[#606060] border-none" />
+                <Input id="title" value={duplicateData.title} onChange={(e) => setDuplicateData({ ...duplicateData, title: e.target.value })} className="col-span-3 bg-[#606060] border-none" />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="edition" className="text-right">Nova Edição</Label>
-                <Input required type="number" id="edition" placeholder="ex: 2028" value={duplicateData.edition} onChange={(e) => setDuplicateData({ ...duplicateData, edition: e.target.value })} className="col-span-3 bg-[#606060] border-none placeholder:text-gray-300" />
+                <Input id="edition" placeholder="ex: 2028" value={duplicateData.edition} onChange={(e) => setDuplicateData({ ...duplicateData, edition: e.target.value })} className="col-span-3 bg-[#606060] border-none placeholder:text-gray-400" />
               </div>
             </div>
           </form>
           <DialogFooter>
             <Button variant="ghost" onClick={() => setIsDialogOpen({...isDialogOpen, duplicate: false})}>Cancelar</Button>
-            <Button type="submit" form="duplicate-form" className="bg-green-600 hover:bg-green-700">Duplicar</Button>
+            <Button type="submit" form="duplicate-form" className="bg-purple-600 hover:bg-purple-700">Duplicar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

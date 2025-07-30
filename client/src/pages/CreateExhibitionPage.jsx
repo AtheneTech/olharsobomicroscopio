@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Plus, Trash2 } from 'lucide-react';
 
 const CreateExhibitionPage = () => {
   const [title, setTitle] = useState('');
   const [edition, setEdition] = useState('');
-  const [sections, setSections] = useState([{ name: '' }]);
+  const [description, setDescription] = useState('');
+  const [sections, setSections] = useState([{ name: 'Home' }, { name: 'Galeria' }]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -28,6 +30,7 @@ const CreateExhibitionPage = () => {
   };
 
   const removeSection = (index) => {
+    if (index < 2) return;
     const newSections = sections.filter((_, i) => i !== index);
     setSections(newSections);
   };
@@ -37,7 +40,7 @@ const CreateExhibitionPage = () => {
     setIsLoading(true);
     try {
       const sectionsToSubmit = sections.filter(s => s.name.trim() !== '');
-      await api.post('/api/exhibitions', { title, edition, sections: sectionsToSubmit });
+      await api.post('/api/exhibitions', { title, edition, description, sections: sectionsToSubmit });
       toast({ title: 'Exposição criada com sucesso!' });
       navigate('/admin/exposicoes');
     } catch (error) {
@@ -54,15 +57,9 @@ const CreateExhibitionPage = () => {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit}>
             <div className="grid gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="title">Título</Label>
-                <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-[#444444] border-none" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="edition">Edição (Ano)</Label>
-                <Input id="edition" value={edition} onChange={(e) => setEdition(e.target.value)} className="bg-[#444444] border-none" />
-              </div>
-
+              <div className="grid gap-2"><Label htmlFor="title">Título</Label><Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-[#444444] border-none" /></div>
+              <div className="grid gap-2"><Label htmlFor="edition">Edição (Ano)</Label><Input id="edition" value={edition} onChange={(e) => setEdition(e.target.value)} className="bg-[#444444] border-none" /></div>
+              <div className="grid gap-2"><Label htmlFor="description">Descrição</Label><Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="bg-[#444444] border-none" /></div>
               <div>
                 <Label>Seções</Label>
                 <div className="space-y-2 mt-2">
@@ -72,9 +69,10 @@ const CreateExhibitionPage = () => {
                         placeholder={`Nome da Seção ${index + 1}`}
                         value={section.name}
                         onChange={(e) => handleSectionChange(index, e)}
-                        className="bg-[#444444] border-none placeholder:text-gray-400"
+                        className="bg-[#444444] border-none"
+                        disabled={index < 2}
                       />
-                      {sections.length > 1 && (
+                      {index >= 2 && (
                         <Button type="button" variant="destructive" size="icon" onClick={() => removeSection(index)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -82,15 +80,9 @@ const CreateExhibitionPage = () => {
                     </div>
                   ))}
                 </div>
-                <Button type="button" size="sm" onClick={addSection} className="mt-2 bg-blue-600 hover:bg-blue-700">
-                  <Plus className="mr-2 h-4 w-4" /> Adicionar Seção
-                </Button>
+                <Button type="button" variant="outline" size="sm" onClick={addSection} className="mt-2 bg-blue-600 hover:bg-blue-700 border-none"><Plus className="mr-2 h-4 w-4" /> Adicionar Seção</Button>
               </div>
-              
-              <Button type="submit" className="bg-green-600 hover:bg-green-700 w-fit" disabled={isLoading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Salvar Exposição
-              </Button>
+              <Button type="submit" className="bg-green-600 hover:bg-green-700 w-fit" disabled={isLoading}>{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Salvar Exposição</Button>
             </div>
           </form>
         </CardContent>

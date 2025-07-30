@@ -17,10 +17,15 @@ export async function getAuthorById(id) {
 }
 
 export async function updateAuthor(id, data) {
-  return prisma.author.update({
+  const existingAuthor = await prisma.author.findUnique({ where: { id } });
+  if (!existingAuthor) throw new Error("Autor não encontrado para atualizar.");
+
+  const updatedAuthor = await prisma.author.update({
     where: { id },
     data,
   });
+
+  return { updatedAuthor, oldPhotoUrl: existingAuthor.photoUrl };
 }
 
 export async function deleteAuthor(id) {

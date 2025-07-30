@@ -19,7 +19,6 @@ const AuthorsPage = () => {
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
-  
   const [selectedImage, setSelectedImage] = useState(null);
   const [isDeleteImageDialogOpen, setIsDeleteImageDialogOpen] = useState(false);
 
@@ -101,6 +100,7 @@ const AuthorsPage = () => {
         <Table>
           <TableHeader>
             <TableRow className="border-gray-600 hover:bg-transparent">
+              <TableHead className="text-white w-[80px]">Foto</TableHead>
               <TableHead className="text-white">Nome</TableHead>
               <TableHead className="text-white">Localização</TableHead>
               <TableHead className="text-white text-right">Ações</TableHead>
@@ -109,18 +109,15 @@ const AuthorsPage = () => {
           <TableBody>
             {authors.map((author) => (
               <TableRow key={author.id} className="border-gray-600 hover:bg-transparent">
+                <TableCell>
+                  <img src={author.photoUrl || 'https://via.placeholder.com/40'} alt={author.name} className="h-10 w-10 rounded-full object-cover" />
+                </TableCell>
                 <TableCell>{author.name}</TableCell>
                 <TableCell>{author.location}</TableCell>
                 <TableCell className="text-right space-x-2">
-                  <Button size="sm" onClick={() => navigate(`/admin/autores/editar/${author.id}`)} className="bg-blue-600 hover:bg-blue-700">
-                    Editar
-                  </Button>
-                  <Button size="sm" onClick={() => openImagesDialog(author)} className="bg-green-600 hover:bg-green-700">
-                    Ver Imagens
-                  </Button>
-                  <Button variant="destructive" size="sm" onClick={() => openDeleteDialog(author)}>
-                    Deletar
-                  </Button>
+                  <Button size="sm" onClick={() => navigate(`/admin/autores/editar/${author.id}`)} className="bg-blue-600 hover:bg-blue-700">Editar</Button>
+                  <Button size="sm" onClick={() => openImagesDialog(author)} className="bg-green-600 hover:bg-green-700">Ver Imagens</Button>
+                  <Button variant="destructive" size="sm" onClick={() => openDeleteDialog(author)}>Deletar</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -154,16 +151,10 @@ const AuthorsPage = () => {
                     <div key={image.id} className="relative group">
                       <img src={image.url} alt={image.name} className="rounded-md object-cover w-full h-40" />
                       <div className="absolute top-1 right-1 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button size="icon" className="h-7 w-7 bg-blue-600 hover:bg-blue-700" onClick={() => navigate(`/admin/imagens/editar/${image.id}`)}>
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="destructive" size="icon" className="h-7 w-7" onClick={() => openDeleteImageDialog(image)}>
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <Button size="icon" className="h-7 w-7 bg-blue-600 hover:bg-blue-700" onClick={() => navigate(`/admin/imagens/editar/${image.id}`)}><Edit className="h-4 w-4" /></Button>
+                        <Button variant="destructive" size="icon" className="h-7 w-7" onClick={() => openDeleteImageDialog(image)}><Trash2 className="h-4 w-4" /></Button>
                       </div>
-                      <div className="absolute bottom-0 bg-black/60 text-white w-full p-2 text-sm truncate">
-                        {image.name}
-                      </div>
+                      <div className="absolute bottom-0 bg-black/60 text-white w-full p-2 text-sm truncate">{image.name}</div>
                     </div>
                   ))
                 ) : (
@@ -173,7 +164,7 @@ const AuthorsPage = () => {
             )}
           </div>
           <DialogFooter>
-            <Button variant="destructive" onClick={() => setIsImagesDialogOpen(false)}>Fechar</Button>
+            <Button variant="outline" onClick={() => setIsImagesDialogOpen(false)}>Fechar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

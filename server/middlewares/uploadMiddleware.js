@@ -16,4 +16,4 @@ const upload = multer({
   },
 });
 
-export default upload.single("image");
+export default upload;

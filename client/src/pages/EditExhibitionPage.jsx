@@ -8,19 +8,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Plus, Trash2, Edit } from 'lucide-react';
 
 const EditExhibitionPage = () => {
   const [title, setTitle] = useState('');
   const [edition, setEdition] = useState('');
+  const [description, setDescription] = useState('');
   const [sections, setSections] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
-  
   const [selectedImage, setSelectedImage] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -30,6 +30,7 @@ const EditExhibitionPage = () => {
       const response = await api.get(`/api/exhibitions/${id}`);
       setTitle(response.data.title);
       setEdition(response.data.edition);
+      setDescription(response.data.description || '');
       setSections(response.data.sections || []); 
     } catch (error) {
       toast({ title: 'Erro ao buscar dados', variant: 'destructive' });
@@ -39,9 +40,7 @@ const EditExhibitionPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchExhibition();
-  }, [id, navigate, toast]);
+  useEffect(() => { fetchExhibition(); }, [id, navigate, toast]);
 
   const handleSectionChange = (index, event) => {
     const newSections = [...sections];
@@ -63,7 +62,7 @@ const EditExhibitionPage = () => {
     setIsLoading(true);
     try {
       const sectionsToSubmit = sections.filter(s => s.name.trim() !== '');
-      await api.put(`/api/exhibitions/${id}`, { title, edition, sections: sectionsToSubmit });
+      await api.put(`/api/exhibitions/${id}`, { title, edition, description, sections: sectionsToSubmit });
       toast({ title: 'Exposição atualizada com sucesso!' });
       navigate('/admin/exposicoes');
     } catch (error) {
@@ -82,7 +81,7 @@ const EditExhibitionPage = () => {
     try {
       await api.delete(`/api/images/${selectedImage.id}`);
       toast({ title: 'Imagem deletada com sucesso' });
-      fetchExhibition(); // Recarrega todos os dados da exposição
+      fetchExhibition();
     } catch (error) {
       toast({ title: 'Erro ao deletar imagem', variant: 'destructive' });
     } finally {
@@ -104,17 +103,18 @@ const EditExhibitionPage = () => {
               <div className="grid gap-6">
                 <div className="grid gap-2"><Label htmlFor="title">Título</Label><Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-[#444444] border-none" /></div>
                 <div className="grid gap-2"><Label htmlFor="edition">Edição (Ano)</Label><Input id="edition" value={edition} onChange={(e) => setEdition(e.target.value)} className="bg-[#444444] border-none" /></div>
+                <div className="grid gap-2"><Label htmlFor="description">Descrição</Label><Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="bg-[#444444] border-none" /></div>
                 <div>
                   <Label>Seções</Label>
                   <div className="space-y-2 mt-2">
                     {sections.map((section, index) => (
                       <div key={section.id || `new-${index}`} className="flex items-center gap-2">
-                        <Input placeholder={`Nome da Seção ${index + 1}`} value={section.name} onChange={(e) => handleSectionChange(index, e)} className="bg-[#444444] border-none placeholder:text-gray-400" />
+                        <Input placeholder={`Nome da Seção ${index + 1}`} value={section.name} onChange={(e) => handleSectionChange(index, e)} className="bg-[#444444] border-none" />
                         <Button type="button" variant="destructive" size="icon" onClick={() => removeSection(index)}><Trash2 className="h-4 w-4" /></Button>
                       </div>
                     ))}
                   </div>
-                  <Button type="button" size="sm" onClick={addSection} className="mt-2 bg-blue-600 hover:bg-blue-700"><Plus className="mr-2 h-4 w-4" /> Adicionar Seção</Button>
+                  <Button type="button" variant="outline" size="sm" onClick={addSection} className="mt-2 bg-blue-600 hover:bg-blue-700 border-none"><Plus className="mr-2 h-4 w-4" /> Adicionar Seção</Button>
                 </div>
                 <Button type="submit" className="bg-green-600 hover:bg-green-700 w-fit" disabled={isLoading}>{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Atualizar Exposição</Button>
               </div>
@@ -132,7 +132,7 @@ const EditExhibitionPage = () => {
         </div>
         <Card className="bg-[#373737] border-gray-700 text-white">
           <CardContent className="pt-6 space-y-6">
-            {sections.map(section => (
+            {sections.length > 0 ? sections.map(section => (
               section.images && section.images.length > 0 && (
                 <div key={section.id}>
                   <h3 className="text-lg font-semibold border-b border-gray-600 pb-2 mb-4">{section.name}</h3>
@@ -140,7 +140,6 @@ const EditExhibitionPage = () => {
                     {section.images.map(image => (
                       <div key={image.id} className="relative group">
                         <img src={image.url} alt={image.name} className="rounded-md object-cover w-full h-32" />
-                        {/* ✅ ATUALIZAÇÃO: Adicionado botão de editar */}
                         <div className="absolute top-1 right-1 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button 
                             size="icon" 
@@ -164,7 +163,7 @@ const EditExhibitionPage = () => {
                   </div>
                 </div>
               )
-            ))}
+            )) : <p className="text-gray-400 text-center">Ainda não há seções nesta exposição.</p>}
           </CardContent>
         </Card>
       </div>

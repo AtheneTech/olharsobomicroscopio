@@ -5,17 +5,13 @@ import {
   deleteExhibition,
   duplicateExhibition,
   getAllExhibitions,
-  getExhibitionById
+  getExhibitionById,
+  getLatestExhibition,
 } from "../services/exhibitionService.js";
 import { exhibitionSchema } from "../utils/zodSchemas.js";
 
 export async function handleCreate(req, res) {
   try {
-    const parsed = exhibitionSchema.safeParse(req.body);
-    if (!parsed.success) {
-      return res.status(400).json({ error: "Dados inválidos", details: parsed.error.format() });
-    }
-
     const data = await createExhibition(req.body);
     res.status(201).json(data);
   } catch (err) {
@@ -81,7 +77,22 @@ export async function handleDelete(req, res) {
 }
 
 export async function handleDuplicate(req, res) {
-  const { id } = req.params;
-  const duplicated = await duplicateExhibition(id, req.body);
-  res.status(201).json(duplicated);
+  try {
+    const { id } = req.params;
+    const duplicated = await duplicateExhibition(id, req.body);
+    res.status(201).json(duplicated);
+  } catch (err) {
+    console.error("Erro ao duplicar exposição:", err.message);
+    res.status(409).json({ error: err.message });
+  }
+}
+
+export async function handleGetLatest(req, res) {
+  try {
+
+    const latestExhibition = await getLatestExhibition();
+    res.json(latestExhibition);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
 }

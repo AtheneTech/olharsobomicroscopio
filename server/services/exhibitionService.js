@@ -1,7 +1,7 @@
 import { prisma } from "../prisma/client.js";
 
 export async function createExhibition(data) {
-  const { title, edition, sections } = data;
+  const { title, edition, description, sections } = data;
 
   const existing = await prisma.exhibition.findUnique({
     where: { edition },
@@ -14,8 +14,9 @@ export async function createExhibition(data) {
     data: {
       title,
       edition,
+      description,
       sections: {
-        create: sections,
+        create: sections || [],
       },
     },
   });
@@ -77,7 +78,7 @@ export async function getExhibitionByEdition(edition) {
 }
 
 export async function updateExhibition(id, data) {
-  const { title, edition, sections } = data;
+  const { title, edition, description, sections } = data;
 
   const existingExhibition = await prisma.exhibition.findUnique({
     where: { id },
@@ -93,6 +94,7 @@ export async function updateExhibition(id, data) {
     data: {
       title,
       edition,
+      description,
       sections: {
         deleteMany: {
           id: { in: sectionIdsToDelete },
@@ -144,6 +146,7 @@ export async function duplicateExhibition(originalId, newData) {
     data: {
       title,
       edition,
+      description: original.description,
       sections: {
         create: original.sections.map((section) => ({
           name: section.name,
@@ -171,4 +174,18 @@ export async function duplicateExhibition(originalId, newData) {
       },
     },
   });
+}
+
+export async function getLatestExhibition() {
+  const latest = await prisma.exhibition.findFirst({
+    orderBy: {
+      edition: 'desc',
+    },
+  });
+
+  if (!latest) {
+    throw new Error("Nenhuma exposição encontrada.");
+  }
+
+  return latest;
 }

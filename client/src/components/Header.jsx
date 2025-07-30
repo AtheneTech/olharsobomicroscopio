@@ -1,49 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link, useParams } from 'react-router-dom';
+import api from '../services/api';
 import "../styles/Header.css";
 
 export default function Header() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedYear, setSelectedYear] = useState("2025");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [availableYears, setAvailableYears] = useState([]);
   const dropdownRef = useRef(null);
   const lastScrollY = useRef(0);
   const [isVisible, setIsVisible] = useState(true);
+  const { ano } = useParams();
 
   const navItems = [
     { label: "Exposição", href: "#galeria" },
-    { label: "Faça Parte", href: "#faça-parte" },
     { label: "Curiosidades", href: "#curiosidades" },
+    { label: "Faça Parte", href: "#faça-parte" },
   ];
 
-  const years = ["2024", "2025"];
+  useEffect(() => {
+    const fetchExhibitionYears = async () => {
+      try {
+        const response = await api.get('/api/exhibitions/public');
+        const years = response.data.map(ex => ex.edition).sort((a, b) => b - a);
+        setAvailableYears(years);
+      } catch (error) {
+        console.error("Erro ao buscar anos das exposições:", error);
+        setAvailableYears(["2025"]);
+      }
+    };
+    fetchExhibitionYears();
+  }, []);
 
   useEffect(() => {
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-
-    if (path.includes("/curiosidades")) {
-      setActiveIndex(3);
-    } else if (hash === "#galeria") {
-      setActiveIndex(1);
-    } else if (hash === "#faça-parte") {
-      setActiveIndex(2);
-    } else {
-      setActiveIndex(0);
+    if (ano && availableYears.includes(ano)) {
+      setSelectedYear(ano);
+    } else if (availableYears.length > 0) {
+      setSelectedYear(availableYears[0]);
     }
+  }, [ano, availableYears]);
 
-    const match = path.match(/pagina-(\d{4})/);
-    if (match && match[1] && years.includes(match[1])) {
-      setSelectedYear(match[1]);
-    } else {
-      setSelectedYear("2025");
-    }
 
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -51,82 +55,71 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-
       lastScrollY.current = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSmoothScroll = (e, href, index) => {
+    e.preventDefault();
+    setActiveIndex(index + 1);
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <header className={`fixed-header ${isVisible ? "visible" : "hidden"}`}>
       <nav className="nav-container">
         <div className="logo">
-          <a href="/pagina-2025">
+          <Link to={"/"}>
             <img src="/icons/logo.png" alt="Logo" />
-          </a>
+          </Link>
         </div>
 
         <ul className="nav-list">
           {navItems.map((item, index) => (
-            <li
-              key={index}
-              className={index + 1 === activeIndex ? "active" : ""}
-              onClick={() => {
-                setActiveIndex(index + 1);
-                const isHome = window.location.pathname.includes("pagina");
-
-                if (item.href.startsWith("#")) {
-                  const fullHref = `/pagina-2025${item.href}`;
-                  if (isHome) {
-                    window.location.hash = item.href;
-                  } else {
-                    window.location.href = fullHref;
-                  }
-                } else {
-                  window.location.href = item.href;
-                }
-              }}
-            >
-              <a href={item.href}>{item.label}</a>
+            <li key={index} className={index + 1 === activeIndex ? "active" : ""}>
+              <Link to={item.href} onClick={(e) => handleSmoothScroll(e, item.href, index)}>
+                {item.label}
+              </Link>
             </li>
           ))}
 
           <li ref={dropdownRef} className="dropdown-li">
-            <a
-              href="#"
+            <Link
+              to={"#"}
               className={`dropdown-toggle ${dropdownOpen ? "active" : ""}`}
               onClick={(e) => {
                 e.preventDefault();
                 setDropdownOpen(!dropdownOpen);
               }}
             >
-              {selectedYear} <span className="arrow">{dropdownOpen ? "✖" : ""}</span>
-            </a>
+              {selectedYear}{" "}
+              <span className="arrow">{dropdownOpen ? "▲" : "▼"}</span>
+            </Link>
 
             {dropdownOpen && (
               <ul className="dropdown-menu">
-                {years.map((year) => (
+                {availableYears.map((year) => (
                   <li key={year}>
-                    <a
-                      href={`/pagina-${year}`}
+                    <Link
+                      to={`/exposicao/${year}`}
                       className={year === selectedYear ? "active" : ""}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setSelectedYear(year);
+                      onClick={() => {
                         setDropdownOpen(false);
-                        window.location.href = `/pagina-${year}`;
                       }}
                     >
                       {year}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

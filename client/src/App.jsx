@@ -7,13 +7,11 @@ import ErrorPage from './pages/ErrorPage';
 import ColaboradorForm from "./components/ColaboradorForm"; 
 import VisitForm from "./components/VisitForm"; 
 import Curiosidades from "./components/Curiosidades";
-import PhotosGallery from "./components/PhotosGallery";
+import HomeRedirectPage from './pages/HomeRedirectPage';
 
 import ProtectedRoute from './components/ProtectedRoute';
-
 import ExpositionPage from './pages/Exposition';
-
-import RegisterPage from './pages/RegisterPage'; 
+import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import UsersPage from './pages/UsersPage';
 import ExhibitionsPage from './pages/ExhibitionsPage';
@@ -30,12 +28,17 @@ import EditImagePage from './pages/EditImagePage';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomeLayout />}>
+      <Route path="/" element={<HomeRedirectPage />} />
+
+      <Route path="/exposicao/:ano" element={<HomeLayout />}>
         <Route index element={<ExpositionPage />} />
       </Route>
 
-      <Route path="/admin/login" element={<LoginPage />} />
+      <Route path="/colaborador" element={<ColaboradorForm />} />
+      <Route path="/visitante" element={<VisitForm />} />
+      <Route path="/curiosidades" element={<Curiosidades />} />
 
+      <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/admin/register" element={<RegisterPage />} />
 
       <Route

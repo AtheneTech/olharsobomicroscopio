@@ -14,18 +14,32 @@ import { Textarea } from '@/components/ui/textarea';
 
 const CreateAuthorPage = () => {
   const [formData, setFormData] = useState({ name: '', location: '', bio: '', links: '' });
+  const [photoFile, setPhotoFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFileChange = (e) => setPhotoFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const linksArray = formData.links.split('\n').filter(link => link.trim() !== '');
+
+    const uploadData = new FormData();
+    uploadData.append('name', formData.name);
+    uploadData.append('location', formData.location);
+    uploadData.append('bio', formData.bio);
+    uploadData.append('links', formData.links);
+    
+    if (photoFile) {
+      uploadData.append('photo', photoFile);
+    }
+
     try {
-      await api.post('/api/authors', { ...formData, links: linksArray });
+      await api.post('/api/authors', uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       toast({ title: 'Autor criado com sucesso!' });
       navigate('/admin/autores');
     } catch (error) {
@@ -42,6 +56,7 @@ const CreateAuthorPage = () => {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4">
+              <div className="grid gap-2"><Label htmlFor="photo">Foto do Autor</Label><Input id="photo" type="file" onChange={handleFileChange} className="bg-[#444444] file:text-white" /></div>
               <div className="grid gap-2"><Label htmlFor="name">Nome</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} className="bg-[#444444] border-none" /></div>
               <div className="grid gap-2"><Label htmlFor="location">Localização</Label><Input id="location" name="location" value={formData.location} onChange={handleChange} className="bg-[#444444] border-none" /></div>
               <div className="grid gap-2"><Label htmlFor="bio">Biografia</Label><Textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} className="bg-[#444444] border-none" /></div>
