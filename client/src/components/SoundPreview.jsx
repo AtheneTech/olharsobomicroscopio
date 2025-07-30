@@ -1,62 +1,46 @@
-import React, { useEffect, useState } from "react";
-
-const clientId = "e0e7bfbaa0c147d78d81ecbc397af178";
-const clientSecret = "d9c0cf45b0df4122803258b581e05cbf";
-
-async function getSpotifyToken() {
-  const credentials = btoa(`${clientId}:${clientSecret}`);
-  const res = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${credentials}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "grant_type=client_credentials",
-  });
-  const data = await res.json();
-  return data.access_token;
-}
+import React, { useState, useEffect } from 'react';
+import api from '../services/api';
 
 export default function SoundPreview({ trackId }) {
   const [trackName, setTrackName] = useState(null);
   const [spotifyUrl, setSpotifyUrl] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
+    if (!trackId) {
+      setLoading(false);
+      setError("Nenhum ID de música fornecido.");
+      return;
+    }
+
+    const fetchTrackData = async () => {
+      setLoading(true);
       try {
-        const token = await getSpotifyToken();
-
-        const res = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await res.json();
-
-        setTrackName(`${data.name} - ${data.artists[0].name}`);
-        setSpotifyUrl(data.external_urls.spotify);
+        const response = await api.get(`/api/spotify/track/${trackId}`);
+        const data = response.data;
+        
+        setTrackName(`${data.name} - ${data.artist}`);
+        setSpotifyUrl(data.spotifyUrl);
       } catch (e) {
         console.error("❌ Erro ao buscar a faixa:", e);
-        setErro("Erro ao buscar a faixa.");
+        setError("Erro ao buscar a faixa.");
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchData();
+    fetchTrackData();
   }, [trackId]);
 
   if (loading) return <p>Carregando música...</p>;
-  if (erro) return <p style={{ color: "#a00" }}>{erro}</p>;
+  if (error) return <p style={{ color: "#a00" }}>{error}</p>;
 
   return (
     <div style={{ textAlign: "center" }}>
       <div className="header-sound-popup" style={{display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem'}}>
-      <div className="barra-laranja-sound" style={{width: '5px', height: '28px', backgroundColor: '#FF702E', borderRadius: '2px'}}/>
-      <p style={{ fontWeight: "bold", marginBottom: "0.5rem", fontSize: "25px", textAlign: 'left' }}>{trackName}</p>
+        <div className="barra-laranja-sound" style={{width: '5px', height: '28px', backgroundColor: '#FF702E', borderRadius: '2px'}}/>
+        <p style={{ fontWeight: "bold", marginBottom: "0.5rem", fontSize: "25px", textAlign: 'left' }}>{trackName}</p>
       </div>
 
       <iframe

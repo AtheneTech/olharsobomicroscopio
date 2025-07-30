@@ -59,3 +59,24 @@ export async function searchTracks(query) {
     url: track.external_urls.spotify,
   }));
 }
+
+export async function getTrackDetails(trackId) {
+  if (!trackId) {
+    throw new Error("Track ID is required.");
+  }
+
+  const token = await getAccessToken();
+
+  const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const track = response.data;
+  return {
+    name: track.name,
+    artist: track.artists.map((artist) => artist.name).join(", "),
+    spotifyUrl: track.external_urls.spotify,
+  };
+}

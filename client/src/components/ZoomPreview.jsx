@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 
-function ZoomPreview({ src }) {
+export default function ZoomPreview({ src }) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
-  // Reset position when zoom changes
   useEffect(() => {
     if (zoomLevel === 1) {
       setPosition({ x: 0, y: 0 });
@@ -22,7 +20,6 @@ function ZoomPreview({ src }) {
         x: e.clientX - position.x,
         y: e.clientY - position.y
       });
-      setLastPosition(position);
     }
   };
 
@@ -48,44 +45,7 @@ function ZoomPreview({ src }) {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-
-  const handleTouchStart = (e) => {
-    if (zoomLevel > 1) {
-      const touch = e.touches[0];
-      setIsDragging(true);
-      setDragStart({
-        x: touch.clientX - position.x,
-        y: touch.clientY - position.y
-      });
-      setLastPosition(position);
-    }
-  };
-
-  const handleTouchMove = (e) => {
-    if (isDragging && zoomLevel > 1) {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const container = containerRef.current;
-      if (!container) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const imageWidth = containerRect.width * zoomLevel;
-      const imageHeight = containerRect.height * zoomLevel;
-
-      const maxX = Math.max(0, (imageWidth - containerRect.width) / 2);
-      const maxY = Math.max(0, (imageHeight - containerRect.height) / 2);
-
-      const newX = Math.max(-maxX, Math.min(maxX, touch.clientX - dragStart.x));
-      const newY = Math.max(-maxY, Math.min(maxY, touch.clientY - dragStart.y));
-
-      setPosition({ x: newX, y: newY });
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
+  
   const handleWheel = (e) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
@@ -94,42 +54,16 @@ function ZoomPreview({ src }) {
   };
 
   const handleDoubleClick = (e) => {
-    const container = containerRef.current;
-    if (!container) return;
-
     if (zoomLevel === 1) {
-      // Zoom in para onde foi clicado
-      const containerRect = container.getBoundingClientRect();
-      const clickX = e.clientX - containerRect.left;
-      const clickY = e.clientY - containerRect.top;
-      
-      const centerX = containerRect.width / 2;
-      const centerY = containerRect.height / 2;
-      
-      const offsetX = (centerX - clickX) * 0.5;
-      const offsetY = (centerY - clickY) * 0.5;
-      
       setZoomLevel(2);
-      setPosition({ x: offsetX, y: offsetY });
     } else {
-      // Reset zoom
       setZoomLevel(1);
-      setPosition({ x: 0, y: 0 });
     }
   };
 
-  const zoomIn = () => {
-    setZoomLevel(prev => Math.min(3, prev + 0.2));
-  };
-
-  const zoomOut = () => {
-    setZoomLevel(prev => Math.max(1, prev - 0.2));
-  };
-
-  const resetZoom = () => {
-    setZoomLevel(1);
-    setPosition({ x: 0, y: 0 });
-  };
+  const zoomIn = () => setZoomLevel(prev => Math.min(3, prev + 0.2));
+  const zoomOut = () => setZoomLevel(prev => Math.max(1, prev - 0.2));
+  const resetZoom = () => setZoomLevel(1);
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -152,9 +86,6 @@ function ZoomPreview({ src }) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
         onWheel={handleWheel}
         onDoubleClick={handleDoubleClick}
       >
@@ -173,110 +104,28 @@ function ZoomPreview({ src }) {
           draggable={false}
         />
         
-        {/* Indicador de zoom */}
         {zoomLevel > 1 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "15px",
-              fontSize: "12px",
-              fontWeight: "bold"
-            }}
-          >
+          <div style={{ position: "absolute", top: "10px", right: "10px", backgroundColor: "rgba(0, 0, 0, 0.7)", color: "white", padding: "5px 10px", borderRadius: "15px", fontSize: "12px", fontWeight: "bold" }}>
             {Math.round(zoomLevel * 100)}%
           </div>
         )}
         
         {zoomLevel === 1 && (
-          <div
-            style={{
-              position: "absolute",
-              bottom: "10px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "15px",
-              fontSize: "11px",
-              opacity: 0.8
-            }}
-          >
+          <div style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)", backgroundColor: "rgba(0, 0, 0, 0.7)", color: "white", padding: "5px 10px", borderRadius: "15px", fontSize: "11px", opacity: 0.8 }}>
             Clique duas vezes para ampliar • Use a roda do mouse para zoom
           </div>
         )}
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-        <button
-          onClick={zoomOut}
-          disabled={zoomLevel <= 1}
-          style={{
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: zoomLevel <= 1 ? "not-allowed" : "pointer",
-            outline: "none"
-          }}
-        >
-          <img
-          src="/icons/iconzoomout.png"
-          alt="Zoom Out"
-          style={{ width: 24, height: 24 }}
-        />
+        <button onClick={zoomOut} disabled={zoomLevel <= 1} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel <= 1 ? "not-allowed" : "pointer", outline: "none" }}>
+          <img src="/icons/iconzoomout.png" alt="Zoom Out" style={{ width: 24, height: 24 }} />
         </button>
-        
-        <input
-          type="range"
-          min={1}
-          max={3}
-          step={0.1}
-          value={zoomLevel}
-          onChange={(e) => setZoomLevel(Number(e.target.value))}
-          style={{
-            width: "250px",
-            accentColor: "#F4783B", 
-            border: "none",          
-            outline: "none",   
-            cursor: "pointer"
-          }}
-        />
-        
-        <button
-          onClick={zoomIn}
-          disabled={zoomLevel >= 3}
-          style={{
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: zoomLevel <= 1 ? "not-allowed" : "pointer",
-            outline: "none"
-          }}
-        >
-           <img
-          src="/icons/iconzoomin.png"
-          alt="Zoom In"
-          style={{ width: 24, height: 24 }}
-        />
+        <input type="range" min={1} max={3} step={0.1} value={zoomLevel} onChange={(e) => setZoomLevel(Number(e.target.value))} style={{ width: "250px", accentColor: "#F4783B", cursor: "pointer" }} />
+        <button onClick={zoomIn} disabled={zoomLevel >= 3} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel >= 3 ? "not-allowed" : "pointer", outline: "none" }}>
+          <img src="/icons/iconzoomin.png" alt="Zoom In" style={{ width: 24, height: 24 }} />
         </button>
-        
-        <button
-          onClick={resetZoom}
-          style={{
-            marginLeft: "10px",
-            padding: "6px 12px",
-            border: "2px solid #F4783B",
-            borderRadius: "6px",
-            backgroundColor: "white",
-            color: "#F4783B",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold"
-          }}
-        >
+        <button onClick={resetZoom} style={{ marginLeft: "10px", padding: "6px 12px", border: "2px solid #F4783B", borderRadius: "6px", backgroundColor: "white", color: "#F4783B", cursor: "pointer", fontSize: "12px", fontWeight: "bold" }}>
           Reset
         </button>
       </div>
@@ -291,5 +140,3 @@ function ZoomPreview({ src }) {
     </div>
   );
 }
-
-export default ZoomPreview;

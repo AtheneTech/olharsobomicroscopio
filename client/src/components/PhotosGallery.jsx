@@ -1,369 +1,221 @@
-import React, { useState, useRef } from "react";
-import CuriosidadesSec from "./CuriosidadesSec";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+import api from "../services/api";
+
+// Componentes da página principal
 import Header from './Header';
-import Mapc from './Mapc';
 import Home from './Home';
+import Letreiro from './Letreiro';
 import Resumo from './Resumo';
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import InnerImageZoom from 'react-inner-image-zoom';
-import '../styles/PhotosGallery.css';
-import { galleriesByYear, ITEMS_PER_PAGE } from "./galleriesByYear";
+import Mapc from './Mapc';
+import Letreiro2 from "./Letreiro2";
 import Footer from './Footer';
 import Credits from './Credits';
-import Letreiro from './Letreiro';
 import Contribution from "./Contribution";
-import Letreiro2 from "./Letreiro2";
-import Letreiro3 from "./Letreiro3";
+import CuriosidadesSec from "./CuriosidadesSec";
+
+import chagasIcon from "../../public/icons/chagas.png"
+
+// ✅ CORREÇÃO: Importa os popups diretamente da pasta /components/
+import DetalhesPopup from "./Detalhespopup";
+import AutorPopup from "./AutorPopup";
+import PredominanciaPopup from "./PredominanciaPopup";
+import SoundPreview from "./SoundPreview";
+import ZoomPreview from "./ZoomPreview";
+
+// Bibliotecas e Estilos
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import '../styles/PhotosGallery.css';
+
+const ITEMS_PER_PAGE = 5;
 
 export default function PhotosGallery() {
-  const [selectedYear] = useState(2025); //antes era com ,setSelectedYear
+  const [exhibition, setExhibition] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const [activeIcon, setActiveIcon] = useState(null);
+  const [activePopup, setActivePopup] = useState(null);
   const [page, setPage] = useState(0);
-
-  const photosOptions = galleriesByYear[selectedYear] || [];
-
-  const totalPages = Math.ceil(photosOptions.length / ITEMS_PER_PAGE);
-  const startIndex = page * ITEMS_PER_PAGE;
-  const visibleThumbnails = photosOptions.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
   const scrollContainerRef = useRef(null);
+  const { ano } = useParams();
+
+  useEffect(() => {
+    const fetchExhibitionData = async () => {
+      if (!ano) return;
+      setIsLoading(true);
+      try {
+        const response = await api.get(`/${ano}`);
+        const data = response.data;
+        setExhibition(data);
+        const gallerySection = data.sections.find(s => s.name.toLowerCase() === 'galeria');
+        if (gallerySection?.images) {
+          setGalleryImages(gallerySection.images);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados da galeria:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchExhibitionData();
+  }, [ano]);
+
+  const totalPages = Math.ceil(galleryImages.length / ITEMS_PER_PAGE);
+  const startIndex = page * ITEMS_PER_PAGE;
+  const visibleThumbnails = galleryImages.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentImage = galleryImages[selectedIndex];
 
   const handleSelect = (index) => {
     setSelectedIndex(index);
-    // Atualiza a página automaticamente se necessário
     const newPage = Math.floor(index / ITEMS_PER_PAGE);
-    if (newPage !== page) {
-      setPage(newPage);
-    }
+    if (newPage !== page) setPage(newPage);
   };
 
   const handleNext = () => {
-    if (selectedIndex < photosOptions.length - 1) {
-      const newIndex = selectedIndex + 1;
-      setSelectedIndex(newIndex);
-
-      // Verifica se precisa mudar de página (quando a nova imagem não está na página atual)
-      const newPage = Math.floor(newIndex / ITEMS_PER_PAGE);
-      if (newPage !== page) {
-        setPage(newPage);
-      }
-    }
+    if (selectedIndex < galleryImages.length - 1) handleSelect(selectedIndex + 1);
   };
 
   const handlePrev = () => {
-    if (selectedIndex > 0) {
-      const newIndex = selectedIndex - 1;
-      setSelectedIndex(newIndex);
+    if (selectedIndex > 0) handleSelect(selectedIndex - 1);
+  };
 
-      // Verifica se precisa mudar de página (quando a nova imagem não está na página atual)
-      const newPage = Math.floor(newIndex / ITEMS_PER_PAGE);
-      if (newPage !== page) {
-        setPage(newPage);
-      }
+  const closePopup = () => setActivePopup(null);
+
+  // Função para renderizar o conteúdo do popup correto
+  const renderPopupContent = () => {
+    if (!currentImage) return null;
+
+    switch (activePopup) {
+      case 'Detalhes':
+        return <DetalhesPopup image={currentImage} />;
+      case 'Autor':
+        return <AutorPopup author={currentImage.author} additionalInfo={currentImage.additionalInfo} />;
+      case 'Predominância':
+        return <PredominanciaPopup dados={currentImage.predominance} />;
+      case 'Som':
+        const trackId = currentImage.song?.split('/track/')[1]?.split('?')[0];
+        return <SoundPreview trackId={trackId} />;
+      case 'Amostra':
+        return <ZoomPreview src={currentImage.url} />;
+      default:
+        return null;
     }
   };
 
-  const handleIconClick = (label) => {
-    setActiveIcon(label);
-  };
-
-  const closePopup = () => {
-    setActiveIcon(null);
-  };
-
-
-  const activeIconObj = photosOptions[selectedIndex].icons.find(icon => icon.label === activeIcon);
+  if (isLoading) {
+    return <div className="loading-screen">A carregar exposição...</div>;
+  }
 
   return (
     <>
-      <div className="all" style={{ minHeight: '100vh' }} ref={scrollContainerRef}>
+      <div className="all" ref={scrollContainerRef}>
         <Header />
-        <Home scrollContainerRef={scrollContainerRef}/>
-        <Letreiro />
-        <Resumo />
-        <Mapc />
+        <Home scrollContainerRef={scrollContainerRef} />
+        {exhibition?.edition === '2025' && (<> <Letreiro /> <Resumo /> <Mapc /> </>)}
+        <Letreiro2 ano={exhibition?.edition} />
         <div id="galeria" className="gallery-container">
-          <Letreiro2 />
-          <div className="photo-name">
-            <div className="photo-icon"><div className="photo-icon"> {photosOptions[selectedIndex].extraIcon?.icon} </div></div>
-            <h2>{photosOptions[selectedIndex].name}</h2>
-          </div>
+          {currentImage && (
+            <>
+              <div className="photo-name">
+                <div className="photo-icon"><img src={chagasIcon} style={{ marginRight: '20px', height: '40px' }} /></div>
+                <h2>{currentImage.name}</h2>
+              </div>
+              <motion.div key={currentImage.url} className="background-image" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ backgroundImage: `url(${currentImage.url})` }} />
 
-          <motion.div
-            key={photosOptions[selectedIndex].src}
-            className="background-image"
-            initial={{ opacity: 0, backgroundPositionX: "0%" }}
-            animate={{
-              opacity: 1,
-              backgroundPositionX: ["0%", "100%"],
-            }}
-            transition={{
-              opacity: { duration: 1 },
-              backgroundPositionX: {
-                duration: 60,
-                repeat: Infinity,
-                ease: "linear",
-              },
-            }}
-            style={{
-              backgroundImage: `url(${photosOptions[selectedIndex].src})`,
-              backgroundRepeat: "repeat-x",
-              backgroundSize: "130% auto",
-              backgroundPositionY: "center",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: -1,
-            }}
-          />
-
-          <div className="photos-display">
-          </div>
-
-
-
-          <div className="thumbnails-navigation-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-
-            {/* Container das Thumbnails */}
-            <motion.div
-              key={page}
-              className="thumbnails-wrapper"
-              initial={{ x: page > Math.floor(selectedIndex / ITEMS_PER_PAGE) ? 100 : -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 200,
-                damping: 25,
-                duration: 0.6
-              }}
-              drag="x"
-              dragConstraints={{ left: -300, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(event, info) => {
-                if (info.offset.x < -100 && selectedIndex < photosOptions.length - 1) {
-                  handleNext();
-                } else if (info.offset.x > 100 && selectedIndex > 0) {
-                  handlePrev();
-                }
-              }}
-            >
-              <div className="thumbnails-track">
-                {/* Seta Esquerda */}
-                <motion.button
-                  className="thumbnail-nav-button left"
-                  onClick={handlePrev}
-                  disabled={selectedIndex === 0}
-                  whileHover={selectedIndex > 0 ? { scale: 1.1, x: -3 } : {}}
-                  whileTap={selectedIndex > 0 ? { scale: 0.9 } : {}}
-                  style={{
-                    opacity: selectedIndex === 0 ? 0.3 : 1,
-                    cursor: selectedIndex === 0 ? 'not-allowed' : 'pointer',
-                    backgroundColor: 'rgba(255,255,255,0.9)',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '45px',
-                    height: '45px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 10,
-                  }}
-                >
-                  <ChevronLeft size={24} color="#333" />
-                </motion.button>
-
-                {visibleThumbnails.map((photo, idx) => {
-                  const realIndex = startIndex + idx;
-                  const isLast = idx === visibleThumbnails.length - 1;
-                  const isSelected = realIndex === selectedIndex;
-
-                  return (
-                    <motion.div
-                      className="thumbnail-item"
-                      key={realIndex}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: idx * 0.1, duration: 0.3 }}
+              <div className="thumbnails-navigation-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', bottom: '-300px' }}>
+                <motion.div key={page} className="thumbnails-wrapper">
+                  <div className="thumbnails-track">
+                    <motion.button
+                      className="thumbnail-nav-button left"
+                      onClick={handlePrev}
+                      disabled={selectedIndex === 0}
+                      whileHover={selectedIndex > 0 ? { scale: 1.1, x: -3 } : {}}
+                      whileTap={selectedIndex > 0 ? { scale: 0.9 } : {}}
+                      style={{ opacity: selectedIndex === 0 ? 0.3 : 1, cursor: selectedIndex === 0 ? 'not-allowed' : 'pointer', backgroundColor: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.2)', zIndex: 10 }}
                     >
-                      {!isLast && <div className="connector-line" />}
-
-                      <motion.div
-                        className={`thumbnail-circle ${isSelected ? 'selected' : ''}`}
-                        onClick={() => handleSelect(realIndex)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        animate={isSelected ? {
-                          boxShadow: [
-                            "0 0 0 0px rgba(255,255,255,0.4)",
-                            "0 0 0 10px rgba(255,255,255,0.1)",
-                            "0 0 0 0px rgba(255,255,255,0)"
-                          ]
-                        } : {}}
-                        transition={isSelected ? {
-                          duration: 2,
-                          repeat: Infinity,
-                        } : {}}
-                      >
-                        <img src={photo.src} alt={photo.name} />
-                      </motion.div>
-
-                      {isSelected && (
-                        <motion.div
-                          className="thumbnail-indicator"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        />
-                      )}
-                    </motion.div>
-                  );
-                })}
-
-                {/* Seta Direita */}
-                <motion.button
-                  className="thumbnail-nav-button right"
-                  onClick={handleNext}
-                  disabled={selectedIndex === photosOptions.length - 1}
-                  whileHover={selectedIndex < photosOptions.length - 1 ? { scale: 1.1, x: 3 } : {}}
-                  whileTap={selectedIndex < photosOptions.length - 1 ? { scale: 0.9 } : {}}
-                  style={{
-                    opacity: selectedIndex === photosOptions.length - 1 ? 0.3 : 1,
-                    cursor: selectedIndex === photosOptions.length - 1 ? 'not-allowed' : 'pointer',
-                    backgroundColor: 'rgba(255,255,255,0.9)',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '45px',
-                    height: '45px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 10,
-                  }}
-                >
-                  <ChevronRight size={24} color="#333" />
-                </motion.button>
-              </div>
-            </motion.div>
-          </div>
-
-          {photosOptions[selectedIndex].icons.map(({ icon, label, position, size = 50 }, index) => (
-            <motion.div
-              key={label + index}
-              className="floating-icon-wrapper"
-              style={{
-                position: "absolute",
-                top: position?.top || "0%",
-                left: position?.left || "0%",
-                cursor: "pointer",
-                zIndex: 10,
-              }}
-              animate={{ y: [0, -20, 0] }}
-              whileHover={{ scale: 1.2 }}
-              transition={{
-                duration: 3 + index * 0.5,
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatType: "loop",
-                delay: index * 0.5,
-              }}
-              onClick={() => handleIconClick(label)}
-              title={label}
-            >
-              <div
-                className="floating-icon"
-                style={{
-                  width: `${size}px`,
-                  height: `${size}px`,
-                }}
-              >
-                {icon}
-              </div>
-              <div className="icon-label">{label}</div>
-            </motion.div>
-          ))}
-
-
-          <AnimatePresence>
-            {activeIcon && (
-              <motion.div
-                className="popup-overlay"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={closePopup}
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  width: "100vw",
-                  height: "100vh",
-                  backgroundColor: "rgba(0,0,0,0.5)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  zIndex: 1000,
-                }}
-              >
-                <motion.div
-                  className={`popup-content ${activeIconObj?.popupType || ""}`}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    background: "#fff",
-                    padding: "2rem",
-                    borderRadius: "10px",
-                    width: "90%",
-                    maxHeight: "100vh",
-                    boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
-                    position: "relative",
-                    color: "black",
-                    overflowY: "auto"
-                  }}
-                >
-                  <motion.button
-                    onClick={closePopup}
-                    style={{
-                      position: "absolute",
-                      top: "0px",
-                      right: "-15px",
-                      background: "transparent",
-                      border: "none",
-                      fontSize: "1.5rem",
-                      cursor: "pointer",
-                      zIndex: 999,
-                      color: "black",
-                      outline: "none",
-                      boxShadow: "none",
-                    }}
-                    whileHover={{ y: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    ✕
-                  </motion.button>
-
-                  {activeIconObj?.popupContent || <p>Conteúdo não disponível.</p>}
+                      <ChevronLeft size={24} color="#333" />
+                    </motion.button>
+                    {visibleThumbnails.map((photo, idx) => {
+                      const realIndex = startIndex + idx;
+                      const isSelected = realIndex === selectedIndex;
+                      return (
+                        <div className="thumbnail-item" key={realIndex}>
+                          {!(idx === visibleThumbnails.length - 1) && <div className="connector-line" />}
+                          <motion.div
+                            className={`thumbnail-circle ${isSelected ? 'selected' : ''}`}
+                            onClick={() => handleSelect(realIndex)}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <img src={photo.url} alt={photo.name} />
+                          </motion.div>
+                          {isSelected && <div className="thumbnail-indicator" />}
+                        </div>
+                      );
+                    })}
+                    <motion.button
+                      className="thumbnail-nav-button right"
+                      onClick={handleNext}
+                      disabled={selectedIndex >= galleryImages.length - 1}
+                      whileHover={selectedIndex < galleryImages.length - 1 ? { scale: 1.1, x: 3 } : {}}
+                      whileTap={selectedIndex < galleryImages.length - 1 ? { scale: 0.9 } : {}}
+                      style={{ opacity: selectedIndex >= galleryImages.length - 1 ? 0.3 : 1, cursor: selectedIndex >= galleryImages.length - 1 ? 'not-allowed' : 'pointer', backgroundColor: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.2)', zIndex: 10 }}
+                    >
+                      <ChevronRight size={24} color="#333" />
+                    </motion.button>
+                  </div>
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
 
+              {/* Ícones flutuantes com onClick corrigido */}
+              {currentImage.description && <FloatingIcon icon={<img src="/icons/iconi.png" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
+              {currentImage.author && <FloatingIcon icon={<img src="/icons/iconautor.png" />} label="Autor" position={{ top: "70%", left: "15%" }} size={65} onClick={() => {
+                console.log(currentImage.author);
+                setActivePopup('Autor');
+              }} />}
+              {currentImage.song && <FloatingIcon icon={<img src="/icons/iconsound.png" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
+              {currentImage.predominance && <FloatingIcon icon={<img src="/icons/iconworldmap.png" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
+              <FloatingIcon icon={<img src="/icons/iconzoomin.png" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
+            </>
+          )}
         </div>
         <CuriosidadesSec />
         <Contribution />
         <Credits />
         <Footer />
       </div>
+
+      <AnimatePresence>
+        {activePopup && (
+          <motion.div className="popup-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closePopup}>
+            <motion.div
+              className={`popup-content ${activePopup.toLowerCase()}`}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button onClick={closePopup} className="close-popup-button">✕</button>
+              {renderPopupContent()}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
+
+const FloatingIcon = ({ icon, label, position, size, onClick }) => (
+  <motion.div
+    className="floating-icon-wrapper"
+    style={{ position: "absolute", ...position, zIndex: 10 }}
+    animate={{ y: [0, -15, 0] }}
+    whileHover={{ scale: 1.2 }}
+    transition={{ duration: 3 + Math.random() * 2, ease: "easeInOut", repeat: Infinity }}
+    onClick={onClick}
+    title={label}
+  >
+    <div className="floating-icon" style={{ width: `${size}px`, height: `${size}px` }}>{icon}</div>
+    <div className="icon-label">{label}</div>
+  </motion.div>
+);
