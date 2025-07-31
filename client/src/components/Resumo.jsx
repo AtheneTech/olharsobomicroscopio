@@ -23,28 +23,28 @@ export default function Resumo({ exposicaoData }) {
       quantidadeImagens: 20,
       textoGaleria: "Imagens incríveis",
       imagens: [
-        { src: "photos/asm/chagas.png", name: "Chagas" },
-        { src: "photos/asm/ancilostomose.png", name: "Anciolostomose" },
-        { src: "photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
-        { src: "photos/asm/filariose2.png", name: "Dengue" },
-        { src: "photos/asm/esquistossomose.png", name: "Esquistossomose" },
-        { src: "photos/asm/tracoma.png", name: "Tracoma" },
-        { src: "photos/asm/escamacobra.png", name: "Cobra" },
-        { src: "photos/asm/leishmaniose.png", name: "Leishmaniose" },
-        { src: "photos/asm/filariose.png", name: "Filariose" },
-        { src: "photos/asm/oncocercose.png", name: "Oncocercose" },
-        { src: "photos/asm/raiva.png", name: "Raiva" },
-        { src: "photos/asm/chagas.png", name: "Chagas" },
-        { src: "photos/asm/ancilostomose.png", name: "Anciolostomose" },
-        { src: "photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
-        { src: "photos/asm/dengue.jpg", name: "Dengue" },
-        { src: "photos/asm/esquistossomose.png", name: "Esquistossomose" },
-        { src: "photos/asm/tracoma.png", name: "Tracoma" },
-        { src: "photos/asm/escamacobra.png", name: "Cobra" },
-        { src: "photos/asm/leishmaniose.png", name: "Leishmaniose" },
-        { src: "photos/asm/filariose.png", name: "Filariose" },
-        { src: "photos/asm/oncocercose.png", name: "Oncocercose" },
-        { src: "photos/asm/raiva.png", name: "Raiva" },
+        { src: "../../public/photos/chagas.png", name: "Chagas" },
+        { src: "../../public/photos/asm/ancilostomose.png", name: "Anciolostomose" },
+        { src: "../../public/photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
+        { src: "../../public/photos/asm/filariose2.png", name: "Dengue" },
+        { src: "../../public/photos/asm/esquistossomose.png", name: "Esquistossomose" },
+        { src: "../../public/photos/asm/tracoma.png", name: "Tracoma" },
+        { src: "../../public/photos/asm/escamacobra.png", name: "Cobra" },
+        { src: "../../public/photos/asm/leishmaniose.png", name: "Leishmaniose" },
+        { src: "../../public/photos/asm/filariose.png", name: "Filariose" },
+        { src: "../../public/photos/asm/oncocercose.png", name: "Oncocercose" },
+        { src: "../../public/photos/asm/raiva.png", name: "Raiva" },
+        { src: "../../public/photos/asm/chagas.png", name: "Chagas" },
+        { src: "../../public/photos/asm/ancilostomose.png", name: "Anciolostomose" },
+        { src: "../../public/photos/asm/coccidioidomicose.png", name: "Coccidioidomicose" },
+        { src: "../../public/photos/asm/dengue.jpg", name: "Dengue" },
+        { src: "../../public/photos/asm/esquistossomose.png", name: "Esquistossomose" },
+        { src: "../../public/photos/asm/tracoma.png", name: "Tracoma" },
+        { src: "../../public/photos/asm/escamacobra.png", name: "Cobra" },
+        { src: "../../public/photos/asm/leishmaniose.png", name: "Leishmaniose" },
+        { src: "../../public/photos/asm/filariose.png", name: "Filariose" },
+        { src: "../../public/photos/asm/oncocercose.png", name: "Oncocercose" },
+        { src: "../../public/photos/asm/raiva.png", name: "Raiva" },
       ]
     },
     galerias: [
@@ -52,19 +52,19 @@ export default function Resumo({ exposicaoData }) {
         titulo: "Galeria Dr. Felizardo Pinho",
         subtitulo: "Galeria",
         texto: "A Galeria Dr. Felizardo Pinho homenageia o farmacêutico e sanitarista cearense que foi pioneiro no combate ao calazar no Brasil. Com recursos próprios, fundou um hospital em Viçosa do Ceará em 1946, enfrentando a doença com coragem e dedicação. Também atuou como prefeito, deputado e recebeu o título de Cidadão de Fortaleza. Seu legado une ciência, ética e compromisso social.",
-        imagem: "/photos/felizardo.png",
+        imagem: "../../public/photos/felizardo.png",
         alt: "Dr. Felizardo Pinho"
       },
       {
         titulo: "Galeria Dr. Alencar",
         subtitulo: "Galeria",
         texto: "A Galeria Dr. Alencar foi organizada para homenagear uma das figuras mais emblemáticas da saúde pública do Ceará e do Brasil, o Dr. Joaquim Eduardo de Alencar, personalidade de destaque no combate às doenças tropicais no Brasil. Nascido em Pacatuba, Ceará, em 1912, sua escolha como homenageado neste Fórum simboliza o protagonismo nordestino na produção científica voltada à saúde pública e à justiça social.",
-        imagem: "/photos/alencar.png",
+        imagem: "../../public/photos/alencar.png",
         alt: "Dr. Alencar"
       }
     ],
     realizacao: {
-      imagem: "/photos/realizacao.svg",
+      imagem: "../../public/photos/realizacao.svg",
       width: "auto",
       height: "200px"
     }
@@ -206,8 +206,6 @@ const prevImage = () => {
         </div>
       )}
     </div>
-        
-            {/* Renderizar galerias dinamicamente */}
             {data.galerias.map((galeria, index) => (
               <div key={index} className="galeria-card">
                 <h3><span>{galeria.subtitulo}</span><br />{galeria.titulo}</h3>
@@ -221,7 +219,6 @@ const prevImage = () => {
               </div>
             ))}
 
-            {/* Seção de realização */}
             {data.realizacao && (
               <div className='galeria-card'>
                 <img 

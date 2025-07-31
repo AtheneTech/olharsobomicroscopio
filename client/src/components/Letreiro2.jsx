@@ -8,47 +8,47 @@ const Letreiro2 = ({ ano = "2025" }) => {
     <div className="noticia-banner">
       <div className="noticia-marquee">
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
         <div className="noticia-texto">
-          <img src='icons/detailsorange.svg' alt="ícone" />
+          <img src='../../public/icons/detailsorange.svg' alt="ícone" />
           <p>{mensagem}</p>
         </div>
       </div>

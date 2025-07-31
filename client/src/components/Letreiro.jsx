@@ -7,7 +7,7 @@ const Letreiro = ({ texto = "Revelando Beleza na Ciência das Doenças Tropicais
       <div className="noticia-marquee">
         {[...Array(5)].map((_, i) => (
           <div className="noticia-texto" key={i}>
-            <img src='icons/detailsorange.svg' alt="ícone" />
+            <img src='../../public/icons/detailsorange.svg' alt="ícone" />
             <p>{texto}</p>
           </div>
         ))}

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
 
-// Componentes da página principal
 import Header from './Header';
 import Home from './Home';
 import Letreiro from './Letreiro';
@@ -13,22 +12,33 @@ import Footer from './Footer';
 import Credits from './Credits';
 import Contribution from "./Contribution";
 import CuriosidadesSec from "./CuriosidadesSec";
-
-import chagasIcon from "../../public/icons/chagas.png"
-
-// ✅ CORREÇÃO: Importa os popups diretamente da pasta /components/
 import DetalhesPopup from "./Detalhespopup";
 import AutorPopup from "./AutorPopup";
 import PredominanciaPopup from "./PredominanciaPopup";
 import SoundPreview from "./SoundPreview";
 import ZoomPreview from "./ZoomPreview";
 
-// Bibliotecas e Estilos
+import chagasIcon from "../../public/icons/chagas.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import '../styles/PhotosGallery.css';
 
 const ITEMS_PER_PAGE = 5;
+
+const FloatingIcon = ({ icon, label, position, size, onClick }) => (
+  <motion.div
+    className="floating-icon-wrapper"
+    style={{ position: "absolute", ...position, zIndex: 10 }}
+    animate={{ y: [0, -15, 0] }}
+    whileHover={{ scale: 1.2 }}
+    transition={{ duration: 3 + Math.random() * 2, ease: "easeInOut", repeat: Infinity }}
+    onClick={onClick}
+    title={label}
+  >
+    <div className="floating-icon" style={{ width: `${size}px`, height: `${size}px` }}>{icon}</div>
+    <div className="icon-label">{label}</div>
+  </motion.div>
+);
 
 export default function PhotosGallery() {
   const [exhibition, setExhibition] = useState(null);
@@ -82,24 +92,17 @@ export default function PhotosGallery() {
 
   const closePopup = () => setActivePopup(null);
 
-  // Função para renderizar o conteúdo do popup correto
   const renderPopupContent = () => {
     if (!currentImage) return null;
-
     switch (activePopup) {
-      case 'Detalhes':
-        return <DetalhesPopup image={currentImage} />;
-      case 'Autor':
-        return <AutorPopup author={currentImage.author} additionalInfo={currentImage.additionalInfo} />;
-      case 'Predominância':
-        return <PredominanciaPopup dados={currentImage.predominance} />;
+      case 'Detalhes': return <DetalhesPopup image={currentImage} />;
+      case 'Autor': return <AutorPopup author={currentImage.author} additionalInfo={currentImage.additionalInfo} />;
+      case 'Predominância': return <PredominanciaPopup dados={currentImage.predominance} />;
       case 'Som':
         const trackId = currentImage.song?.split('/track/')[1]?.split('?')[0];
         return <SoundPreview trackId={trackId} />;
-      case 'Amostra':
-        return <ZoomPreview src={currentImage.url} />;
-      default:
-        return null;
+      case 'Amostra': return <ZoomPreview src={currentImage.url} />;
+      default: return null;
     }
   };
 
@@ -114,17 +117,41 @@ export default function PhotosGallery() {
         <Home scrollContainerRef={scrollContainerRef} />
         {exhibition?.edition === '2025' && (<> <Letreiro /> <Resumo /> <Mapc /> </>)}
         <Letreiro2 ano={exhibition?.edition} />
+
         <div id="galeria" className="gallery-container">
           {currentImage && (
             <>
               <div className="photo-name">
-                <div className="photo-icon"><img src={chagasIcon} style={{ marginRight: '20px', height: '40px' }} /></div>
+                <div className="photo-icon"><img src={chagasIcon} alt="Ícone Chagas" style={{ marginRight: '20px', height: '40px' }} /></div>
                 <h2>{currentImage.name}</h2>
               </div>
-              <motion.div key={currentImage.url} className="background-image" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} style={{ backgroundImage: `url(${currentImage.url})` }} />
+
+              <motion.div
+                key={currentImage.url}
+                className="background-image"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  backgroundPositionX: ["0%", "100%"],
+                }}
+                transition={{
+                  opacity: { duration: 1 },
+                  backgroundPositionX: {
+                    duration: 90,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+                style={{
+                  backgroundImage: `url(${currentImage.url})`,
+                  backgroundRepeat: 'repeat-x',
+                  backgroundSize: '120% auto',
+                  backgroundPosition: 'center',
+                }}
+              />
 
               <div className="thumbnails-navigation-container" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', bottom: '-300px' }}>
-                <motion.div key={page} className="thumbnails-wrapper">
+                <motion.div key={page} className="thumbnails-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
                   <div className="thumbnails-track">
                     <motion.button
                       className="thumbnail-nav-button left"
@@ -136,21 +163,37 @@ export default function PhotosGallery() {
                     >
                       <ChevronLeft size={24} color="#333" />
                     </motion.button>
+
                     {visibleThumbnails.map((photo, idx) => {
                       const realIndex = startIndex + idx;
                       const isSelected = realIndex === selectedIndex;
                       return (
-                        <div className="thumbnail-item" key={realIndex}>
+                        <motion.div
+                          className="thumbnail-item"
+                          key={realIndex}
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: idx * 0.1, duration: 0.3 }}
+                        >
                           {!(idx === visibleThumbnails.length - 1) && <div className="connector-line" />}
                           <motion.div
                             className={`thumbnail-circle ${isSelected ? 'selected' : ''}`}
                             onClick={() => handleSelect(realIndex)}
                             whileHover={{ scale: 1.05 }}
+                            animate={isSelected ? { boxShadow: ["0 0 0 0px rgba(255,255,255,0.4)", "0 0 0 10px rgba(255,255,255,0)", "0 0 0 0px rgba(255,255,255,0.4)"] } : {}}
+                            transition={isSelected ? { duration: 2, repeat: Infinity } : {}}
                           >
                             <img src={photo.url} alt={photo.name} />
                           </motion.div>
-                          {isSelected && <div className="thumbnail-indicator" />}
-                        </div>
+                          {isSelected && (
+                            <motion.div
+                              className="thumbnail-indicator"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                            />
+                          )}
+                        </motion.div>
                       );
                     })}
                     <motion.button
@@ -167,15 +210,22 @@ export default function PhotosGallery() {
                 </motion.div>
               </div>
 
-              {/* Ícones flutuantes com onClick corrigido */}
-              {currentImage.description && <FloatingIcon icon={<img src="/icons/iconi.png" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
-              {currentImage.author && <FloatingIcon icon={<img src="/icons/iconautor.png" />} label="Autor" position={{ top: "70%", left: "15%" }} size={65} onClick={() => {
-                console.log(currentImage.author);
-                setActivePopup('Autor');
-              }} />}
-              {currentImage.song && <FloatingIcon icon={<img src="/icons/iconsound.png" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
-              {currentImage.predominance && <FloatingIcon icon={<img src="/icons/iconworldmap.png" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
-              <FloatingIcon icon={<img src="/icons/iconzoomin.png" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
+              {currentImage.description && <FloatingIcon icon={<img src="/icons/iconi.png" alt="Detalhes" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
+              {currentImage.author && (
+                <FloatingIcon
+                  icon={<img src="/icons/iconautor.png" alt="Autor" />}
+                  label="Autor"
+                  position={{ top: "70%", left: "15%" }}
+                  size={65}
+                  onClick={() => {
+                    setActivePopup('Autor');
+                    console.log(currentImage.author);
+                  }}
+                />
+              )}
+              {currentImage.song && <FloatingIcon icon={<img src="/icons/iconsound.png" alt="Som" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
+              {currentImage.predominance && <FloatingIcon icon={<img src="/icons/iconworldmap.png" alt="Predominância" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
+              <FloatingIcon icon={<img src="/icons/iconzoomin.png" alt="Amostra" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
             </>
           )}
         </div>
@@ -204,18 +254,3 @@ export default function PhotosGallery() {
     </>
   );
 }
-
-const FloatingIcon = ({ icon, label, position, size, onClick }) => (
-  <motion.div
-    className="floating-icon-wrapper"
-    style={{ position: "absolute", ...position, zIndex: 10 }}
-    animate={{ y: [0, -15, 0] }}
-    whileHover={{ scale: 1.2 }}
-    transition={{ duration: 3 + Math.random() * 2, ease: "easeInOut", repeat: Infinity }}
-    onClick={onClick}
-    title={label}
-  >
-    <div className="floating-icon" style={{ width: `${size}px`, height: `${size}px` }}>{icon}</div>
-    <div className="icon-label">{label}</div>
-  </motion.div>
-);

@@ -1,37 +1,49 @@
-import React from 'react';
-import '../styles/AutorPopup.css'; // O seu CSS existente continuará a funcionar
+import React from "react";
+import "../styles/AutorPopup.css";
 
-// ✅ ATUALIZAÇÃO: O componente agora aceita os objetos 'author' e 'additionalInfo'
+const getSocialIcon = (url) => {
+  if (url.includes('twitter.com') || url.includes('x.com')) {
+    return '/icons/x.svg';
+  }
+  if (url.includes('linkedin.com')) {
+    return '/icons/linkedin.svg';
+  }
+  if (url.includes('instagram.com')) {
+    return '/icons/instagram.svg';
+  }
+  if (url.includes('facebook.com')) {
+    return '/icons/facebook.svg';
+  }
+  return '/icons/link.svg'; 
+};
+
 export default function AutorPopup({ author, additionalInfo }) {
   if (!author) {
     return <p>Informações do autor não disponíveis.</p>;
   }
 
-  // Função auxiliar para capitalizar as chaves do objeto de informações adicionais
+  const { name, location, bio, photoUrl, links } = author;
+
   const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
   return (
     <div className="autor-popup">
-      {/* Usa os dados de dentro do objeto 'author' */}
-      <img src={author.photoUrl || 'https://via.placeholder.com/150'} alt={`Foto de ${author.name}`} className="autor-foto" />
+      <img src={photoUrl || 'https://via.placeholder.com/100'} alt={`Foto de ${name}`} className="autor-foto" />
       <div className="autor-conteudo">
-        <h2 className="autor-nome">{author.name}</h2>
-        <p className="autor-cargo">{author.location}</p>
-        <p className="autor-bio">{author.bio}</p>
+        <h2 className="autor-nome">{name || "Nome do Autor"}</h2>
+        <p className="autor-cargo">{location || "Localização"}</p>
+        <p className="autor-bio">{bio || "Biografia não disponível."}</p>
         
-        {/* Lida com o array de links (strings) vindo da API */}
-        {author.links && author.links.length > 0 && (
-          <div className="autor-redes">
-            {author.links.map((link, i) => (
-              <a key={i} href={link} target="_blank" rel="noopener noreferrer">
-                {/* Pode usar um ícone de link genérico ou específico */}
-                <img src="/icons/link.svg" alt={`Link ${i + 1}`} style={{ width: 24, height: 24 }} />
+        {links && links.length > 0 && (
+          <div className="autor-redes flex justify-center">
+            {links.map((url, i) => (
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer" title={url}>
+                <img src={getSocialIcon(url)} alt="Rede social" />
               </a>
             ))}
           </div>
         )}
         
-        {/* Lida com o objeto de informações adicionais vindo da API */}
         {additionalInfo && Object.values(additionalInfo).some(v => v) && (
           <>
             <hr />
