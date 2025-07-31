@@ -119,7 +119,7 @@
     font-size: 1.7vw;
     width: 35vw;
     display: flex;
-    color: var(--light-color);
+    color: white;
     flex-direction: column;
     gap: 2vw;
   }
@@ -135,18 +135,15 @@
     padding: 1vw;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* Adiciona transição para todas as propriedades */
     transform-origin: center;
-    /* Faz o botão escalar a partir do centro */
+
   }
 
   .btnEDesc button:hover {
     background-color: white;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    transform: scale(1.1);
-    /* Aumenta 5% o tamanho do botão */
+    transform: scale(1.1); 
     box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
-    /* Adiciona sombra para dar profundidade */
     color: black;
   }
 
@@ -160,7 +157,6 @@
 
   /* ====== EVOLUÇÕES SECTION ====== */
   .bg-conteudoEvolucoes {
-    /* background-image: url('/images/noveEvBg.png'); */
     padding: 5vw 5vw 5vw 0vw;
   }
 
@@ -197,7 +193,7 @@
     font-size: 2vw;
     font-weight: bold;
     width: 10vw;
-    color: var(--dark-color);
+    color: black;
   }
 
   /* ====== AMOSTRA MICRO SECTION ====== */
@@ -262,7 +258,7 @@
     background-color: white;
     color: black;
     z-index: 2;
-     font-size: large;
+    font-size: large;
     text-align: center;
 
   }
@@ -277,7 +273,6 @@
     z-index: 1;
   }
 
-  /* Efeito de pilha durante hover (somente para cards não virados) */
   .swiper-slide:hover .cardFlip:not(.flipped) {
     transform: rotate(-3deg) translate(-5px, -5px);
   }
@@ -286,7 +281,6 @@
     transform: rotate(2deg) translate(5px, 5px);
   }
 
-  /* Imagem do card */
   .front .imgCardCurius img {
     width: 12vw;
     height: 12vw;
@@ -295,16 +289,14 @@
     transition: transform 0.3s ease;
   }
 
-  /* Efeito de hover na imagem */
+
   .front:hover .imgCardCurius img {
     transform: scale(1.05);
   }
 
-  /* ====== BOTÃO DE CLIQUE (CÍRCULO + VETOR) ====== */
   .front .btnClickCurious {
     position: relative;
     width: 3vw;
-    /* height: 3vw; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -346,7 +338,7 @@
     }
   }
 
-  /* Efeito hover (opcional) */
+
   .front .btnClickCurious:hover img:last-child {
     /* transform: scale(1.1) rotate(10deg); */
     animation: pulse 0.8s infinite ease-in-out;
@@ -431,7 +423,7 @@
   }
 
   .titleQuemsomos h1 b {
-    color: var(--primary-color);
+    color: #FF702E;
   }
 
   .descEImgs {
@@ -825,8 +817,9 @@
 
 }
 
-.TitleLabIntro h2 b {
+.TitleLabIntro h2 span {
   color: #FF702E;
+  font-weight: 300;
 }
 
 .contentCardsIntro {
@@ -908,12 +901,15 @@
 .titleQuemsomos {
 
   font-size: 3vw;
+  /* text-shadow: 1px 1px 3px black;; */
 
 }
 
-.titleQuemsomos h1 b {
+.titleQuemsomos h1 span {
 
   color: #FF702E;
+  font-weight: 300;
+  
 
 }
 
@@ -1016,10 +1012,10 @@
 
 
 .swipe-indicator p {
-    color: #FF702E;
+    color: black;
     font-size: 14px;
     font-weight: bold;
-    /* margin-top: 2vw; */
+      white-space: nowrap;
     text-align: center;
 }
 

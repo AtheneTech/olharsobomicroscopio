@@ -1,34 +1,31 @@
 import React from 'react';
 import '../styles/CuriosidadesSec.css';
 
-const Curiosidades = () => {
+const CuriosidadesSec = () => {
   return (
     <div className='bg-section'>
+      <div className='bgRetangulo'>
+        <div className='conteuSecCuiriosidades'>
+          <div className='cabecalhoCuriosidades'>
+            <div className='titleEChamada'>
+              <div className='titleEVetor'>
+                <img src="/images/icone-curiosidades.png" alt="ícone" />
+                <h1> Curiosidades </h1>
+              </div>
 
-
-
-<div className='bgRetangulo'>
-      <div className='conteuSecCuiriosidades'>
-        <div className='cabecalhoCuriosidades'>
-          <div className='titleEChamada'>
-            <div className='titleEVetor'>
-              <img src="/images/icone-curiosidades.png" alt="ícone" />
-              <h1> Curiosidades </h1>
+              <p className='textoChamada'>
+                Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores para você mergulhar em mais experiências
+              </p>
             </div>
 
-            <p className='textoChamada'>
-              Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores para você mergulhar em mais experiências
-            </p>
+            <div className='subEBotao'>
+              <h3> por trás da ciência </h3>
+              <button className='conhecaBtn'> CONHEÇA </button>
+            </div>
+
           </div>
 
-          <div className='subEBotao'>
-            <h3> por trás da ciência </h3>
-            <button className='conhecaBtn'> CONHEÇA </button>
-          </div>
 
-        </div>
-
-        
 
           <div className='mainSecCuriosidades'>
 
@@ -43,15 +40,15 @@ const Curiosidades = () => {
               <div className='bgPilhaCards'>
                 <div className="pilha-cards1">
                   <div className="carta1 carta1-topo">
-                    <p className="texto-carta1">Microscópio Simples</p>
-                    <img src="/images/img-carta.png" alt="Exemplo" className="imagemCardPreto1" />
+                    <p className="texto-carta1">Um brinquedo das elites</p>
+                    <img src="/images/fatoImg1.png" alt="Exemplo" className="imagemCardPreto1" />
+                    <div className='btnClickCuriousSec'>
+                    <img src='/images/circleOrange.png' alt='Ícone de clique' />
+                    <img src='/images/clickVetor.png' alt='Ícone de clique' />
+
                   </div>
-                  <div className="carta1 carta1-2"></div>
-                  <div className="carta1 carta1-3"></div>
-                  <div className="carta1 carta1-4"></div>
-                  <div className="carta1 carta1-5"></div>
-                  <div className="carta1 carta1-6"></div>
-                  <div className="carta1 carta1-7"></div>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -69,10 +66,6 @@ const Curiosidades = () => {
                   <div className="carta2 carta2-topo">
                     <img src="/images/imgEquipe.png" alt="Exemplo" className="imagemCardPreto2" />
                   </div>
-                  <div className="carta2 carta2-2"></div>
-                  <div className="carta2 carta2-3"></div>
-                  <div className="carta2 carta2-4"></div>
-                  <div className="carta2 carta2-5"></div>
                 </div>
 
               </div>
@@ -91,4 +84,4 @@ const Curiosidades = () => {
   );
 };
 
-export default Curiosidades;
+export default CuriosidadesSec;

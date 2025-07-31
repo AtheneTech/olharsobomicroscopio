@@ -30,15 +30,15 @@ const Curiosidades = () => {
         });
     };
 
-     const [showSwipeText, setShowSwipeText] = useState(true);
+    const [showSwipeText, setShowSwipeText] = useState(true);
     const swiperRef = useRef(null);
 
-    // Adicione este useEffect para detectar o primeiro deslize
+
     React.useEffect(() => {
         if (swiperRef.current) {
             const swiperInstance = swiperRef.current.swiper;
             swiperInstance.on('slideChange', () => {
-                setShowSwipeText(false); // Esconde o texto após o primeiro deslize
+                setShowSwipeText(false); 
             });
         }
     }, []);
@@ -93,7 +93,7 @@ const Curiosidades = () => {
 
     return (
         <div className="Pagcuriosidades-bg">
-                {/* <div className='vetorHeader'> 
+            {/* <div className='vetorHeader'> 
                     <img src="/images/VectorHeader.png" alt="" />
                 </div> */}
             <div className="conteudoPage">
@@ -126,8 +126,8 @@ const Curiosidades = () => {
                 {/* Seção de Evoluções com Cards Flip */}
                 <div className='bg-conteudoEvolucoes'>
                     <section className="conteudoEvolucoes">
-                        
-                        
+
+
                         <div className="cardsInfo">
                             <Swiper
                                 effect={'cards'}
@@ -163,19 +163,19 @@ const Curiosidades = () => {
                                 ))}
                             </Swiper>
                             {showSwipeText && (
-                            <div className='swipe-indicator'>
-                                <p>Deslize para os lados</p>
-                            </div>
-                        )}
+                                <div className='swipe-indicator'>
+                                    <p>Deslize para os lados</p>
+                                </div>
+                            )}
                         </div>
 
-                             
+
                         <div className='iconsCurio'>
-                            <img src='/images/noveEv.png' style={{width:'auto', height:'200px'}}></img>
-                        <div className="titleEDesc">
-                            <img src="/images/nove.png" className="numero" />
-                            <h2>Fatos interessantes sobre o Microscópio</h2>
-                        </div>
+                            <img src='/images/noveEv.png' style={{ width: 'auto', height: '200px' }}></img>
+                            <div className="titleEDesc">
+                                <img src="/images/nove.png" className="numero" />
+                                <h2>Fatos interessantes sobre o Microscópio</h2>
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -191,7 +191,7 @@ const Curiosidades = () => {
                     <section className='labIntro'>
 
                         <div className='TitleLabIntro'>
-                            <h2> Origem do <b> Laboratório </b> </h2>
+                            <h2> Origem do <span> Laboratório </span> </h2>
                         </div>
 
                         <div className='contentCardsIntro'>
@@ -223,7 +223,7 @@ const Curiosidades = () => {
 
                         <div className='titleQuemsomos'>
 
-                            <h1> Quem <b>  Somos? </b></h1>
+                            <h1> Quem <span>  Somos? </span></h1>
 
 
                         </div>
@@ -271,7 +271,7 @@ const Curiosidades = () => {
                                     photos={photos}
                                     layout="rows"
                                     targetRowHeight={200}
-                                    onClick={({ index }) => setIndex(index)} // <-- isso ativa o clique
+                                    onClick={({ index }) => setIndex(index)}
                                 />
 
                                 <Lightbox

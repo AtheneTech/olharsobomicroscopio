@@ -122,6 +122,8 @@
 
    display: flex;
    flex-direction: row;
+    flex-wrap: wrap;
+  
    gap: 10vw;
    justify-content: center;
    align-items: center;
@@ -135,6 +137,7 @@
    background-color: black;
    border-radius: 2vw 2vw 0vw 0vw;
    display: flex;
+    flex-wrap: wrap;
    justify-content: baseline;
    align-items: center;
    flex-direction: column;
@@ -193,6 +196,10 @@
   height: 320px;
   margin: auto;
   cursor: pointer;
+  flex-wrap: wrap;
+  transform: rotate(-3deg) translate(-3px, -3px);
+      transition: all 0.3s ease;
+    transform-origin: center;
 }
 
 .carta1 {
@@ -227,25 +234,70 @@
 
 .texto-carta1 {
   color: #333;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
 }
 
-.carta1-2 { background-color: white; z-index: 9; transform: rotate(1deg) translate(0px, 0px); }
-.carta1-3 { background-color: white; z-index: 8; transform: rotate(2deg) translate(2px, 2px); }
-.carta1-4 { background-color: white; z-index: 7; transform: rotate(3deg) translate(5px, 5px); }
-.carta1-5 { background-color: white; z-index: 6; transform: rotate(5deg) translate(8px, 8px); }
-.carta1-6 { background-color: white; z-index: 5; transform: rotate(7deg) translate(11px, 11px); }
-.carta1-7 { background-color: white; z-index: 4; transform: rotate(9deg) translate(14px, 14px); }
+.pilha-cards1:hover .carta1-topo { 
 
-.pilha-cards1:hover .carta1-topo { transform: rotate(-3deg) translate(-3px, -3px); }
-.pilha-cards1:hover .carta1-2 { transform: rotate(2deg) translate(2px, 2px); }
-.pilha-cards1:hover .carta1-3 { transform: rotate(4deg) translate(5px, 5px); }
-.pilha-cards1:hover .carta1-4 { transform: rotate(6deg) translate(8px, 8px); }
-.pilha-cards1:hover .carta1-5 { transform: rotate(8deg) translate(10px, 10px); }
-.pilha-cards1:hover .carta1-6 { transform: rotate(10deg) translate(14px, 14px); }
-.pilha-cards1:hover .carta1-7 { transform: rotate(12deg) translate(17px, 17px); }
+  transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+
+ }
+
+ .btnClickCuriousSec {
+    position: relative;
+    width: 3vw;
+    /* height: 3vw; */
+    display: flex;
+    justify-content: center;
+    align-items:start;
+    cursor: pointer;
+  }
+
+  .btnClickCuriousSec img:first-child {
+
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+  }
+
+  .btnClickCuriousSec img:last-child {
+    width: 50%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    animation: pulse 1.5s infinite ease-in-out;
+    top: 0.8vw;
+  }
+
+ 
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+  }
+
+  /* Efeito hover (opcional) */
+.btnClickCuriousSec:hover img:last-child {
+    transform: scale(1.1) rotate(10deg);
+    animation: pulse 0.8s infinite ease-in-out;
+  }
 
 
 .bgPilhaCards2 {
@@ -260,6 +312,9 @@ padding: 1vw 1vw 1vw 1vw;
   height: 313px;
   margin: auto;
   cursor: pointer;
+   transform: rotate(2deg) translate(4px, 5px);
+     transition: all 0.3s ease;
+    transform-origin: center;
 }
 
 .carta2 {
@@ -299,13 +354,11 @@ padding: 1vw 1vw 1vw 1vw;
   text-align: center;
 }
 
-.carta2-2 { background-color: white; z-index: 9; transform: rotate(-1.5deg) translate(-3px, -2px); }
-.carta2-3 { background-color: white; z-index: 8; transform: rotate(1.2deg) translate(2px, 1px); }
-.carta2-4 { background-color: white; z-index: 7; transform: rotate(2.5deg) translate(5px, 3px); }
-.carta2-5 { background-color: white; z-index: 6; transform: rotate(4deg) translate(8px, 6px); }
 
-.pilha-cards2:hover .carta2-topo{ transform: rotate(2deg) translate(4px, 5px); }
-.pilha-cards2:hover .carta2-2 { transform: rotate(-6deg) translate(-6px, -5px); }
-.pilha-cards2:hover .carta2-3 { transform: rotate(4deg) translate(6px, 4px); }
-.pilha-cards2:hover .carta2-4 { transform: rotate(-5deg) translate(-8px, -6px); }
-.pilha-cards2:hover .carta2-5 { transform: rotate(7deg) translate(11px, 9px); }
+.pilha-cards2:hover .carta2-topo{
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+
+ }
