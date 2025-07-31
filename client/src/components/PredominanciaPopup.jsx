@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/PredominanciaPopup.css';
+import '../styles/PredominanciaPopUp.css';
 
 export default function PredominanciaPopup({ dados }) {
   if (!dados) return null;
