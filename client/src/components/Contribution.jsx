@@ -7,8 +7,12 @@ export default function Contribution() {
        <div className="backgroundContribution"></div>
       <div className="overlayContribution"></div>
       <div className="contentContribution ">
-        <div className="divider1"></div>
+      
+      <div className='cardsETitle'> 
+      <div className='titleEdivider'>
+        <img src="/images/divisor.png" alt="" className='divisorContri' />
         <h2 className="section-title">Faça parte do nosso projeto</h2>
+         </div>
         <div className="card-container">
           <div className="cardContribution">
             <img src="/images/microIcon1.png" alt="Colaborador" className="icon" />
@@ -26,6 +30,7 @@ export default function Contribution() {
             </p>
             <button className="button2" onClick={() => window.location.href = '/visitante'}>Participar</button>
           </div>
+        </div>
         </div>
       </div>
     </section>

@@ -50,43 +50,45 @@ html {
 
 }
 
+.cardsETitle {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+
+}
+
+.titleEdivider{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 4vw;
+  
+
+}
+
+.titleEdivider img {
+
+    width: 40vw;
+    margin-bottom: 1vw;
+
+}
+
 .section-title {
-  font-size: 52px;
-  margin-bottom: 20px;
-  position: relative;
-  display: inline-block;
-  max-width: 600px;
+  font-size: 4vw;
   text-align: left;
-  right: 160px;
+ 
 }
 
-.divider1 {
-  width: 60%;
-  height: 1.5px;
-  position: relative;
-  top: 0px;
-  left: 90px;
-  background-color: rgb(255, 255, 255);
-  margin-left: 15px;
-  opacity: 0.8;
-}
 
-.divider1::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -15px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #FF702E;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
 
 .card-container {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 5vw;
   margin-top: 40px;
 }
 
