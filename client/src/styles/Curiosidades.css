@@ -16,7 +16,7 @@
 }
 
 .CuriosidadesHeader {
- background-image: url(/images/VectorHeader.png);
+ background-image: url(../assets/images/VectorHeader.png);
   background-repeat: no-repeat;
   background-size: contain; 
   background-position: left top;
@@ -51,7 +51,7 @@
 
   background-color: rgb(0, 0, 0);
   padding: 5vw 10vw 5vw 10vw;
-  background-image: url(/images/Vector4.png);
+  background-image: url(../assets/images/Vector4.png);
   background-repeat: no-repeat;
   background-size: auto 150px;
   background-position: right top;
@@ -157,7 +157,7 @@
 .bg-conteudoEvolucoes {
 
   /* background-color: whitesmoke; */
-  background-image: url('/images/noveEvBg.png');
+  background-image: url('../assets/images/noveEvBg.png');
   padding: 5vw 5vw 5vw 2vw;
 }
 
@@ -299,7 +299,7 @@
 .bg-labIntro{
   background-color: whitesmoke;
   padding: 5vw 10vw 5vw 10vw;
-   background-image: url(/images/Vector6.png);
+   background-image: url(../assets/images/Vector6.png);
   background-repeat: no-repeat;
   background-size: auto 150px;
   background-position: right top;
@@ -385,7 +385,7 @@
 .bg-quemSomos {
 
    /* background-color: rgb(255, 255, 255); */
-  background-image: url('/images/quemSomosbg.png');
+  background-image: url('../assets/images/quemSomosbg.png');
   padding: 5vw 10vw 8vw 10vw;
 
 

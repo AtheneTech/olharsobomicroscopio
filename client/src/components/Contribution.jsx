@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/Contribution.css';
+import IconMicrosc from "../assets/images/iconMicrosc.png";
+import IconBus from "../assets/images/iconBus.png";
 
 export default function Contribution() {
   return (
@@ -11,7 +13,7 @@ export default function Contribution() {
         <h2 className="section-title">Faça parte do nosso projeto</h2>
         <div className="card-container">
           <div className="cardContribution">
-            <img src="/images/iconMicrosc.png" alt="Colaborador" className="icon" />
+            <img src={IconMicrosc} alt="Colaborador" className="icon" />
             <h3>Quero ser colaborador</h3>
             <p> Se gostou do nosso projeto e ficou curioso em participar da equipe ou deseja nos enviar sua incrível foto de microscópio. Nos envie um formulário 
               solicitando sua colaboração.
@@ -19,7 +21,7 @@ export default function Contribution() {
             <button className="button" onClick={() => window.location.href = '/colaborador'}>Colaborar</button>
           </div>
           <div className="cardContribution ">
-            <img src="/images/iconBus.png" alt="Ônibus" className="icon" />
+            <img src={IconBus} alt="Ônibus" className="icon" />
             <h3>Quero visitar a exposição</h3>
             <p>
               Se acredita que nosso projeto merece alcançar novos horizontes e deseja que sua escola participe da exposição, faça a solicitação via formulário. 

@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import IconZoomOut from "../assets/icons/iconzoomout.png";
+import IconZoomIn from "../assets/icons/iconzoomin.png";
+
 export default function ZoomPreview({ src }) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -119,11 +122,11 @@ export default function ZoomPreview({ src }) {
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
         <button onClick={zoomOut} disabled={zoomLevel <= 1} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel <= 1 ? "not-allowed" : "pointer", outline: "none" }}>
-          <img src="/icons/iconzoomout.png" alt="Zoom Out" style={{ width: 24, height: 24 }} />
+          <img src={IconZoomOut} alt="Zoom Out" style={{ width: 24, height: 24 }} />
         </button>
         <input type="range" min={1} max={3} step={0.1} value={zoomLevel} onChange={(e) => setZoomLevel(Number(e.target.value))} style={{ width: "250px", accentColor: "#F4783B", cursor: "pointer" }} />
         <button onClick={zoomIn} disabled={zoomLevel >= 3} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel >= 3 ? "not-allowed" : "pointer", outline: "none" }}>
-          <img src="/icons/iconzoomin.png" alt="Zoom In" style={{ width: 24, height: 24 }} />
+          <img src={IconZoomIn} alt="Zoom In" style={{ width: 24, height: 24 }} />
         </button>
         <button onClick={resetZoom} style={{ marginLeft: "10px", padding: "6px 12px", border: "2px solid #F4783B", borderRadius: "6px", backgroundColor: "white", color: "#F4783B", cursor: "pointer", fontSize: "12px", fontWeight: "bold" }}>
           Reset

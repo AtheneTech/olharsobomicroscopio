@@ -1,15 +1,18 @@
 import React from 'react';
 import '../styles/CuriosidadesSec.css'
+import IconeCuriosidades from "../assets/images/icone-curiosidades.png";
+import ImgCarta2 from "../assets/images/img-carta2.png";
+import ImgCarta from "../assets/images/img-carta.png";
+import ImgCarta3 from "../assets/images/img-carta3.png";
 
 const CuriosidadesSec = () => {
   return (
     <div id="curiosidades" className="curiosidades-bg">
       <div className="conteudo">
 
-        {/* LADO ESQUERDO */}
         <div className="esquerdasecc">
           <div className="titulo-com-icone">
-            <img src="/images/icone-curiosidades.png" alt="ícone" />
+            <img src={IconeCuriosidades} alt="ícone" />
             <h1 className='esquerda-h1'>Curiosidades</h1>
           </div>
           <em>por trás da ciência</em>
@@ -26,15 +29,14 @@ const CuriosidadesSec = () => {
           <div className="pilha-cards">
             <div className="carta carta1">
               <div className="titulo-carta">Microscopio Simples</div>
-              <img src="/images/img-carta2.png" className="img-microscopio" />
+              <img src={ImgCarta2} className="img-microscopio" />
             </div>
-            <img src="/images/img-carta.png" className="carta carta2" />
-            <img src="/images/img-carta.png" className="carta carta3" />
-            <img src="/images/img-carta.png" className="carta carta4" />
+            <img src={ImgCarta} className="carta carta2" />
+            <img src={ImgCarta} className="carta carta3" />
+            <img src={ImgCarta} className="carta carta4" />
           </div>
         </div>
 
-        {/* LADO DIREITO */}
         <div className="direitasecc">
           <p>
             Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores
@@ -49,11 +51,9 @@ const CuriosidadesSec = () => {
             <p>Conheça os rostos por trás da produção, pesquisa e paixão pelos microscópios.</p>
           </div>
 
-          {/* Pilha de cartas no card direito */}
           <div className="pilha-cards-direita">
             <div className="cartaEq carta1b">
-              {/* <div className="titulo-cartaEq">Microscópio Eletrônico</div> */}
-              <img src="/images/img-carta3.png" className="img-equipe" />
+              <img src={ImgCarta3} className="img-equipe" />
             </div>
             <div className="carta carta2b"></div>
             <div className="carta carta3b"></div>

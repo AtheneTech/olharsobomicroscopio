@@ -1,6 +1,11 @@
 import React from 'react';
 import '../styles/Footer.css'; 
-
+import InstaIcon from "../assets/icons/insta.svg";
+import WhatsIcon from "../assets/icons/whats.svg";
+import FaceIcon from "../assets/icons/face.svg";
+import AsmIcon from "../assets/icons/asm.svg";
+import AtheneIcon from "../assets/icons/athene.svg";
+import SMDIcon from "../assets/icons/smd.svg";
 
 const Footer = () => {
   return (
@@ -15,9 +20,9 @@ const Footer = () => {
         </p>
         <p><strong>(85) 99123-4567</strong></p>
         <div className="social-icons">
-          <a href='https://www.instagram.com/artesobomicroscopio/' target="_blank" rel="noopener noreferrer"><img src='/icons/insta.svg' alt="Instagram"/></a>
-          <a href="https://wa.me/5599999999999?text=Olá%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais" target="_blank" rel="noopener noreferrer"><img src='/icons/whats.svg' alt="WhatsApp" /></a>
-          <a href="https://www.facebook.com/profile.php?id=100077322255115&locale=pt_BR" target="_blank" rel="noopener noreferrer"><img src="/icons/face.svg" alt="Facebook" /></a>
+          <a href='https://www.instagram.com/artesobomicroscopio/' target="_blank" rel="noopener noreferrer"><img src={InstaIcon} alt="Instagram"/></a>
+          <a href="https://wa.me/5599999999999?text=Olá%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais" target="_blank" rel="noopener noreferrer"><img src={WhatsIcon} alt="WhatsApp" /></a>
+          <a href="https://www.facebook.com/profile.php?id=100077322255115&locale=pt_BR" target="_blank" rel="noopener noreferrer"><img src={FaceIcon} alt="Facebook" /></a>
 
         </div>
       </div>
@@ -26,13 +31,13 @@ const Footer = () => {
         <div className="footer-logos">
           <div>
             <h4>Realização</h4>
-            <img src='/icons/asm.svg' alt="Arte sob o Microscópio" className="logo-realizacao" />
+            <img src={AsmIcon} alt="Arte sob o Microscópio" className="logo-realizacao" />
           </div>
           <div>
             <h4>Apoio</h4>
             <div className="apoio-logos">
-              <img src='/icons/athene.svg'alt="Athene" />
-              <img src='/icons/smd.svg' alt="SMD" />
+              <img src={AtheneIcon} alt="Athene" />
+              <img src={SMDIcon} alt="SMD" />
             </div>
           </div>
         </div>

@@ -18,7 +18,13 @@ import PredominanciaPopup from "./PredominanciaPopup";
 import SoundPreview from "./SoundPreview";
 import ZoomPreview from "./ZoomPreview";
 
-import chagasIcon from "../../public/icons/chagas.png";
+import IconI from "../assets/icons/iconi.png";
+import IconSound from "../assets/icons/iconsound.png";
+import IconWorldMap from "../assets/icons/iconworldmap.png";
+import IconZoomIn from "../assets/icons/iconzoomin.png";
+import IconAutor from "../assets/icons/iconautor.png";
+
+import chagasIcon from "../assets/icons/chagas.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import '../styles/PhotosGallery.css';
@@ -210,10 +216,10 @@ export default function PhotosGallery() {
                 </motion.div>
               </div>
 
-              {currentImage.description && <FloatingIcon icon={<img src="/icons/iconi.png" alt="Detalhes" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
+              {currentImage.description && <FloatingIcon icon={<img src={IconI} alt="Detalhes" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
               {currentImage.author && (
                 <FloatingIcon
-                  icon={<img src="/icons/iconautor.png" alt="Autor" />}
+                  icon={<img src={IconAutor} alt="Autor" />}
                   label="Autor"
                   position={{ top: "70%", left: "15%" }}
                   size={65}
@@ -223,9 +229,9 @@ export default function PhotosGallery() {
                   }}
                 />
               )}
-              {currentImage.song && <FloatingIcon icon={<img src="/icons/iconsound.png" alt="Som" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
-              {currentImage.predominance && <FloatingIcon icon={<img src="/icons/iconworldmap.png" alt="Predominância" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
-              <FloatingIcon icon={<img src="/icons/iconzoomin.png" alt="Amostra" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
+              {currentImage.song && <FloatingIcon icon={<img src={IconSound} alt="Som" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
+              {currentImage.predominance && <FloatingIcon icon={<img src={IconWorldMap} alt="Predominância" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
+              <FloatingIcon icon={<img src={IconZoomIn} alt="Amostra" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
             </>
           )}
         </div>

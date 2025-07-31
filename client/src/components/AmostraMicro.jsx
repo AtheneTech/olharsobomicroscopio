@@ -2,59 +2,64 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
+import Microscopio1 from "../assets/images/microscopio1.png";
+import Microscopio2 from "../assets/images/microscopio2.png";
+import Microscopio3 from "../assets/images/microscopio3.png";
+import Microscopio4 from "../assets/images/microscopio4.png";
+import Microscopio5 from "../assets/images/microscopio5.png";
+import Microscopio6 from "../assets/images/microscopio6.png";
+import Microscopio7 from "../assets/images/microscopio7.png";
+import Divisor from "../assets/images/divisor.png";
+
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
 import '../styles/AmostraMicro.css';
 
-// import ContributionSection from './ContributionSection';
-// import Curiosidades from './Curiosidades';
-
 const slides = [
   {
-    image: '/images/microscopio1.png',
+    image: Microscopio1,
     name: 'Microscópio Óptico',
     zoom: '1000x',
     description: 'Usado para observar células e tecidos.'
   },
   {
-    image: '/images/microscopio2.png',
+    image: Microscopio2,
     name: 'Microscópio Eletrônico',
     zoom: '1.000.000x',
     description: 'Permite observar vírus e detalhes ultrafinos.'
   },
   {
-    image: '/images/microscopio3.png',
+    image: Microscopio3,
     name: 'Microscópio de Varredura',
     zoom: '500.000x',
     description: 'Ideal para superfícies e texturas.'
   },
   {
-    image: '/images/microscopio4.png',
+    image: Microscopio4,
     name: 'Microscópio Óptico',
     zoom: '1000x',
     description: 'Usado para observar células e tecidos.'
   },
   {
-    image: '/images/microscopio5.png',
+    image: Microscopio5,
     name: 'Microscópio Óptico',
     zoom: '1000x',
     description: 'Usado para observar células e tecidos.'
   },
   {
-    image: '/images/microscopio6.png',
+    image: Microscopio6,
     name: 'Microscópio Óptico',
     zoom: '1000x',
     description: 'Usado para observar células e tecidos.'
   },
   {
-    image: '/images/microscopio7.png',
+    image: Microscopio7,
     name: 'Microscópio Óptico',
     zoom: '1000x',
     description: 'Usado para observar células e tecidos.'
   },
-
 ];
 
 export default function CardsImagens() {
@@ -73,7 +78,7 @@ export default function CardsImagens() {
       <div className="backgroundCards"></div>
       <div className="overlayCards"></div>
       <h1 className="title">Amostra de microscópios</h1>
-      <img src="/images/divisor.png" className="divisorAm" />
+      <img src={Divisor} className="divisorAm" />
       <p className="subtitle"> <b> Toque </b> no card e descubra como era cada imagem vista pelo microscopio </p>
 
       <Swiper
@@ -109,14 +114,6 @@ export default function CardsImagens() {
         ))}
       </Swiper>
     </section>
-
-    {/* <section className='Contribuicoes'>
-      <ContributionSection/>
-    </section> */}
-
-    {/* <section className='Curiosidades'>
-      <Curiosidades/>
-    </section> */}
 
   </>
   );

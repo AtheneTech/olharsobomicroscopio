@@ -13,7 +13,7 @@ body, html {
 .contribution-section {
   position: relative;
   min-height: 100vh;
-  background-image: url('/images/backgrodunContribuicao.png');
+  background-image: url('../assets/images/backgrodunContribuicao.png');
   background-size: cover;
   background-position: center;
   color: white;
@@ -25,7 +25,7 @@ body, html {
 .backgroundContribution {
   position: absolute;
   inset: 0;
-  background-image: url('/images/backgrodunContribuicao.png');
+  background-image: url('../assets/images/backgrodunContribuicao.png');
   background-size:cover;
   background-position: center;
   background-repeat: no-repeat;

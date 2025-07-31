@@ -1,20 +1,25 @@
 import React from "react";
 import "../styles/AutorPopup.css";
 
+import XIcon from "../assets/icons/x.svg";
+import LinkedinIcon from "../assets/icons/linkedin.svg";
+import InstagramIcon from "../assets/icons/instagram.svg";
+import FacebookIcon from "../assets/icons/facebook.svg";
+
 const getSocialIcon = (url) => {
   if (url.includes('twitter.com') || url.includes('x.com')) {
-    return '/icons/x.svg';
+    return XIcon;
   }
   if (url.includes('linkedin.com')) {
-    return '/icons/linkedin.svg';
+    return LinkedinIcon;
   }
   if (url.includes('instagram.com')) {
-    return '/icons/instagram.svg';
+    return InstagramIcon;
   }
   if (url.includes('facebook.com')) {
-    return '/icons/facebook.svg';
+    return FacebookIcon;
   }
-  return '/icons/link.svg'; 
+  return '../assets/icons/link.svg'; 
 };
 
 export default function AutorPopup({ author, additionalInfo }) {

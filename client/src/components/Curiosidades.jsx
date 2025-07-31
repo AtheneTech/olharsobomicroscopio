@@ -20,7 +20,20 @@ import Footer from './Footer';
 import Credits from './Credits';
 import Contribution from './Contribution';
 
-
+import Microscopio1 from "../assets/images/microscopio1.png";
+import Microscopio2 from "../assets/images/microscopio2.png";
+import Microscopio3 from "../assets/images/microscopio3.png";
+import Microscopio4 from "../assets/images/microscopio4.png";
+import Microscopio5 from "../assets/images/microscopio5.png";
+import Microscopio6 from "../assets/images/microscopio6.png";
+import Divisor from "../assets/images/divisor.png";
+import ImgCarta from "../assets/images/img-carta.png";
+import Nove from "../assets/images/nove.png";
+import DetailsBlack from "../assets/icons/detailsblack.png";
+import Divisor2 from "../assets/images/divisor2.png";
+import Line from "../assets/images/line.png";
+import EqPhotos from "../assets/images/eqPhotos.png";
+import SetaBaixo from "../assets/images/setaBaixo.png";
 
 const Curiosidades = () => {
 
@@ -38,7 +51,7 @@ const Curiosidades = () => {
     const cardsEvolucao = [
         {
             titulo: 'Microscópio Simples',
-            imagem: '/images/microscopio1.png',
+            imagem: Microscopio1,
             inventor: 'Anton van Leeuwenhoek',
             caracteristica: 'Uma única lente convexa',
             utilizado: 'Observar tecidos e organismos unicelulares',
@@ -46,7 +59,7 @@ const Curiosidades = () => {
         },
         {
             titulo: 'Microscópio Composto',
-            imagem: '/images/microscopio2.png',
+            imagem: Microscopio2,
             inventor: 'Zacharias Janssen',
             caracteristica: 'Duas lentes (ocular + objetiva)',
             utilizado: 'Aumentar a ampliação em múltiplos níveis',
@@ -54,7 +67,7 @@ const Curiosidades = () => {
         },
         {
             titulo: 'Microscópio Composto',
-            imagem: '/images/microscopio3.png',
+            imagem: Microscopio3,
             inventor: 'Zacharias Janssen',
             caracteristica: 'Duas lentes (ocular + objetiva)',
             utilizado: 'Aumentar a ampliação em múltiplos níveis',
@@ -62,7 +75,7 @@ const Curiosidades = () => {
         },
         {
             titulo: 'Microscópio Composto',
-            imagem: '/images/microscopio4.png',
+            imagem: Microscopio4,
             inventor: 'Zacharias Janssen',
             caracteristica: 'Duas lentes (ocular + objetiva)',
             utilizado: 'Aumentar a ampliação em múltiplos níveis',
@@ -70,7 +83,7 @@ const Curiosidades = () => {
         },
         {
             titulo: 'Microscópio Composto',
-            imagem: '/images/microscopio5.png',
+            imagem: Microscopio5,
             inventor: 'Zacharias Janssen',
             caracteristica: 'Duas lentes (ocular + objetiva)',
             utilizado: 'Aumentar a ampliação em múltiplos níveis',
@@ -78,7 +91,7 @@ const Curiosidades = () => {
         },
         {
             titulo: 'Microscópio Composto',
-            imagem: '/images/microscopio6.png',
+            imagem: Microscopio6,
             inventor: 'Zacharias Janssen',
             caracteristica: 'Duas lentes (ocular + objetiva)',
             utilizado: 'Aumentar a ampliação em múltiplos níveis',
@@ -108,14 +121,14 @@ const Curiosidades = () => {
 
                         <div className="containerTitulo">
 
-                            <img src="/images/divisor.png" className="divisor" />
+                            <img src={Divisor} className="divisor" />
                             <h2 className="titleOrigem"> Origem do microscópio </h2>
 
                         </div>
 
                         <div className="containerConteudo">
 
-                            <img src="/images/img-carta.png" className="imgMicrosOrigem" />
+                            <img src={ImgCarta} className="imgMicrosOrigem" />
 
                             <div className="containerDescp">
 
@@ -142,9 +155,9 @@ const Curiosidades = () => {
                     <section className="conteudoEvolucoes">
 
                          <div className='iconsCurio'>
-                            <img src='/icons/detailsblack.png' style={{width:'auto', height:'400px', marginRight:'50px'}}></img>
+                            <img src={DetailsBlack} style={{width:'auto', height:'400px', marginRight:'50px'}}></img>
                         <div className="titleEDesc">
-                            <img src="/images/nove.png" className="numero" />
+                            <img src={Nove} className="numero" />
                             <h2>
                                 Evoluções para chegar ao que conhecemos hoje
                             </h2>
@@ -207,16 +220,16 @@ const Curiosidades = () => {
                         <div className='contentCardsIntro'>
 
                             <div className='histCard'>
-                                <img src="/images/divisor2.png" className="divisor2" />
+                                <img src={Divisor2} className="divisor2" />
                                 <h3> História </h3>
                                 <p> O microscópio teve sua origem na Holanda no final do século XVI, com a invenção do microscópio composto por Zacharias Janssen e seu pai, Hans, por volta de 1590. Eles eram fabricantes de óculos e, ao experimentar com lentes, perceberam que a combinação de duas ou mais lentes em um tubo amplificava a imagem de objetos próximos.  </p>
                             </div>
 
-                            <img src="/images/line.png" className="lineConecte" />
+                            <img src={Line} className="lineConecte" />
 
                             <div className='missionCard'>
 
-                                <img src="/images/divisor2.png" className="divisor2" />
+                                <img src={Divisor2} className="divisor2" />
                                 <h3> Missão </h3>
                                 <p> O microscópio teve sua origem na Holanda no final do século XVI, com a invenção do microscópio composto por Zacharias Janssen e seu pai, Hans, por volta de 1590. Eles eram fabricantes de óculos e, ao experimentar com lentes, perceberam que a combinação de duas ou mais lentes em um tubo amplificava a imagem de objetos próximos.  </p>
                             </div>
@@ -249,7 +262,7 @@ const Curiosidades = () => {
                             </div>
 
                             <div className='eqImages'>
-                                <img src="/images/eqPhotos.png" className="imgEq2" />
+                                <img src={EqPhotos} className="imgEq2" />
 
                             </div>
 
@@ -272,7 +285,7 @@ const Curiosidades = () => {
 
                             </div>
 
-                            <img src="/images/setaBaixo.png" className="vetorSeta" />
+                            <img src={SetaBaixo} className="vetorSeta" />
 
                         </div>
 
