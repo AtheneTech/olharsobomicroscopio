@@ -30,10 +30,22 @@ export async function handleUpdate(req, res) {
       const newIconUrl = await uploadToCloudinary(req.files.icon[0].buffer);
       data.iconUrl = newIconUrl;
     }
-    
     if (req.files && req.files.image) {
       const newImageUrl = await uploadToCloudinary(req.files.image[0].buffer);
       data.url = newImageUrl;
+    }
+
+    if (data.predominance && typeof data.predominance === 'string') {
+      data.predominance = JSON.parse(data.predominance);
+    }
+    if (data.additionalInfo && typeof data.additionalInfo === 'string') {
+      data.additionalInfo = JSON.parse(data.additionalInfo);
+    }
+
+    if (data.sectionIds && typeof data.sectionIds === 'string') {
+      data.sectionIds = data.sectionIds.split(',').filter(id => id);
+    } else if (!data.sectionIds) {
+      data.sectionIds = [];
     }
 
     const image = await imageService.updateImage(id, data);
