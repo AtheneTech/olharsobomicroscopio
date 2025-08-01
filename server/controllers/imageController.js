@@ -20,9 +20,23 @@ export async function handleGetById(req, res) {
 
 export async function handleUpdate(req, res) {
   try {
-    const image = await imageService.updateImage(req.params.id, req.body);
+    const { id } = req.params;
+    const data = req.body;
+
+    if (req.files && req.files.icon) {
+      const newIconUrl = await uploadToCloudinary(req.files.icon[0].buffer);
+      data.iconUrl = newIconUrl;
+    }
+    
+    if (req.files && req.files.image) {
+      const newImageUrl = await uploadToCloudinary(req.files.image[0].buffer);
+      data.url = newImageUrl;
+    }
+
+    const image = await imageService.updateImage(id, data);
     res.json(image);
   } catch (err) {
+    console.error("Erro ao atualizar imagem:", err);
     res.status(500).json({ error: "Erro ao atualizar imagem." });
   }
 }

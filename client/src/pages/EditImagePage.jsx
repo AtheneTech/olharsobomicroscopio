@@ -17,6 +17,8 @@ const EditImagePage = () => {
   const [predominanceData, setPredominanceData] = useState({ regioes: '', populacao: '', caracteristicas: '', status: '' });
   const [additionalInfo, setAdditionalInfo] = useState({ resolucao: '', ampliacao: '', processamento: '', exposicao: '', software: '', formatos: '' });
   const [imageUrl, setImageUrl] = useState('');
+  const [iconFile, setIconFile] = useState(null);
+  const [currentIconUrl, setCurrentIconUrl] = useState('');
   const [authors, setAuthors] = useState([]);
   const [exhibitions, setExhibitions] = useState([]);
   const [allSections, setAllSections] = useState([]);
@@ -37,15 +39,17 @@ const EditImagePage = () => {
           api.get('/api/sections'),
           api.get('/api/exhibitions'),
         ]);
-        const { predominance: p, additionalInfo: ai, sections: imageSections, ...imageData } = imageRes.data;
+        // ✅ CORREÇÃO: Desestrutura 'iconUrl' corretamente
+        const { predominance: p, additionalInfo: ai, sections: imageSections, iconUrl, ...imageData } = imageRes.data;
         setFormData({ ...imageData, sectionIds: imageSections.map(s => s.id) });
         if (p) setPredominanceData(p);
         if (ai) setAdditionalInfo(ai);
-        
+
         setImageUrl(imageRes.data.url);
         setAuthors(authorsRes.data);
         setAllSections(sectionsRes.data);
         setExhibitions(exhibitionsRes.data);
+        setCurrentIconUrl(iconUrl); // Usa a variável desestruturada
 
         if (imageSections && imageSections.length > 0) {
           const currentSection = sectionsRes.data.find(s => s.id === imageSections[0].id);
@@ -61,6 +65,8 @@ const EditImagePage = () => {
     };
     fetchData();
   }, [id, toast]);
+
+  const handleIconFileChange = (e) => setIconFile(e.target.files[0]);
 
   useEffect(() => {
     if (selectedExhibitionId) {
@@ -91,16 +97,38 @@ const EditImagePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    // ✅ CORREÇÃO: Usa FormData para enviar todos os dados, incluindo o ficheiro do ícone
+    const uploadData = new FormData();
+    
+    // Adiciona os dados de texto
+    const { sectionIds, ...textData } = formData;
+    Object.keys(textData).forEach(key => {
+      uploadData.append(key, textData[key]);
+    });
+    
+    // Adiciona os arrays e objetos como strings JSON
+    uploadData.append('sectionIds', sectionIds.join(','));
+    
+    const hasPredominanceContent = Object.values(predominanceData).some(value => value.trim() !== '');
+    if (hasPredominanceContent) {
+      uploadData.append('predominance', JSON.stringify(predominanceData));
+    }
+
+    const hasAdditionalInfo = Object.values(additionalInfo).some(value => value.trim() !== '');
+    if (hasAdditionalInfo) {
+      uploadData.append('additionalInfo', JSON.stringify(additionalInfo));
+    }
+
+    // Adiciona o novo ficheiro de ícone, se houver
+    if (iconFile) {
+      uploadData.append('icon', iconFile);
+    }
+
     try {
-      const hasPredominanceContent = Object.values(predominanceData).some(value => value.trim() !== '');
-      const hasAdditionalInfo = Object.values(additionalInfo).some(value => value.trim() !== '');
-      
-      const dataToUpdate = { 
-        ...formData, 
-        predominance: hasPredominanceContent ? predominanceData : null,
-        additionalInfo: hasAdditionalInfo ? additionalInfo : null
-      };
-      await api.put(`/api/images/${id}`, dataToUpdate);
+      await api.put(`/api/images/${id}`, uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       toast({ title: 'Imagem atualizada com sucesso!' });
       navigate('/admin/imagens');
     } catch (error) {
@@ -109,7 +137,7 @@ const EditImagePage = () => {
       setIsLoading(false);
     }
   };
-  
+
   if (isFetching) {
     return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
@@ -120,16 +148,19 @@ const EditImagePage = () => {
       <div className="flex flex-col md:flex-row gap-6">
         <div className="md:w-1/3">
           <img src={imageUrl} alt={formData.name} className="rounded-md w-full" />
+          <Label>Ícone Atual</Label>
+          <img src={currentIconUrl || 'https://via.placeholder.com/80'} alt="Ícone atual" className="rounded-md h-20 w-20 object-cover bg-gray-500" />
         </div>
         <div className="md:w-2/3">
           <Card className="bg-[#373737] border-gray-700 text-white">
             <CardContent className="pt-6">
               <form onSubmit={handleSubmit}>
                 <div className="grid gap-6">
+                  <div className="grid gap-2"><Label htmlFor="icon-file">Alterar Ícone</Label><Input id="icon-file" type="file" onChange={handleIconFileChange} className="bg-[#444444] border-none file:text-white" /></div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="grid gap-2"><Label htmlFor="name">Nome da Imagem</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} className="bg-[#444444] border-none" /></div>
                     <div className="grid gap-2"><Label htmlFor="source">Fonte da Imagem</Label><Input id="source" name="source" value={formData.source} onChange={handleChange} className="bg-[#444444] border-none" /></div>
-                    <div className="grid gap-2"><Label htmlFor="authorId">Autor</Label><Select name="authorId" value={formData.authorId} onValueChange={(value) => setFormData({...formData, authorId: value})}><SelectTrigger className={`bg-[#444444] border-none ${!formData.authorId ? 'text-gray-400' : 'text-white'}`}><SelectValue placeholder="Selecione um autor" /></SelectTrigger><SelectContent>{authors.map(a => <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>)}</SelectContent></Select></div>
+                    <div className="grid gap-2"><Label htmlFor="authorId">Autor</Label><Select name="authorId" value={formData.authorId} onValueChange={(value) => setFormData({ ...formData, authorId: value })}><SelectTrigger className={`bg-[#444444] border-none ${!formData.authorId ? 'text-gray-400' : 'text-white'}`}><SelectValue placeholder="Selecione um autor" /></SelectTrigger><SelectContent>{authors.map(a => <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>)}</SelectContent></Select></div>
                     <div className="grid gap-2"><Label htmlFor="exhibitionId">Exposição</Label><Select value={selectedExhibitionId} onValueChange={handleExhibitionChange}><SelectTrigger className={`bg-[#444444] border-none ${!selectedExhibitionId ? 'text-gray-400' : 'text-white'}`}><SelectValue placeholder="Selecione uma exposição" /></SelectTrigger><SelectContent>{exhibitions.map((e) => (<SelectItem key={e.id} value={e.id}>{e.edition} - {e.title}</SelectItem>))}</SelectContent></Select></div>
                     <div className="grid gap-2 md:col-span-2"><Label>Seções</Label><div className="p-4 border border-gray-600 rounded-md space-y-2 bg-[#444444]">{filteredSections.length > 0 ? (filteredSections.map((section) => (<div key={section.id} className="flex items-center space-x-2"><Checkbox id={section.id} checked={formData.sectionIds.includes(section.id)} onCheckedChange={() => handleSectionChange(section.id)} /><Label htmlFor={section.id} className="font-normal">{section.name}</Label></div>))) : (<p className="text-sm text-gray-400">Selecione uma exposição para ver as seções.</p>)}</div></div>
                     <div className="grid gap-2 md:col-span-2"><Label htmlFor="song">URL da Música (Spotify)</Label><Input id="song" name="song" value={formData.song} onChange={handleChange} className="bg-[#444444] border-none" /></div>

@@ -5,6 +5,11 @@ import upload from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", auth, upload.single("image"), uploadImage);
+const uploadFields = upload.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'icon', maxCount: 1 }
+]);
+
+router.post("/", auth, uploadFields, uploadImage);
 
 export default router;

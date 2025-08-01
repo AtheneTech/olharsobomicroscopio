@@ -15,6 +15,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 const CreateImagePage = () => {
   const [formData, setFormData] = useState({ name: '', description: '', source: '', authorId: '', sectionIds: [], song: '' });
   const [file, setFile] = useState(null);
+  const [iconFile, setIconFile] = useState(null);
   const [additionalInfo, setAdditionalInfo] = useState({ resolucao: '', ampliacao: '', processamento: '', exposicao: '', software: '', formatos: '' });
   const [predominanceData, setPredominanceData] = useState({ regioes: '', populacao: '', caracteristicas: '', status: '' });
   const [authors, setAuthors] = useState([]);
@@ -67,6 +68,7 @@ const CreateImagePage = () => {
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const handleFileChange = (e) => setFile(e.target.files[0]);
+  const handleIconFileChange = (e) => setIconFile(e.target.files[0]);
   const handleAdditionalInfoChange = (e) => setAdditionalInfo({ ...additionalInfo, [e.target.name]: e.target.value });
   const handlePredominanceChange = (e) => setPredominanceData({ ...predominanceData, [e.target.name]: e.target.value });
 
@@ -80,12 +82,15 @@ const CreateImagePage = () => {
 
     const uploadData = new FormData();
     uploadData.append('image', file);
+    if (iconFile) {
+      uploadData.append('icon', iconFile);
+    }
 
     const { sectionIds, ...textData } = formData;
     Object.keys(textData).forEach(key => {
       uploadData.append(key, textData[key]);
     });
-    
+
     if (sectionIds.length > 0) {
       uploadData.append('sectionIds', sectionIds.join(','));
     }
@@ -120,7 +125,8 @@ const CreateImagePage = () => {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit}>
             <div className="grid gap-6">
-              <div className="grid gap-2"><Label htmlFor="image-file">Arquivo da Imagem</Label><Input id="image-file" type="file" onChange={handleFileChange} className="bg-[#444444] border-none file:text-white" /></div>
+              <div className="grid gap-2"><Label htmlFor="image-file">Arquivo da Imagem (Principal)</Label><Input id="image-file" type="file" onChange={handleFileChange} className="bg-[#444444] border-none file:text-white" /></div>
+              <div className="grid gap-2"><Label htmlFor="icon-file">Arquivo do Ícone</Label><Input id="icon-file" type="file" onChange={handleIconFileChange} className="bg-[#444444] border-none file:text-white" /></div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="grid gap-2"><Label htmlFor="name">Nome da Imagem</Label><Input id="name" name="name" value={formData.name} onChange={handleChange} className="bg-[#444444] border-none" /></div>
                 <div className="grid gap-2"><Label htmlFor="source">Fonte da Imagem</Label><Input id="source" name="source" value={formData.source} onChange={handleChange} className="bg-[#444444] border-none" /></div>
