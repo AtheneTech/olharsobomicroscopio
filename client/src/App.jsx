@@ -25,8 +25,12 @@ import ImagesPage from './pages/ImagesPage';
 import CreateImagePage from './pages/CreateImagePage';
 import EditImagePage from './pages/EditImagePage';
 
+import ScrollProgressBar from './components/ScrollProgressBar';
+
 function App() {
   return (
+    <>
+      <ScrollProgressBar />
     <Routes>
       <Route path="/" element={<HomeRedirectPage />} />
 
@@ -64,6 +68,7 @@ function App() {
 
       <Route path="*" element={<ErrorPage />} />
     </Routes>
+    </>
   );
 }
 
