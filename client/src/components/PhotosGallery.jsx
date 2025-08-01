@@ -23,10 +23,11 @@ import IconSound from "../assets/icons/iconsound.png";
 import IconWorldMap from "../assets/icons/iconworldmap.png";
 import IconZoomIn from "../assets/icons/iconzoomin.png";
 import IconAutor from "../assets/icons/iconautor.png";
+import imgCarregamento from "../assets/icons/logoCarregamento.png"
 
 import chagasIcon from "../assets/icons/chagas.png";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import '../styles/PhotosGallery.css';
 
 const ITEMS_PER_PAGE = 5;
@@ -113,7 +114,13 @@ export default function PhotosGallery() {
   };
 
   if (isLoading) {
-    return <div className="loading-screen">A carregar exposição...</div>;
+    return (
+      <div className="flex flex-col justify-center items-center h-screen bg-black text-white">
+        <img src={imgCarregamento} className="h-[200px] animate-pulse mb-4"/>
+        <Loader2 className="h-12 w-12 animate-spin mb-4" />
+        <p>Carregando...</p>
+      </div>
+    );
   }
 
   return (
@@ -121,7 +128,8 @@ export default function PhotosGallery() {
       <div className="all" ref={scrollContainerRef}>
         <Header />
         <Home scrollContainerRef={scrollContainerRef} />
-        {exhibition?.edition === '2025' && (<> <Letreiro /> <Resumo /> <Mapc /> </>)}
+        <Resumo exhibition={exhibition} galleryImages={galleryImages} />
+        {exhibition?.edition === '2025' && (<> <Letreiro /> <Mapc /> </>)}
         <Letreiro2 ano={exhibition?.edition} />
 
         <div id="galeria" className="gallery-container">

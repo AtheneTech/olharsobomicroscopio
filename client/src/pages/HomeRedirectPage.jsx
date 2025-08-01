@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { Loader2 } from 'lucide-react';
+import imgCarregamento from "../assets/icons/logoCarregamento.png"
 
 const HomeRedirectPage = () => {
   const navigate = useNavigate();
@@ -27,9 +28,10 @@ const HomeRedirectPage = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 text-white">
+    <div className="flex flex-col justify-center items-center h-screen bg-black text-white">
+      <img src={imgCarregamento} className="h-[200px]" />
       <Loader2 className="h-12 w-12 animate-spin mb-4" />
-      <p>A carregar a exposição mais recente...</p>
+      <p>Carregando...</p>
     </div>
   );
 };

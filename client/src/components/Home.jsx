@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import api from '../services/api';
 import '../styles/Home.css';
 import { motion, AnimatePresence } from "framer-motion";
+import imgCarregamento from "../assets/icons/logoCarregamento.png"
+import { Loader2 } from 'lucide-react';
 
 function Home({ scrollContainerRef }) {
   const [exhibition, setExhibition] = useState(null);
@@ -70,7 +72,13 @@ function Home({ scrollContainerRef }) {
   }, [scrollContainerRef]);
 
   if (isLoading) {
-    return <div className="loading-screen">Carregando Exposição...</div>;
+    return (
+      <div className="flex flex-col justify-center items-center h-screen bg-black text-white">
+        <img src={imgCarregamento} className="h-[200px] animate-pulse mb-4"/>
+        <Loader2 className="h-12 w-12 animate-spin mb-4" />
+        <p>Carregando...</p>
+      </div>
+    );
   }
 
   return (
