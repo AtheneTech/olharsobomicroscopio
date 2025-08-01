@@ -51,7 +51,8 @@ export async function updateAuthorController(req, res) {
 
 export async function getAllAuthors(req, res) {
   try {
-    const authors = await authorService.getAllAuthors();
+    const { q } = req.query;
+    const authors = await authorService.getAllAuthors(q);
     res.json(authors);
   } catch (err) {
     res.status(500).json({ error: "Erro interno ao buscar os autores." });

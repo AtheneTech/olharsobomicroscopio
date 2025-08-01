@@ -47,9 +47,11 @@ export async function handleGetById(req, res) {
 
 export async function handleGetAll(req, res) {
   try {
-    const exhibitions = await getAllExhibitions();
+    const { q } = req.query;
+    const exhibitions = await getAllExhibitions(q);
     res.json(exhibitions);
   } catch (err) {
+    console.error("Erro detalhado ao buscar exposições:", err);
     res.status(500).json({ error: "Erro ao buscar exposições." });
   }
 }

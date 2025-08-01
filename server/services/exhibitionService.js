@@ -22,11 +22,31 @@ export async function createExhibition(data) {
   });
 }
 
-export async function getAllExhibitions() {
+export async function getAllExhibitions(query) {
+  let whereClause = {};
+
+  if (query && typeof query === 'string' && query.trim() !== '') {
+    whereClause = {
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          edition: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    };
+  }
+
   return prisma.exhibition.findMany({
-    orderBy: {
-      edition: 'desc',
-    },
+    where: whereClause,
+    orderBy: { edition: 'desc' },
   });
 }
 

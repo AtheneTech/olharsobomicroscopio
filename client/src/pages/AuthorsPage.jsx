@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Trash2, Edit, Eye } from 'lucide-react';
+import { Input } from "@/components/ui/input";
+import { Loader2, Trash2, Edit, Eye, Search } from 'lucide-react';
 
 const AuthorsPage = () => {
   const [authors, setAuthors] = useState([]);
@@ -21,11 +22,13 @@ const AuthorsPage = () => {
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isDeleteImageDialogOpen, setIsDeleteImageDialogOpen] = useState(false);
+  
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const fetchAuthors = async () => {
+  const fetchAuthors = async (query = '') => {
     setIsLoading(true);
     try {
-      const response = await api.get('/api/authors');
+      const response = await api.get('/api/authors', { params: { q: query } });
       setAuthors(response.data);
     } catch (error) {
       toast({ title: 'Erro ao buscar autores', variant: 'destructive' });
@@ -34,7 +37,13 @@ const AuthorsPage = () => {
     }
   };
 
-  useEffect(() => { fetchAuthors(); }, []);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchAuthors(searchTerm);
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   const openDeleteDialog = (author) => {
     setSelectedAuthor(author);
@@ -45,7 +54,7 @@ const AuthorsPage = () => {
     try {
       await api.delete(`/api/authors/${selectedAuthor.id}`);
       toast({ title: 'Autor deletado com sucesso' });
-      fetchAuthors();
+      fetchAuthors(searchTerm);
     } catch (error) {
       toast({ title: 'Erro ao deletar autor', variant: 'destructive' });
     } finally {
@@ -84,18 +93,30 @@ const AuthorsPage = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading && authors.length === 0) {
     return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Gerenciamento de Autores</h1>
+        <h1 className="text-3xl font-bold">Autores - Gerenciamento</h1>
         <Button onClick={() => navigate('/admin/autores/novo')} className="bg-green-600 hover:bg-green-700">
-          Criar Novo Autor
+          Novo Autor
         </Button>
       </div>
+
+      <div className="relative mb-4">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <Input
+          type="text"
+          placeholder="Pesquisar por nome ou localização..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="bg-[#444444] border-none pl-10 placeholder:text-gray-400"
+        />
+      </div>
+
       <div className="bg-[#373737] rounded-md border border-gray-700">
         <Table>
           <TableHeader>
@@ -164,7 +185,7 @@ const AuthorsPage = () => {
             )}
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsImagesDialogOpen(false)}>Fechar</Button>
+            <Button variant="destructive" onClick={() => setIsImagesDialogOpen(false)}>Fechar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

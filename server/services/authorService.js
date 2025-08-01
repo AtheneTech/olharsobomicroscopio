@@ -4,8 +4,26 @@ export async function createAuthor(data) {
   return prisma.author.create({ data });
 }
 
-export async function getAllAuthors() {
+export async function getAllAuthors(query) {
+  const searchFilter = query ? {
+    OR: [
+      {
+        name: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+      {
+        location: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+    ],
+  } : {};
+
   return prisma.author.findMany({
+    where: searchFilter,
     orderBy: { name: 'asc' },
   });
 }
