@@ -1,27 +1,38 @@
-
 import React, { useEffect, useState } from 'react';
-import '../styles/ScrollProgressBar.css';
 
-const ScrollProgressBar = () => {
-  const [scrollWidth, setScrollWidth] = useState(0);
+const ProgressBar = () => {
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setScrollWidth(progress);
+    const updateScrollProgress = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+      const progress = (scrollTop / scrollHeight) * 100;
+      setScrollProgress(scrollHeight > 0 ? progress : 0);
     };
 
-    window.addEventListener('scroll', updateProgress);
-    return () => window.removeEventListener('scroll', updateProgress);
+    window.addEventListener('scroll', updateScrollProgress);
+    updateScrollProgress();
+
+    return () => {
+      window.removeEventListener('scroll', updateScrollProgress);
+    };
   }, []);
 
   return (
-    <div className="scroll-progress-container">
-      <div className="scroll-progress-bar" style={{ width: `${scrollWidth}%` }} />
-    </div>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      height: '5px',
+      width: `${scrollProgress}%`,
+      background: 'linear-gradient(to right, #FF702E, #f15a24)',
+      zIndex: 9999,
+      boxShadow: '0 0 6px rgba(255, 112, 46, 0.6)',
+      transition: 'width 0.1s ease-out',
+    }} />
   );
 };
 
-export default ScrollProgressBar;
+export default ProgressBar;

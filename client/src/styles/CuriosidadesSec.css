@@ -1,424 +1,374 @@
-  /* Fundo com imagem */
-.curiosidades-bg {
-  background-image: url('../assets/images/bg-curiosidades2.png');
-  background-size: cover;
-  background-position: center;
+ .bg-section {
+   background-color: rgb(255, 255, 255);
+
+ }
+
+ .conteuSecCuiriosidades {
+
+  
+   display: flex;
+   flex-direction: column;
+   gap: 2vw;
+
+
+ }
+
+ .cabecalhoCuriosidades {
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   margin-left: 1vw;
+   padding: 3vw 5vw 0vw 2vw;
+   gap: 0w;
+   color: black;
+
+ }
+
+ .titleEChamada {
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: row;
+   width: 100%;
+
+
+ }
+
+ .titleEVetor {
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 0.5vw;
+
+ }
+
+ .titleEVetor img {
+
+   width: 2vw;
+
+ }
+
+ .titleEVetor h1 {
+
+   font-size: 4vw;
+   font-weight: 800;
+   margin-bottom: -20px;
+   margin-left: 10px;
+
+ }
+
+ .titleEChamada p {
+
+   text-align: right;
+   font-size: 1.2vw;
+   width: 35vw;
+
+ }
+
+ .subEBotao {
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+
+
+ }
+
+ .subEBotao h3 {
+
+   font-size: 2vw;
+   font-style: italic;
+   margin-left: 17vw;
+   color: #FF702E;
+   
+
+ }
+
+ .subEBotao button {
+
+   color: rgb(255, 255, 255);
+    width: 12vw;
+    background-color: #FF702E;
+    border-radius: 0.8vw;
+    border: none;
+    font-size: 1.2vw;
+    font-weight: 600;
+    padding: 1vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    margin-top: 10px;
+ }
+
+ .subEBotao button:hover {
+    background-color: #000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255);
+  }
+
+ .bgRetangulo {
+
+    width: 100%;
+  background-image: url('/images/bg2things.png');
+  background-size: cover;     
+  background-position: top; 
   background-repeat: no-repeat;
-  width: 100vw;
-  min-height: 850px;
-  max-height: 1300px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 30px;
-  box-sizing: border-box;
+
+ }
+
+ .mainSecCuriosidades {
+
+   display: flex;
+   flex-direction: row;
+    flex-wrap: wrap;
+  
+   gap: 10vw;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .cardPreto1,
+ .cardPreto2 {
+
+   width: 40vw;
+   min-height: 100%;
+   background-color: black;
+   border-radius: 2vw 2vw 0vw 0vw;
+   display: flex;
+    flex-wrap: wrap;
+   justify-content: baseline;
+   align-items: center;
+   flex-direction: column;
+   text-align: left;
+
+ }
+
+ .cardPreto1 img {
+
+   width: 30vw;
+
+ }
+
+ .cardPreto2 img {
+
+   width: 30vw;
+
+ }
+
+ .introducaoCards {
+
+   margin-top: 3vw;
+   color: white;
+   display: flex;
+   flex-direction: column;
+   gap: 1vw;
+   padding: 1vw 3vw;
+ }
+
+ .introducaoCards h3 {
+
+   font-size: 2vw;
+   width: 27vw;
+   font-weight: 600;
+
+ }
+
+  .introducaoCards p {
+
+   font-size: 12px;
+   width: 27vw;
+
+ }
+ .introducaoCards sub {
+
+   font-size: 1vw;
+
+ }
+
+ .bgPilhaCards {
+
+   padding: 1.5vw 1vw 3vw 1vw;
+
+ }
+
+.pilha-cards1 {
   position: relative;
-  overflow-x: hidden;
-}
-
-.conteudo {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 1000px;
-  color: white;
-  position: relative;
-  padding: 0 20px;
-  box-sizing: border-box;
-  min-height: calc(100vh - 40px);
-}
-
-/* Lado esquerdo */
-.esquerdasecc {
-  position: relative;
-  padding: 0;
-}
-
-.esquerda-h1{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: clamp(28px, 3.5vw, 60px);
-  display: flex;
-  margin-top: 0;
-  margin-bottom: 0px;
-  color: rgb(0, 0, 0);
-}
-
-.esquerdasecc em {
-  font-size: 35px;
-  color:  #FF702E;
-  margin-left: 30px;
-}
-
-.titulo-com-icone {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  right: clamp(40px, 12vw, 180px);
-}
-
-.titulo-com-icone img {
-  height: 70px;
-  width: auto;
-}
-
-/* Lado direito */
-.direitasecc {
-  max-width: 400px;
-  padding-top: 10px;
-  text-align: right;
-  position: relative;
-  left: clamp(20px, 12vw, 180px);
- 
-}
-
-.direitasecc p {
-  font-size: clamp(14px, 1.5vw, 15px);
-  color: #000000;
-  margin-bottom: 15px;
-}
-
-.direitasecc button {
-  background-color: #FF702E;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
+  width: 240px;
+  height: 320px;
+  margin: auto;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-  font-size: clamp(12px, 1.2vw, 16px);
-  margin-right: 0px;
-  margin-bottom: 20px;
-}
-
-.direitasecc button:hover {
-  background-color: #000000;
-    scale: 1.1;
-}
-
-/* PILHA DE CARTAS */
-.pilha-cards {
-  position: absolute;
-  top: 370px;
-  width: clamp(200px, 25vw, 300px);
-  pointer-events: auto;
-}
-
-.carta {
-  position: absolute;
-  padding-top: 80px;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-wrap: wrap;
+  transform: rotate(-3deg) translate(-3px, -3px);
+      transition: all 0.3s ease;
+    transform-origin: center;
 }
 
 .carta1 {
-  z-index: 4;
-  background-color: white;
-  padding-top: clamp(60px, 8vh, 100px);
-  padding-bottom: 10px;
-}
-
-.carta2, .carta3, .carta4 {
-  background-color: white;
-  padding-top: 50px;
-}
-
-.carta2 {
-  transform: rotate(4deg) translate(6px, 6px);
-  z-index: 3;
-}
-.carta3 {
-  transform: rotate(8deg) translate(12px, 12px);
-  z-index: 2;
-}
-.carta4 {
-  transform: rotate(12deg) translate(18px, 18px);
-  z-index: 1;
-}
-
-.pilha-cards:hover .carta1 {
-  transform: rotate(-2deg) translate(-2px, -2px);
-}
-.pilha-cards:hover .carta2 {
-  transform: rotate(1deg) translate(4px, 4px);
-}
-.pilha-cards:hover .carta3 {
-  transform: rotate(4deg) translate(10px, 8px);
-}
-.pilha-cards:hover .carta4 {
-  transform: rotate(7deg) translate(16px, 14px);
-}
-
-/* Texto acima da pilha de cartas */
-.info-curiosidade {
-  margin-top: 120px;
-  position: relative;
-  right: clamp(150px, 15vw, 150px);
-  max-width: 500px;
-  color: white;
-}
-
-.info-curiosidade h3 {
- font-family: 'Montserrat', sans-serif;
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.info-curiosidade p {
-  font-size: 18px;
-  color: #ccc;
-  line-height: 1.4;
-}
-
-.titulo-carta {
-  font-size: clamp(14px, 1.2vw, 18px);
-  position: relative;
-  bottom: clamp(20px, 3vw, 40px);
-  text-align: center;
-  font-weight: bolder;
-  margin-bottom: 10px;
-  color: black;
-}
-
-.img-microscopio {
-  width: 90%;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  bottom: clamp(15px, 2vw, 30px);
-  border-radius: 8px;
-}
-
-.pilha-cards-direita {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 320px;
+  border-radius: 18px;
   display: flex;
-  top: 430px;
-  right: clamp(50px, 15vw, 100px);
-  width: clamp(200px, 25vw, 400px);
-  pointer-events: auto;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background-color: #ccc;
 }
 
-.cartaEq {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.img-equipe {
-  width: 90%;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  border-radius: 15px;
+.carta1-topo {
   background-color: white;
-  padding: 10px;
-  box-sizing: border-box;
-  max-height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  z-index: 10;
+}
+
+.carta1-topo img {
+  width: 100%;
+  border-radius: 12px;
   object-fit: cover;
 }
 
-.carta1b {
-  z-index: 4;
-  background-color: white;
-  padding-top: clamp(40px, 10vh, 40px);
-  padding-bottom: clamp(20px, 5vh, 60px);
-}
-
-.carta2b, .carta3b, .carta4b {
-  background-color: white;
-  padding-top: 40px;
-  height: 250px;
-}
-
-.carta2b {
-  transform: rotate(3deg) translate(5px, 5px);
-  z-index: 3;
-}
-.carta3b {
-  transform: rotate(6deg) translate(10px, 10px);
-  z-index: 2;
-}
-.carta4b {
-  transform: rotate(9deg) translate(15px, 15px);
-  z-index: 1;
-}
-
-.pilha-cards-direita:hover .carta1b {
-  transform: rotate(-2deg) translate(-2px, -2px);
-}
-.pilha-cards-direita:hover .carta2b {
-  transform: rotate(1deg) translate(3px, 3px);
-}
-.pilha-cards-direita:hover .carta3b {
-  transform: rotate(4deg) translate(8px, 6px);
-}
-.pilha-cards-direita:hover .carta4b {
-  transform: rotate(7deg) translate(12px, 10px);
-}
-
-/* Texto acima da pilha de cartas */
-.info-curiosidade-direita {
-  margin-top: 80px;
-  position: relative;
-  max-width: 500px;
-  color: white;
-  text-align: left;
-  right: 200px;
-}
-
-.info-curiosidade-direita h3 {
- font-family: 'Montserrat', sans-serif;
-  font-size: 25px;
+.texto-carta1 {
+  color: #333;
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 6px;
+  text-align: center;
 }
 
-.info-curiosidade-direita p {
-  font-size: 18px;
-  color: #ccc;
-  line-height: 1.4;
-}
+.pilha-cards1:hover .carta1-topo { 
 
-.dividerEsquerda1 {
-  width: 90%;
-  height: 2.5px;
-  position: relative;
-  top: 100px;
-  right: 150px;
-  background-color: rgb(255, 255, 255);
-  margin-left: 15px;
-  opacity: 0.8; 
-}
+  transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
 
-.dividerEsquerda1::before {
-  content: "";
-  position: absolute;
-  top: -3px;    
-  left: -15px;      
-  width: 11px;        
-  height: 11px;
-  border-radius: 50%;
-  background-color: #FF702E;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+ }
 
-
-.dividerDireita::before {
-  content: "";
-  position: absolute;
-  top: -3px;    
-  left: -15px;      
-  width: 10px;        
-  height: 10px;
-  border-radius: 50%;
-  background-color: #FF702E;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-
-.dividerDireita {
-  width: 100%;
-  height: 1.5px;
-  position: relative;
-  top: 55px;
-  right: 200px;
-  background-color: rgb(255, 255, 255);
-  margin-left: 15px;
-  margin-bottom: 10px;
-  opacity: 0.8;
-}
-
-@media (max-width: 1024px) {
-  .conteudo {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  .titulo-com-icone {
-    right: 0;
+ .btnClickCuriousSec {
+    position: relative;
+    width: 3vw;
+    /* height: 3vw; */
+    display: flex;
     justify-content: center;
+    align-items:start;
+    cursor: pointer;
   }
 
-  .esquerda em {
-    margin-left: 0;
-    font-size: clamp(16px, 2vw, 20px);
+  .btnClickCuriousSec img:first-child {
+
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 1;
   }
 
-  .pilha-cards, .pilha-cards-direita {
-    position: static;
-    margin-top: 40px;
-    width: 90vw;
+  .btnClickCuriousSec img:last-child {
+    width: 50%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+    animation: pulse 1.5s infinite ease-in-out;
+    top: 0.8vw;
   }
 
-  .direitasecc {
-    margin-top: 40px;
-    left: 0;
-    padding: 0 10px;
-    max-width: 90vw;
-    text-align: center;
+ 
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
   }
 
-  .info-curiosidade, .info-curiosidade-direita {
-    right: 0;
-    left: 0;
-    max-width: 90vw;
-    text-align: center;
-    margin: 20px auto;
+  /* Efeito hover (opcional) */
+.btnClickCuriousSec:hover img:last-child {
+    transform: scale(1.1) rotate(10deg);
+    animation: pulse 0.8s infinite ease-in-out;
   }
 
-  .dividerCuriosidades, .dividerDireita {
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-  }
+
+.bgPilhaCards2 {
+
+padding: 1vw 1vw 1vw 1vw;
+
+} 
+
+.pilha-cards2 {
+  position: relative;
+  width: 400px;
+  height: 313px;
+  margin: auto;
+  cursor: pointer;
+   transform: rotate(2deg) translate(4px, 5px);
+     transition: all 0.3s ease;
+    transform-origin: center;
 }
 
-@media (max-width: 500px) {
-  .titulo-com-icone img {
-    height: 32px;
-  }
-
-  .esquerda h1 {
-    font-size: 24px;
-  }
-
-  .direitasecc p {
-    font-size: 13px;
-  }
-
-  .direita secc button {
-    font-size: 12px;
-    padding: 8px 16px;
-  }
-
-  .pilha-cards, .pilha-cards-direita {
-    position: static;
-    margin-top: 20px;
-    width: 2vw;
-  }
-
-  .img-microscopio, .img-equipe {
-    width: 95%;
-    max-height: 160px;
-  }
-
-  .info-curiosidade h3, .info-curiosidade-direita h3 {
-    font-size: 16px;
-  }
-
-  .info-curiosidade p, .info-curiosidade-direita p {
-    font-size: 13px;
-  }
+.carta2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 300px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  background-color: #ddd;
 }
+
+.carta2-topo {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carta2-topo img {
+  width: 95%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.texto-carta2 {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+.pilha-cards2:hover .carta2-topo{
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1.1); 
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+
+ }
