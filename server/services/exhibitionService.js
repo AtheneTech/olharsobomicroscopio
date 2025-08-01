@@ -50,20 +50,28 @@ export async function getAllExhibitions(query) {
   });
 }
 
-export async function getExhibitionById(id) {
+export async function getExhibitionByEdition(edition) {
   const exhibition = await prisma.exhibition.findUnique({
-    where: { id },
+    where: { edition },
     include: {
       sections: {
         include: {
           images: {
-            orderBy: {
-              createdAt: 'asc',
-            },
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              source: true,
+              url: true,
+              song: true,
+              predominance: true,
+              additionalInfo: true,
+              iconUrl: true,
+              createdAt: true,
+              updatedAt: true,
+              author: true,
+            }
           },
-        },
-        orderBy: {
-          createdAt: 'asc',
         },
       },
     },
