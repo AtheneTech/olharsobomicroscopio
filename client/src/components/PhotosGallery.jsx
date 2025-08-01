@@ -31,8 +31,6 @@ import '../styles/PhotosGallery.css';
 
 const ITEMS_PER_PAGE = 5;
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
-
 const FloatingIcon = ({ icon, label, position, size, onClick }) => (
   <motion.div
     className="floating-icon-wrapper"
@@ -132,11 +130,7 @@ export default function PhotosGallery() {
               <div className="photo-name">
                 <div className="photo-icon">
                   {currentImage.iconUrl && (
-                    <img
-                      src={`${API_BASE_URL}${currentImage.iconUrl}`}
-                      alt={`Ícone para ${currentImage.name}`}
-                      style={{ marginRight: '20px', height: '40px' }}
-                    />
+                    <img src={currentImage.iconUrl} alt={currentImage.name} style={{ marginRight: '20px', height: '40px' }} />
                   )}
                 </div>
                 <h2>{currentImage.name}</h2>
@@ -159,7 +153,7 @@ export default function PhotosGallery() {
                   },
                 }}
                 style={{
-                  backgroundImage: `url(${API_BASE_URL}${currentImage.url})`,
+                  backgroundImage: `url(${currentImage.url})`,
                   backgroundRepeat: 'repeat-x',
                   backgroundSize: '120% auto',
                   backgroundPosition: 'center',
@@ -199,7 +193,7 @@ export default function PhotosGallery() {
                             animate={isSelected ? { boxShadow: ["0 0 0 0px rgba(255,255,255,0.4)", "0 0 0 10px rgba(255,255,255,0)", "0 0 0 0px rgba(255,255,255,0.4)"] } : {}}
                             transition={isSelected ? { duration: 2, repeat: Infinity } : {}}
                           >
-                            <img src={`${API_BASE_URL}${photo.url}`} alt={photo.name} />
+                            <img src={photo.url} alt={photo.name} />
                           </motion.div>
                           {isSelected && (
                             <motion.div
