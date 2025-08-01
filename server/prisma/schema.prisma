@@ -48,6 +48,7 @@ model Image {
   authorId       String
   song           String
   predominance   Json
+  iconUrl        String?
   additionalInfo Json?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt

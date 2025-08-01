@@ -15,7 +15,23 @@ import imageRoutes from "./routes/imageRoutes.js";
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  'https://olharsobomicroscopio.vercel.app',
+  'http://localhost:5173'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'A política de CORS para este site não permite o acesso a partir da Origem especificada.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+};
+
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

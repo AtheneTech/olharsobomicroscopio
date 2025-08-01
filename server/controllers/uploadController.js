@@ -3,8 +3,8 @@ import { uploadToCloudinary } from "../services/uploadService.js";
 
 export async function uploadImage(req, res) {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: "Arquivo de imagem ausente." });
+    if (!req.files || !req.files.image) {
+      return res.status(400).json({ error: "Arquivo de imagem principal ausente." });
     }
 
     const data = req.body;
@@ -26,7 +26,13 @@ export async function uploadImage(req, res) {
       return res.status(404).json({ error: "Autor não encontrado." });
     }
     
-    const imageUrl = await uploadToCloudinary(req.file.buffer);
+    const imageUrl = await uploadToCloudinary(req.files.image[0].buffer);
+    let iconUrl = null;
+
+    // ✅ NOVO: Faz o upload do ícone, se ele existir
+    if (req.files.icon) {
+      iconUrl = await uploadToCloudinary(req.files.icon[0].buffer);
+    }
 
     const image = await prisma.image.create({
       data: {
@@ -34,6 +40,7 @@ export async function uploadImage(req, res) {
         description: data.description,
         source: data.source,
         url: imageUrl,
+        iconUrl: iconUrl,
         song: data.song,
         predominance: data.predominance || null,
         additionalInfo: data.additionalInfo || null,
