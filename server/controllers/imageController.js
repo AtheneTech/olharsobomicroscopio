@@ -2,9 +2,11 @@ import * as imageService from "../services/imageService.js";
 
 export async function handleGetAll(req, res) {
   try {
-    const images = await imageService.getAllImages();
+    const { q } = req.query;
+    const images = await imageService.getAllImages(q);
     res.json(images);
   } catch (err) {
+    console.error("Erro ao buscar imagens:", err);
     res.status(500).json({ error: "Erro ao buscar imagens." });
   }
 }
