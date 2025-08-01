@@ -208,7 +208,7 @@ export default function Resumo({ exposicaoData = {} }) {
       case 'title':
         return (
           <motion.div 
-            className="slide-content title-slide"
+            className="slide-content1 title-slide"
             variants={slideVariants}
             initial="hidden"
             animate="visible"
@@ -245,7 +245,7 @@ export default function Resumo({ exposicaoData = {} }) {
       case 'details':
         return (
           <motion.div 
-            className="slide-content details-slide"
+            className="slide-content1 details-slide"
             variants={slideVariants}
             initial="hidden"
             animate="visible"
@@ -289,7 +289,7 @@ export default function Resumo({ exposicaoData = {} }) {
       case 'gallery':
         return (
           <motion.div 
-            className="slide-content gallery-slide"
+            className="slide-content1 gallery-slide"
             variants={slideVariants}
             initial="hidden"
             animate="visible"
@@ -368,7 +368,7 @@ export default function Resumo({ exposicaoData = {} }) {
       case 'galeria':
         return (
           <motion.div 
-            className="slide-content galeria-slide"
+            className="slide-content1 galeria-slide"
             variants={slideVariants}
             initial="hidden"
             animate="visible"
@@ -410,7 +410,7 @@ export default function Resumo({ exposicaoData = {} }) {
       case 'realizacao':
         return (
           <motion.div 
-            className="slide-content realizacao-slide"
+            className="slide-content1 realizacao-slide"
             variants={slideVariants}
             initial="hidden"
             animate="visible"
@@ -567,7 +567,7 @@ export default function Resumo({ exposicaoData = {} }) {
           position: relative;
         }
 
-        .slide-content {
+        .slide-content1 {
           width: 100%;
           max-width: 100%;
           height: 100%;
@@ -575,6 +575,7 @@ export default function Resumo({ exposicaoData = {} }) {
           align-items: center;
           justify-content: center;
           text-align: center;
+          margin-left: 0px;
           color: #333;
           padding: 0;
           box-sizing: border-box;
@@ -604,7 +605,7 @@ export default function Resumo({ exposicaoData = {} }) {
           box-shadow: none;
         }
 
-        .slide-content img {
+        .slide-content1 img {
         box-shadow: none;
         }
 
@@ -719,7 +720,7 @@ export default function Resumo({ exposicaoData = {} }) {
         }
 
         .carousel-item {
-          width: 30%;
+          width: 40%;
           height: 250px;
           max-width: 220px;
           transition: 0.5s;
@@ -830,7 +831,7 @@ export default function Resumo({ exposicaoData = {} }) {
           border-radius: 10px;
           padding: 30px;
           position: relative;
-          max-width: 600px;
+          max-width: 700px;
           // background: white;
           // box-shadow: 0 10px 20px rgba(0,0,0,0.1);
           will-change: transform;
@@ -839,17 +840,17 @@ export default function Resumo({ exposicaoData = {} }) {
         }
 
         .galeria-slide:nth-child(2n) {
-          margin-left: 100px;
+          margin-left: 0px;
           transform: translateY(10px);
         }
 
         .galeria-slide:nth-child(3n) {
-          margin-left: 200px;
+          margin-left: 0px;
           transform: translateY(30px);
         }
 
         .galeria-slide:nth-child(4n) {
-          margin-left: 300px;
+          margin-left: 0px;
           transform: translateY(50px);
         }
 
