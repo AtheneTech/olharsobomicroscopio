@@ -43,7 +43,7 @@ const DashboardPage = () => {
           onClick={() => navigate('/admin/exposicoes')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Total de Exposições</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Exposições</CardTitle>
             <Archive className="h-6 w-6 text-white" />
           </CardHeader>
           <CardContent>
@@ -56,7 +56,7 @@ const DashboardPage = () => {
           onClick={() => navigate('/admin/autores')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Total de Autores</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Autores</CardTitle>
             <Users className="h-6 w-6 text-white" />
           </CardHeader>
           <CardContent>
@@ -69,7 +69,7 @@ const DashboardPage = () => {
           onClick={() => navigate('/admin/imagens')}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Total de Imagens</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Imagens</CardTitle>
             <ImageIcon className="h-6 w-6 text-white" />
           </CardHeader>
           <CardContent>
