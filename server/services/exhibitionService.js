@@ -83,7 +83,20 @@ export async function getExhibitionByEdition(edition) {
       sections: {
         include: {
           images: {
-            include: { author: true },
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              source: true,
+              url: true,
+              song: true,
+              predominance: true,
+              additionalInfo: true,
+              iconUrl: true,
+              createdAt: true,
+              updatedAt: true,
+              author: true,
+            }
           },
         },
       },
