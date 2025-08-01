@@ -5,6 +5,7 @@ import XIcon from "../assets/icons/x.svg";
 import LinkedinIcon from "../assets/icons/linkedin.svg";
 import InstagramIcon from "../assets/icons/instagram.svg";
 import FacebookIcon from "../assets/icons/facebook.svg";
+import UserIcon from "../assets/icons/usericon.png"
 
 const getSocialIcon = (url) => {
   if (url.includes('twitter.com') || url.includes('x.com')) {
@@ -33,7 +34,7 @@ export default function AutorPopup({ author, additionalInfo }) {
 
   return (
     <div className="autor-popup">
-      <img src={photoUrl || 'https://via.placeholder.com/100'} alt={`Foto de ${name}`} className="autor-foto" />
+      <img src={photoUrl || UserIcon} alt={`Foto de ${name}`} className="autor-foto" />
       <div className="autor-conteudo">
         <h2 className="autor-nome">{name || "Nome do Autor"}</h2>
         <p className="autor-cargo">{location || "Localização"}</p>
