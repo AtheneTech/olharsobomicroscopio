@@ -1,4 +1,4 @@
-# 🔬 Olhar Sob o Microscópio
+# 🔬 Arte Sob o Microscópio
 
 ### Uma jornada imersiva ao mundo invisível, revelando a beleza e a complexidade que se escondem sob as lentes.
 
@@ -6,7 +6,7 @@
 
 ## 💡 Sobre o Projeto
 
-O **Olhar Sob o Microscópio** é uma exposição de arte e ciência bianual, que busca apresentar imagens fascinantes do universo microscópico. Cada edição explora uma nova temática, combinando arte visual, interatividade e educação para criar uma experiência única e memorável.
+O **Arte Sob o Microscópio** é uma exposição de arte e ciência bianual, que busca apresentar imagens fascinantes do universo microscópico. Cada edição explora uma nova temática, combinando arte visual, interatividade e educação para criar uma experiência única e memorável.
 
 Este projeto foi desenvolvido com paixão e dedicação pela **Equipe Athene**, unindo talentos de desenvolvimento, design e documentação para dar vida a esta visão.
 
