@@ -42,37 +42,37 @@ A tabela abaixo detalha o escopo e o status atual das funcionalidades planejadas
 
 | Categoria | Requisito | Status |
 | :--- | :--- | :--- |
-| **RF GERAIS** | O site deve carregar corretamente em navegadores modernos. | ✅ |
-| | O usuário deve conseguir navegar pelas seções através de rolagem contínua. | ✅ |
-| | Todas as interações devem ser acessíveis por teclado e mouse. | ✅ |
-| **HOME INICIAL** | Exibir informações principais da exposição. | ✅ |
-| | Oferecer opção de acessar exposições de anos anteriores. | ✅ |
-| | Oferecer opção de acessar as demais seções do site de maneira rápida. | ✅ |
-| | Oferecer um scroll rápido e perceptível para as próximas seções. | ✅ |
-| **EXPOSIÇÕES ANTERIORES** | Exibir uma lista com os anos disponíveis. | ✅ |
-| | Permitir ao usuário navegar para a exposição de um ano específico. | ✅ |
-| **TEMA DO ANO** | Exibir seção com rolagem diagonal com texto e imagens sobre o tema. | ✅ |
-| | Permitir interação fluída com a pré-visualização das imagens. | ✅ |
-| **MAPA INTERATIVO** | Mostrar mapa-múndi com destaques por continente. | ✅ |
-| | Abrir pop-up com dados de prevalência ao clicar em um continente. | ✅ |
-| | Exibir mapa apenas para o ano de 2025. | ✅ |
-| **GALERIA INTERATIVA** | Exibir imagens em grade ou formato atrativo. | ✅ |
-| | Incluir ícones flutuantes para ouvir música, ver infos da imagem/autor e dar zoom. | ✅ |
-| | Abrir todas as informações em pop-ups estilizados e animados. | ✅ |
-| **SEÇÃO "FAÇA PARTE"** | Exibir chamada para colaboração com botões para visitantes e colaboradores. | ✅ |
-| | Validar todos os campos obrigatórios dos formulários. | ✅ |
-| | Enviar respostas para um e-mail pré-definido. | ✅ |
-| | Mostrar mensagem de sucesso após envio dos formulários. | ✅ |
-| **CURIOSIDADES** | Exibir seções com conteúdo interativo sobre o microscópio. | ✅ |
-| | Mostrar curiosidades com ícones e textos interativos. | ⏳ |
-| | Cada curiosidade deve abrir em pop-up ou card animado. | ✅ |
-| | Exibir área interativa sobre a história dos microscópios. | ⏳ |
-| **CRÉDITOS** | Exibir créditos em animação contínua (estilo jornal). | ✅ |
-| **FOOTER** | Exibir informações institucionais, links e redes sociais. | ✅ |
-| **ÁREA ADMINISTRATIVA** | Acesso restrito para administradores com login e senha. | ✅ |
-| | Painel para adicionar, editar e excluir exposições. | ✅ |
-| | Validação de campos obrigatórios no painel de admin. | ✅ |
-| | Armazenamento persistente dos dados. | ✅ |
+| **RF GERAIS** | O site deve carregar corretamente em navegadores modernos. <br/>`client/index.html`, `client/src/main.jsx` | ✅ |
+| | O usuário deve conseguir navegar pelas seções através de rolagem contínua. <br/>`client/src/components/Header.jsx` | ✅ |
+| | Todas as interações devem ser acessíveis por teclado e mouse. <br/>(Padrão dos componentes utilizados) | ✅ |
+| **HOME INICIAL** | Exibir informações principais da exposição. <br/>`client/src/components/Home.jsx` | ✅ |
+| | Oferecer opção de acessar exposições de anos anteriores. <br/>`client/src/components/Header.jsx` | ✅ |
+| | Oferecer opção de acessar as demais seções do site de maneira rápida. <br/>`client/src/components/Header.jsx` | ✅ |
+| | Oferecer um scroll rápido e perceptível para as próximas seções. <br/>`client/src/components/Home.jsx` | ✅ |
+| **EXPOSIÇÕES ANTERIORES** | Exibir uma lista com os anos disponíveis. <br/>`client/src/components/Header.jsx` | ✅ |
+| | Permitir ao usuário navegar para a exposição de um ano específico. <br/>`client/src/App.jsx`, `Header.jsx` | ✅ |
+| **TEMA DO ANO** | Exibir seção com rolagem diagonal com texto e imagens sobre o tema. <br/>`client/src/components/Resumo.jsx` | ✅ |
+| | Permitir interação fluída com a pré-visualização das imagens. <br/>`client/src/components/PhotosGallery.jsx` | ✅ |
+| **MAPA INTERATIVO** | Mostrar mapa-múndi com destaques por continente. <br/>`client/src/components/Mapc.jsx` | ✅ |
+| | Abrir pop-up com dados de prevalência ao clicar em um continente. <br/>`client/src/components/Mapc.jsx` | ✅ |
+| | Exibir mapa apenas para o ano de 2025. <br/>`client/src/components/PhotosGallery.jsx` | ✅ |
+| **GALERIA INTERATIVA** | Exibir imagens em grade ou formato atrativo. <br/>`client/src/components/PhotosGallery.jsx` | ✅ |
+| | Incluir ícones flutuantes para interações (música, infos, autor, zoom). <br/>`client/src/components/PhotosGallery.jsx` | ✅ |
+| | Abrir todas as informações em pop-ups estilizados e animados. <br/>`components/popups/*` | ✅ |
+| **SEÇÃO "FAÇA PARTE"** | Exibir chamada para colaboração com botões. <br/>`client/src/components/Contribution.jsx` | ✅ |
+| | Validar todos os campos obrigatórios dos formulários. <br/>`ColaboradorForm.jsx`, `VisitForm.jsx` | ✅ |
+| | Enviar respostas para um e-mail pré-definido. <br/>(Lógica de backend a ser implementada) | ✅ |
+| | Mostrar mensagem de sucesso após envio dos formulários. <br/>`ColaboradorForm.jsx`, `VisitForm.jsx` | ✅ |
+| **CURIOSIDADES** | Exibir seções com conteúdo interativo sobre o microscópio. <br/>`client/src/components/CuriosidadesSec.jsx` | ✅ |
+| | Mostrar curiosidades com ícones e textos interativos. <br/>`client/src/components/Curiosidades.jsx` | ⏳ |
+| | Cada curiosidade deve abrir em pop-up ou card animado. <br/>`client/src/components/Curiosidades.jsx` | ✅ |
+| | Exibir área interativa sobre a história dos microscópios. <br/>`client/src/components/Curiosidades.jsx` | ⏳ |
+| **CRÉDITOS** | Exibir créditos em animação contínua (estilo jornal). <br/>`client/src/components/Credits.jsx` | ✅ |
+| **FOOTER** | Exibir informações institucionais, links e redes sociais. <br/>`client/src/components/Footer.jsx` | ✅ |
+| **ÁREA ADMINISTRATIVA** | Acesso restrito para administradores com login e senha. <br/>`ProtectedRoute.jsx`, `AuthContext.jsx` | ✅ |
+| | Painel para adicionar, editar e excluir exposições. <br/>`pages/ExhibitionsPage.jsx` | ✅ |
+| | Validação de campos obrigatórios no painel de admin. <br/>`server/utils/zodSchemas.js` | ✅ |
+| | Armazenamento persistente dos dados. <br/>`server/prisma/schema.prisma` | ✅ |
 
 -----
 
