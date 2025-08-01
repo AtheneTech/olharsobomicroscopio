@@ -50,6 +50,32 @@ export async function getAllExhibitions(query) {
   });
 }
 
+export async function getExhibitionById(id) {
+  const exhibition = await prisma.exhibition.findUnique({
+    where: { id },
+    include: {
+      sections: {
+        include: {
+          images: {
+            orderBy: {
+              createdAt: 'asc',
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'asc',
+        },
+      },
+    },
+  });
+
+  if (!exhibition) {
+    throw new Error("Exposição não encontrada.");
+  }
+
+  return exhibition;
+}
+
 export async function getExhibitionByEdition(edition) {
   const exhibition = await prisma.exhibition.findUnique({
     where: { edition },
@@ -71,27 +97,6 @@ export async function getExhibitionByEdition(edition) {
               updatedAt: true,
               author: true,
             }
-          },
-        },
-      },
-    },
-  });
-
-  if (!exhibition) {
-    throw new Error("Exposição não encontrada.");
-  }
-
-  return exhibition;
-}
-
-export async function getExhibitionByEdition(edition) {
-  const exhibition = await prisma.exhibition.findUnique({
-    where: { edition },
-    include: {
-      sections: {
-        include: {
-          images: {
-            include: { author: true },
           },
         },
       },
