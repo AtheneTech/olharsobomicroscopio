@@ -8,6 +8,7 @@ import ColaboradorForm from "./components/ColaboradorForm";
 import VisitForm from "./components/VisitForm"; 
 import Curiosidades from "./components/Curiosidades";
 import HomeRedirectPage from './pages/HomeRedirectPage';
+import ProgressBar from './components/ScrollProgressBar';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import ExpositionPage from './pages/Exposition';
@@ -25,12 +26,11 @@ import ImagesPage from './pages/ImagesPage';
 import CreateImagePage from './pages/CreateImagePage';
 import EditImagePage from './pages/EditImagePage';
 
-import ScrollProgressBar from './components/ScrollProgressBar';
 
 function App() {
   return (
     <>
-      <ScrollProgressBar />
+    <ProgressBar/>
     <Routes>
       <Route path="/" element={<HomeRedirectPage />} />
 
