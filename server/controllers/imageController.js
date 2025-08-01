@@ -1,4 +1,5 @@
 import * as imageService from "../services/imageService.js";
+import { uploadToCloudinary } from "../services/uploadService.js";
 
 export async function handleGetAll(req, res) {
   try {
