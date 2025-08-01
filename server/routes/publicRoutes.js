@@ -13,9 +13,20 @@ router.get("/:edition", async (req, res) => {
         sections: {
           include: {
             images: {
-              include: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+                source: true,
+                url: true,
+                song: true,
+                predominance: true,
+                additionalInfo: true,
+                iconUrl: true,
+                createdAt: true,
+                updatedAt: true,
                 author: true,
-              },
+              }
             },
           },
         },
@@ -28,7 +39,7 @@ router.get("/:edition", async (req, res) => {
 
     res.json(exhibition);
   } catch (err) {
-    console.error(`Erro ao carregar exposição pública '${req.params.edition}':`, err);
+    console.error("Erro ao carregar exposição pública:", err);
     res.status(500).json({ error: "Erro interno ao carregar a exposição." });
   }
 });
