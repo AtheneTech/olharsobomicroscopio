@@ -1,10 +1,12 @@
 
 import '../styles/Curiosidades.css';
 import AmorstraMicro from './AmostraMicro'
+import { motion } from 'framer-motion';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
-import photoscuriosidades from "./photoscuriosidades";
+import photoscuriosidades from "./photoscuriosidades.js";
 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -15,17 +17,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
+
 import Header from './Header'
 import Footer from './Footer';
 import Credits from './Credits';
 import Contribution from './Contribution';
 
-import Microscopio1 from "../assets/images/microscopio1.png";
-import Microscopio2 from "../assets/images/microscopio2.png";
-import Microscopio3 from "../assets/images/microscopio3.png";
-import Microscopio4 from "../assets/images/microscopio4.png";
-import Microscopio5 from "../assets/images/microscopio5.png";
-import Microscopio6 from "../assets/images/microscopio6.png";
 import Divisor from "../assets/images/divisor.png";
 import ImgCarta from "../assets/images/img-carta.png";
 import Nove from "../assets/images/nove.png";
@@ -35,138 +32,140 @@ import Line from "../assets/images/line.png";
 import EqPhotos from "../assets/images/eqPhotos.png";
 import SetaBaixo from "../assets/images/setaBaixo.png";
 
-const Curiosidades = () => {
+import fatoImg1 from "../assets/icons/fatos/fatoImg1.png"
+import fatoImg2 from "../assets/icons/fatos/fatoImg2.png"
+import fatoImg3 from "../assets/icons/fatos/fatoImg3.png"
+import fatoImg4 from "../assets/icons/fatos/fatoImg4.png"
+import fatoImg5 from "../assets/icons/fatos/fatoImg5.png"
+import fatoImg6 from "../assets/icons/fatos/fatoImg6.png"
+import fatoImg7 from "../assets/icons/fatos/fatoImg7.png"
+import fatoImg8 from "../assets/icons/fatos/fatoImg8.png"
+import fatoImg9 from "../assets/icons/fatos/fatoImg9.png"
 
+import circle from "../assets/icons/circle.png"
+import click from "../assets/icons/click.png"
+
+const Curiosidades = () => {
     const amostraRef = useRef(null);
+    const [flippedCards, setFlippedCards] = useState([]);
+    const [index, setIndex] = useState(-1);
 
     const scrollToAmostra = () => {
         amostraRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    const handleCardClick = (index) => {
+        setFlippedCards(prev => {
+            if (prev.includes(index)) {
+                return prev.filter(i => i !== index); // Remove o índice se já estiver virado
+            } else {
+                return [...prev, index]; // Adiciona o índice se não estiver virado
+            }
+        });
+    };
 
-    const [flipped, setFlipped] = useState(null);
-
-    const [index, setIndex] = useState(-1);
-
-    const cardsEvolucao = [
-        {
-            titulo: 'Microscópio Simples',
-            imagem: Microscopio1,
-            inventor: 'Anton van Leeuwenhoek',
-            caracteristica: 'Uma única lente convexa',
-            utilizado: 'Observar tecidos e organismos unicelulares',
-            curiosidade: 'Primeiro a descrever bactérias vivas'
-        },
-        {
-            titulo: 'Microscópio Composto',
-            imagem: Microscopio2,
-            inventor: 'Zacharias Janssen',
-            caracteristica: 'Duas lentes (ocular + objetiva)',
-            utilizado: 'Aumentar a ampliação em múltiplos níveis',
-            curiosidade: 'É a base dos microscópios modernos'
-        },
-        {
-            titulo: 'Microscópio Composto',
-            imagem: Microscopio3,
-            inventor: 'Zacharias Janssen',
-            caracteristica: 'Duas lentes (ocular + objetiva)',
-            utilizado: 'Aumentar a ampliação em múltiplos níveis',
-            curiosidade: 'É a base dos microscópios modernos'
-        },
-        {
-            titulo: 'Microscópio Composto',
-            imagem: Microscopio4,
-            inventor: 'Zacharias Janssen',
-            caracteristica: 'Duas lentes (ocular + objetiva)',
-            utilizado: 'Aumentar a ampliação em múltiplos níveis',
-            curiosidade: 'É a base dos microscópios modernos'
-        },
-        {
-            titulo: 'Microscópio Composto',
-            imagem: Microscopio5,
-            inventor: 'Zacharias Janssen',
-            caracteristica: 'Duas lentes (ocular + objetiva)',
-            utilizado: 'Aumentar a ampliação em múltiplos níveis',
-            curiosidade: 'É a base dos microscópios modernos'
-        },
-        {
-            titulo: 'Microscópio Composto',
-            imagem: Microscopio6,
-            inventor: 'Zacharias Janssen',
-            caracteristica: 'Duas lentes (ocular + objetiva)',
-            utilizado: 'Aumentar a ampliação em múltiplos níveis',
-            curiosidade: 'É a base dos microscópios modernos'
-        },
+    const [showSwipeText, setShowSwipeText] = useState(true);
+    const swiperRef = useRef(null);
 
 
-    ];
+    React.useEffect(() => {
+        if (swiperRef.current) {
+            const swiperInstance = swiperRef.current.swiper;
+            swiperInstance.on('slideChange', () => {
+                setShowSwipeText(false); 
+            });
+        }
+    }, []);
+
+        const cardsEvolucao = [
+    {
+        titulo: 'Um brinquedo das elites',
+        imagem: fatoImg1,
+        descricao: 'No início do século XVII, o microscópio era visto como um brinquedo óptico para entreter a elite — e não como um instrumento científico sério.'
+    },
+    {
+        titulo: 'A revolução de “Micrographia”',
+        imagem: fatoImg2,
+        descricao: 'Publicado em 1665 por Robert Hooke, o livro “Micrographia” mostrou imagens detalhadas de insetos e plantas vistas no microscópio. A obra mudou a percepção sobre o potencial do instrumento.'
+    },
+    {
+        titulo: 'Sátiras e piolhos',
+        imagem: fatoImg3,
+        descricao: 'Hooke foi alvo de piadas por estudar piolhos e pulgas. Na peça “The Virtuoso”, de Thomas Shadwell, o personagem central era zombado por gastar uma fortuna para estudar ácaros em queijo e enguias em vinagre.'
+    },
+    {
+        titulo: 'O homem que viu bactérias primeiro',
+        imagem: fatoImg4,
+        descricao: 'Entre 1678 e 1683, Antonie van Leeuwenhoek foi o primeiro a relatar a existência de protozoários e bactérias, por meio dos seus microscópios simples feitos por ele mesmo, em cartas enviadas à Royal Society de Londres.'
+    },
+    {
+        titulo: 'Ninguém acreditava nele',
+        imagem: fatoImg5,
+        descricao: 'Apesar de suas descobertas importantes, Leeuwenhoek nunca mostrou suas observações ao vivo. E muitos cientistas duvidaram da existência de seus “pequenos animais”.'
+    },
+    {
+        titulo: 'O surgimento do termo “célula”',
+        imagem: fatoImg6,
+        descricao: 'Ao observar uma cortiça em 1665, Hooke viu estruturas que lembravam celas de mosteiros — e os chamou de “células”. O nome pegou.'
+    },
+    {
+        titulo: 'Quando virou ferramenta científica',
+        imagem: fatoImg7,
+        descricao: 'Com o tempo, o microscópio foi adotado por médicos, biólogos e geólogos para diagnósticos e pesquisas. Para tanto, isso exigiu uma mudança, os instrumentos ficaram mais simples, práticos e produzidos em massa, especialmente na Alemanha, com empresas como a Zeiss.'
+    },
+    {
+        titulo: 'Microscópio Solar',
+        imagem: fatoImg8,
+        descricao: 'O microscópio solar era um era um tipo de microscópio que projetava imagens ampliadas em paredes — como pulgas com até 3 metros! Era usado para exibir para o público como forma de espetáculo científico.'
+    },
+    {
+        titulo: 'De onde vem o nome "microscópio"?',
+        imagem: fatoImg9,
+        descricao: 'A palavra vem do grego: “mikrós” (pequeno) e “scopéoo” (observar). Foi o naturalista Jean Faber, da Academia de Lincei, quem batizou o instrumento no século XVII, em Roma.'
+    },
+];
+
 
     return (
-      <>
+        <>
+        <Header />
         <div className="Pagcuriosidades-bg">
-                <Header/>
-
+            {/* <div className='vetorHeader'> 
+                    <img src="/images/VectorHeader.png" alt="" />
+                </div> */}
             <div className="conteudoPage">
-
+                {/* Seção do Header */}
                 <div className="CuriosidadesHeader">
-
-                    <h1 className="tituloHeader"> Curiosidades </h1>
-                    <p> Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores para você mergulhar em mais experiências. </p>
-
+                    <h1 className="tituloHeader">Curiosidades</h1>
+                    <p>Descubra mais sobre o mundo da ciência, trazemos conteúdos inovadores para você mergulhar em mais experiências.</p>
                 </div>
 
+                {/* Seção de Origem */}
                 <div className='bgOrigem'>
-
                     <div className="containerOrigem">
-
                         <div className="containerTitulo">
-
                             <img src={Divisor} className="divisor" />
-                            <h2 className="titleOrigem"> Origem do microscópio </h2>
-
+                            <h2 className="titleOrigem">Origem do microscópio</h2>
                         </div>
-
                         <div className="containerConteudo">
-
-                            <img src={ImgCarta} className="imgMicrosOrigem" />
-
+                             <img src={ImgCarta} className="imgMicrosOrigem" />
                             <div className="containerDescp">
-
-                                <p> O microscópio teve sua origem na Holanda no final do século XVI, com a invenção do microscópio composto por Zacharias Janssen e seu pai, Hans, por volta de 1590. Eles eram fabricantes de óculos e, ao experimentar com lentes, perceberam que a combinação de duas ou mais lentes em um tubo amplificava a imagem de objetos próximos.  </p>
-
+                                <p>A história da invenção do microscópio é  envolta em mistério, ainda mais agravado pelo fato de que os arquivos que possuem as informações sobre esse assunto teriam sido queimados durante a invasão à Holanda pelos nazistas na Segunda Guerra Mundial. Os supostos criadores Hans Janssen e seu filho Zacharias, artesãos holandeses que faziam óculos, teriam desenvolvido um microscópio de duas lentes usando uma objetiva e uma ocular.</p>
                                 <div className='btnEDesc'>
-
-                                    <h3> Como era o alcance dos microscópios anteriores <b> ? </b> </h3>
-
-                                    <button className="btnAnconra" onClick={scrollToAmostra}> CLIQUE AQUI E CONFIRA </button>
-
+                                    <h3>Conheça os principais tipos de microscopia<span>!</span></h3>
+                                    <button className="btnAnconra" onClick={scrollToAmostra}>CLIQUE AQUI E CONFIRA</button>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
+                {/* Seção de Evoluções com Cards Flip */}
                 <div className='bg-conteudoEvolucoes'>
-
                     <section className="conteudoEvolucoes">
 
-                         <div className='iconsCurio'>
-                            <img src={DetailsBlack} style={{width:'auto', height:'400px', marginRight:'50px'}}></img>
-                        <div className="titleEDesc">
-                            <img src={Nove} className="numero" />
-                            <h2>
-                                Evoluções para chegar ao que conhecemos hoje
-                            </h2>
-                        </div>
-                              </div>
 
                         <div className="cardsInfo">
-
-
                             <Swiper
                                 effect={'cards'}
                                 grabCursor={true}
@@ -176,31 +175,85 @@ const Curiosidades = () => {
                                 {cardsEvolucao.map((card, index) => (
                                     <SwiperSlide key={index}>
                                         <div
-                                            className={`cardFlip ${flipped === index ? 'flipped' : ''}`}
-                                            onClick={() => setFlipped(flipped === index ? null : index)}
+                                            className={`cardFlip ${flippedCards.includes(index) ? 'flipped' : ''}`}
+                                            onClick={() => handleCardClick(index)}
                                         >
                                             {/* Frente do card */}
                                             <div className="face front">
                                                 <h3>{card.titulo}</h3>
-                                                <img src={card.imagem} alt={card.titulo} />
-                                            
+                                                <div className='imgCardCurius'>
+                                                    <img src={card.imagem} alt={card.titulo} />
+                                                </div>
+                                                <div className='btnClickCurious'>
+                                                   
+                                                    <img src={click} alt='Ícone de clique' />
+
+                                                </div>
                                             </div>
 
                                             {/* Verso do card */}
-                                            <div className="face back"><p><strong>Inventor:</strong> {card.inventor}</p>
-                                                <p><strong>Característica:</strong> {card.caracteristica}</p>
-                                                <p><strong>Utilizado para:</strong> {card.utilizado}</p>
-                                                <p><strong>Curiosidade:</strong> {card.curiosidade}</p>
+                                            <div className="face back">
+                                                <p> {card.descricao}</p>
                                             </div>
                                         </div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
+                            {showSwipeText && (
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '16px',
+    }}
+  >
+    <motion.div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        color: '#444',
+        fontSize: '14px',
+        fontWeight: '500',
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: [0, 1, 0] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    >
+      <motion.span
+        style={{ color: '#555', display: 'flex', alignItems: 'center' }}
+        animate={{ x: [-10, 0, -10] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <FaArrowLeft size={24} />
+      </motion.span>
 
+      <p style={{ margin: 0 }}>Deslize para os lados para ver mais!</p>
+
+      <motion.span
+        style={{ color: '#555', display: 'flex', alignItems: 'center' }}
+        animate={{ x: [10, 0, 10] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <FaArrowRight size={24} />
+      </motion.span>
+    </motion.div>
+  </div>
+)}
                         </div>
 
-                    </section>
 
+                        <div className='iconsCurio'>
+                            <img src={DetailsBlack} style={{width:'auto', height:'250px', marginRight:'50px'}}></img>
+                        <div className="titleEDesc">
+                            <img src={Nove} className="numero" style={{ width: 'auto', height: '100px' }}/>
+                            <h2>
+                                Fatos interessantes sobre o <h3>Microscópio!</h3>
+                            </h2>
+                        </div>
+                              </div>
+                    </section>
                 </div>
 
                 <section className='amostraMicro' ref={amostraRef}>
@@ -214,7 +267,7 @@ const Curiosidades = () => {
                     <section className='labIntro'>
 
                         <div className='TitleLabIntro'>
-                            <h2> Origem do <b> Laboratório </b> </h2>
+                            <h2> Origem do <span> Laboratório </span> </h2>
                         </div>
 
                         <div className='contentCardsIntro'>
@@ -222,7 +275,7 @@ const Curiosidades = () => {
                             <div className='histCard'>
                                 <img src={Divisor2} className="divisor2" />
                                 <h3> História </h3>
-                                <p> O microscópio teve sua origem na Holanda no final do século XVI, com a invenção do microscópio composto por Zacharias Janssen e seu pai, Hans, por volta de 1590. Eles eram fabricantes de óculos e, ao experimentar com lentes, perceberam que a combinação de duas ou mais lentes em um tubo amplificava a imagem de objetos próximos.  </p>
+                                <p> Criada em 2018 na Universidade Federal do Ceará, a exposição Arte sob o Microscópio nasceu da iniciativa da professora Virgínia Girão (Departamento de Morfologia) em parceria com a LAEMA e outros núcleos acadêmicos e culturais da UFC. A proposta é unir ciência e arte por meio da exibição de micrografias — imagens obtidas por técnicas de microscopia — que revelam a beleza do invisível.  </p>
                             </div>
 
                             <img src={Line} className="lineConecte" />
@@ -231,7 +284,7 @@ const Curiosidades = () => {
 
                                 <img src={Divisor2} className="divisor2" />
                                 <h3> Missão </h3>
-                                <p> O microscópio teve sua origem na Holanda no final do século XVI, com a invenção do microscópio composto por Zacharias Janssen e seu pai, Hans, por volta de 1590. Eles eram fabricantes de óculos e, ao experimentar com lentes, perceberam que a combinação de duas ou mais lentes em um tubo amplificava a imagem de objetos próximos.  </p>
+                                <p> A missão da exposição é despertar o olhar do público para a beleza e a complexidade do mundo microscópico, promovendo a divulgação científica de forma acessível, sensível e criativa. Acreditamos que aproximar arte e ciência é uma forma poderosa de estimular o conhecimento e o encantamento — tanto no público acadêmico quanto no público geral.  </p>
                             </div>
 
                         </div>
@@ -246,7 +299,7 @@ const Curiosidades = () => {
 
                         <div className='titleQuemsomos'>
 
-                            <h1> Quem <b>  Somos? </b></h1>
+                            <h1> Quem <span>  Somos? </span></h1>
 
 
                         </div>
@@ -255,9 +308,7 @@ const Curiosidades = () => {
 
                             <div className='eqDescrip'>
 
-                                <h3> Equipe </h3>
-
-                                <p> Grant Wood, famous for his representations of the Midwest—of which the Art Institute’s American Gothic (1930.934) is his most recognizable example—intended The Pump to be an illustration for Sinclair Lewis’s novel Main Street (1920).  </p>
+                                <p> Somos um projeto de extensão científica e cultural da UFC, que reúne estudantes, professores e colaboradores de diferentes áreas em torno de uma mesma causa: tornar a ciência mais visível, sensível e próxima das pessoas. Com apoio de instituições nacionais e internacionais, buscamos criar experiências que provoquem reflexão, curiosidade e admiração pelo universo invisível revelado pelo microscópio.  </p>
 
                             </div>
 
@@ -272,7 +323,7 @@ const Curiosidades = () => {
 
                 </div>
 
-                <div className='bg-fotos2025'>
+                <div className='bgFotos2025'>
 
                     <section className='fotos2025'>
 
@@ -296,7 +347,7 @@ const Curiosidades = () => {
                                     photos={photoscuriosidades}
                                     layout="rows"
                                     targetRowHeight={200}
-                                    onClick={({ index }) => setIndex(index)} 
+                                    onClick={({ index }) => setIndex(index)}
                                 />
 
                                 <Lightbox
@@ -308,23 +359,18 @@ const Curiosidades = () => {
 
                             </div>
                         </section>
-
-
-
                     </section>
 
                 </div>
 
             </div >
 
-       
         </div >
-    <Contribution />
-    <Credits/>
-     <Footer/>
-     </>
+        <Contribution />
+        <Credits />
+        <Footer />
+</>
     );
-
 };
 
 export default Curiosidades;

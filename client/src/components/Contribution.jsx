@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Contribution.css';
-import IconMicrosc from "../assets/images/iconMicrosc.png";
-import IconBus from "../assets/images/iconBus.png";
+import IconMicrosc from "../assets/images/IconMicro.svg";
+import IconBus from "../assets/images/iconBus.svg";
 
 export default function Contribution() {
   return (

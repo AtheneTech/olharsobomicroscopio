@@ -1,65 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
-
-import Microscopio1 from "../assets/images/microscopio1.png";
-import Microscopio2 from "../assets/images/microscopio2.png";
-import Microscopio3 from "../assets/images/microscopio3.png";
-import Microscopio4 from "../assets/images/microscopio4.png";
-import Microscopio5 from "../assets/images/microscopio5.png";
-import Microscopio6 from "../assets/images/microscopio6.png";
-import Microscopio7 from "../assets/images/microscopio7.png";
 import Divisor from "../assets/images/divisor.png";
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 
+import micro1 from "../assets/images/microscopio1 (1).png"
+import micro2 from "../assets/images/microscopio2 (1).png"
+import micro3 from "../assets/images/microscopio3 (1).png"
+import micro4 from "../assets/images/microscopio4 (1).png"
+import micro5 from "../assets/images/microscopio5 (1).png"
+import micro6 from "../assets/images/microscopio6 (1).png"
+import micro7 from "../assets/images/microscopio7 (1).png"
+import micro8 from "../assets/images/microscopio8.png"
+import micro9 from "../assets/images/microscopio9.png"
+import micro10 from "../assets/images/microscopio10.png"
+import micro11 from "../assets/images/microscopio11.png"
+
 import '../styles/AmostraMicro.css';
 
 const slides = [
   {
-    image: Microscopio1,
-    name: 'Microscópio Óptico',
-    zoom: '1000x',
-    description: 'Usado para observar células e tecidos.'
+    image: micro1,
+    title: 'Microscopia Óptica',
+    description: 'Por que células ficam roxas e rosas? A hematoxilina vem de uma árvore e tem "paixão" pelo DNA - literalmente se gruda nele!'
   },
   {
-    image: Microscopio2,
-    name: 'Microscópio Eletrônico',
-    zoom: '1.000.000x',
-    description: 'Permite observar vírus e detalhes ultrafinos.'
+    image: micro2,
+    title: 'Microscopia Óptica',
+    description: 'A coloração de Gram, criada em 1884, ainda salva vidas hoje! Em minutos, ela revela se uma bactéria é resistente ou não.'
   },
   {
-    image: Microscopio3,
-    name: 'Microscópio de Varredura',
-    zoom: '500.000x',
-    description: 'Ideal para superfícies e texturas.'
+    image: micro3,
+    title: 'Microscopia Óptica',
+    description: 'Aumenta 1000x, mas isso é "pouco", é como ver uma formiga do tamanho de um gato. Para mais detalhes, precisamos de outras técnicas!'
   },
   {
-    image: Microscopio4,
-    name: 'Microscópio Óptico',
-    zoom: '1000x',
-    description: 'Usado para observar células e tecidos.'
+    image: micro4,
+    title: 'Microscopia Óptica',
+    description: 'É a mesma técnica que você usa na escola! Simples, mas foi ela que permitiu descobrir as primeiras células há mais de 300 anos'
   },
   {
-    image: Microscopio5,
-    name: 'Microscópio Óptico',
-    zoom: '1000x',
-    description: 'Usado para observar células e tecidos.'
+    image: micro5,
+    title: 'Microscopia Eletrônica',
+    description: 'É uma "super lupa" que usa elétrons como luz! Por isso vemos tudo em preto e branco - elétrons não têm cor'
   },
   {
-    image: Microscopio6,
-    name: 'Microscópio Óptico',
-    zoom: '1000x',
-    description: 'Usado para observar células e tecidos.'
+    image: micro6,
+    title: 'Microscopia Eletrônica',
+    description: 'As amostras são literalmente cobertas com ouro, ósmio ou chumbo! Metais pesados criam o contraste que precisamos para enxergar'
   },
   {
-    image: Microscopio7,
-    name: 'Microscópio Óptico',
-    zoom: '1000x',
-    description: 'Usado para observar células e tecidos.'
+    image: micro7,
+    title: 'Microscopia Eletrônica',
+    description: 'Foi assim que vimos o primeiro vírus da história! Aumenta milhões de vezes - imagine ver um grão de areia do tamanho de uma casa.'
   },
+  {
+    image: micro8,
+    title: 'Microscopia Eletrônica',
+    description: 'Tem dois tipos: uma mostra o "interior" das células como um corte fino, outra mostra a "superfície" em 3D. Cada uma revela segredos diferentes!'
+  },
+  {
+    image: micro9,
+    title: 'Microscopia Confocal',
+    description: 'Funciona como uma "tomografia de célula"! Tira fatias finíssimas e monta uma imagem 3D - alta tecnologia em ação.'
+  },
+  {
+    image: micro10,
+    title: 'Microscopia Confocal',
+    description: 'Usa laser e marcadores que brilham no escuro! O DAPI faz os núcleos brilharem em azul - como uma festa neon microscópica.'
+  },
+  {
+    image: micro11,
+    title: 'Microscopia Confocal',
+    description: 'É a técnica preferida para estudar câncer e neurônios. Consegue ver como as células se organizam em tecidos complexos!'
+  }
 ];
 
 export default function CardsImagens() {
@@ -72,50 +89,66 @@ export default function CardsImagens() {
     );  
   };
 
+  useEffect(() => {
+    setFlippedSlides([]);
+  }, [activeIndex]);
+
   return (
     <>
-    <section className="containerCards">
-      <div className="backgroundCards"></div>
-      <div className="overlayCards"></div>
-      <h1 className="title">Amostra de microscópios</h1>
-      <img src={Divisor} className="divisorAm" />
-      <p className="subtitle"> <b> Toque </b> no card e descubra como era cada imagem vista pelo microscopio </p>
+      <section className="containerCards">
+        <div className="backgroundCards"></div>
+        <div className="overlayCards"></div>
+        <h1 className="title">Amostra de microscópios</h1>
+        <img src={Divisor} className="divisorAm" style={{marginLeft: '30%'}} />
+        <p className="subtitle"> 
+          <b>Toque</b> no card e descubra o que cada técnica de microscopia revela 
+        </p>
 
-      <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={{ clickable: true }}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-        modules={[EffectCoverflow, Pagination]}
-        className="mySwiperAm"
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index} onClick={() => toggleFlip(index)}>
-            <div className={`cardAM ${flippedSlides.includes(index) ? 'flipped' : ''}`}>
-              <div className="card-faceAM frontAM">
-                <img src={slide.image} alt={slide.name} />
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={{ 
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active'
+          }}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiperAm"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <div className="slide-container" onClick={() => toggleFlip(index)}>
+                <div className={`cardAM ${flippedSlides.includes(index) ? 'flipped' : ''}`}>
+                  <div className="card-faceAM frontAM">
+                    <img 
+                      src={slide.image} 
+                      alt={`Microscópio ${index + 1}`} 
+                      loading="lazy"
+                    />
+                  </div>
+                  <div 
+                    className="card-faceAM backAM"
+                    style={{ backgroundImage: `url(${slide.image})` }}
+                  >
+                    <p>{slide.description}</p>
+                  </div>
+                </div>
+                <h3 className="microscope-title" style={{marginTop:"15px"}}>{slide.title}</h3>
               </div>
-              <div className="card-faceAM backAM">
-                <h3>{slide.name}</h3>
-                <p><strong>Nível de Zoom:</strong> {slide.zoom}</p>
-                <p>{slide.description}</p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </section>
-
-  </>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+    </>
   );
 }
-

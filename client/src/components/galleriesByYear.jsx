@@ -17,7 +17,7 @@ export const galleriesByYear = {
 
     icons: [
       {
-        icon: <img src="/icons/iconi.png" style={{ width: 55, height: 55 }} />, label: "Detalhes", popupType: "detalhes", position: { top: "35%", left: "90%" }, size: 75, popupContent: (
+        icon: <img src="/icons/iconi.png" style={{ width: '55px', height: '55px' }} />, label: "Detalhes", popupType: "detalhes", position: { top: "35%", left: "90%" }, size: 75, popupContent: (
           <DetalhesPopup
             numero="1"
             titulo="Dois rios"

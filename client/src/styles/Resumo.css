@@ -1,11 +1,4 @@
-.scroll-diagonal-area::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-.scroll-diagonal-area {
-  -ms-overflow-style: none; 
-  scrollbar-width: none;    
-}
+
 .scroll-wrapper {
   width: 100vw;
   height: auto;
@@ -23,13 +16,6 @@
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
-.scroll-diagonal-area::-webkit-scrollbar {
-  display: none;
-}
-.scroll-diagonal-area {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
 
 .doencas-container {
   width: 4000px;
@@ -349,7 +335,7 @@ margin-right: 30px;
 
         .modal-content {
           position: relative;
-          max-width: 80vw;
+          max-width: 85vw;
           max-height: 80vh;
           background: #fff;
           padding: 1rem;
@@ -358,19 +344,22 @@ margin-right: 30px;
         }
 
         .modal-content img {
-          max-width: 80%;
-          max-height: 80vh;
+          max-width: 100%;
+          max-height: 70vh;
           object-fit: contain;
           border-radius: 4px;
         }
 
         .modal-close {
           position: absolute;
-          top: 8px;
-          right: 12px;
-          font-size: 1.5rem;
+          width: 35px;
+          height: 35px;
+          top: 25px;
+          right: 25px;
+          font-size: 25px;
           background: #FF702E;
           border-radius: 50%;
+          text-align: center;
           border: none;
           color: white;
           cursor: pointer;

@@ -156,6 +156,24 @@
   border-left: 1px solid #ccc;
 }
 
+.popup-header-map {
+  width: 110%;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  padding: 0px;
+  overflow: hidden;
+  margin-left: -10px;
+}
+
+.popup-section-map.dois {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .popup-section-map:first-child {
   border-left: none;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import { AnimatePresence, motion } from "framer-motion";
 import IconZoomOut from "../assets/icons/iconzoomout.png";
 import IconZoomIn from "../assets/icons/iconzoomin.png";
 
@@ -8,6 +8,7 @@ export default function ZoomPreview({ src }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [showHelp, setShowHelp] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function ZoomPreview({ src }) {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-  
+
   const handleWheel = (e) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
@@ -56,12 +57,8 @@ export default function ZoomPreview({ src }) {
     setZoomLevel(newZoom);
   };
 
-  const handleDoubleClick = (e) => {
-    if (zoomLevel === 1) {
-      setZoomLevel(2);
-    } else {
-      setZoomLevel(1);
-    }
+  const handleDoubleClick = () => {
+    setZoomLevel(zoomLevel === 1 ? 2 : 1);
   };
 
   const zoomIn = () => setZoomLevel(prev => Math.min(3, prev + 0.2));
@@ -75,14 +72,14 @@ export default function ZoomPreview({ src }) {
         style={{
           display: "flex",
           justifyContent: "center",
-          width: "850px",
-          height: "600px",
+          width: "100%",
+          maxHeight: "80vh",
           overflow: "hidden",
           borderRadius: "8px",
-          marginBottom: "1rem",
+          marginBottom: "10px",
           cursor: zoomLevel > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
           position: "relative",
-          border: "2px solid #e0e0e0",
+          border: "2px solid transparent",
           backgroundColor: "#f9f9f9"
         }}
         onMouseDown={handleMouseDown}
@@ -98,7 +95,7 @@ export default function ZoomPreview({ src }) {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
             transition: isDragging ? "none" : "transform 0.3s ease",
             transform: `scale(${zoomLevel}) translate(${position.x / zoomLevel}px, ${position.y / zoomLevel}px)`,
             userSelect: "none",
@@ -106,39 +103,184 @@ export default function ZoomPreview({ src }) {
           }}
           draggable={false}
         />
-        
+
+        {/* Zoom info + coordenadas */}
         {zoomLevel > 1 && (
-          <div style={{ position: "absolute", top: "10px", right: "10px", backgroundColor: "rgba(0, 0, 0, 0.7)", color: "white", padding: "5px 10px", borderRadius: "15px", fontSize: "12px", fontWeight: "bold" }}>
-            {Math.round(zoomLevel * 100)}%
+          <div style={{
+            position: "absolute",
+            top: "10px",
+            left: "10px",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            color: "white",
+            padding: "5px 10px",
+            borderRadius: "15px",
+            fontSize: "12px",
+            fontWeight: "bold",
+            zIndex: 2
+          }}>
+            {Math.round(zoomLevel * 100)}% • X: {Math.round(position.x)} • Y: {Math.round(position.y)}
           </div>
         )}
-        
-        {zoomLevel === 1 && (
-          <div style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)", backgroundColor: "rgba(0, 0, 0, 0.7)", color: "white", padding: "5px 10px", borderRadius: "15px", fontSize: "11px", opacity: 0.8 }}>
-            Clique duas vezes para ampliar • Use a roda do mouse para zoom
-          </div>
-        )}
+
+ <motion.button
+            onClick={() => setShowHelp(true)}
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            style={{
+              position: "absolute",
+            top: "12px",
+            right: "42px",
+            backgroundColor: "#F4783B",
+            width: "28px",
+            height: "28px",
+            fontWeight: "bold",
+            borderRadius: "50%",
+            border: "none",
+            fontSize: "1rem",
+            cursor: "pointer",
+            zIndex: 999,
+            color: "white",
+            outline: "none",
+            boxShadow: "none",
+            }}
+          >
+            ?
+          </motion.button>
+
+   <AnimatePresence>
+    {showHelp && (
+      <motion.div
+        key="popup-help-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setShowHelp(false)}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+        }}
+      >
+        <motion.div
+          key="popup-help-content"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            backgroundColor: "#f9f3eaff",
+            border: "1px solid #fcaf67ff",
+            borderRadius: "10px",
+            height: "150px",
+            padding: "30px 25px",
+            fontSize: "14px",
+            textAlign: "left",
+            color: "#333",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            zIndex: 1001,
+            maxWidth: "95%",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            position: "relative"
+          }}
+        >
+          {/* Botão fechar ✕ */}
+          <motion.button
+            onClick={() => setShowHelp(false)}
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            style={{
+            position: "absolute",
+            top: "8px",
+            right: "8px",
+            backgroundColor: "#F4783B",
+            width: "25px",
+            height: "25px",
+            fontWeight: "bold",
+            borderRadius: "50%",
+            border: "none",
+            fontSize: "0.8rem",
+            cursor: "pointer",
+            zIndex: 999,
+            color: "white",
+            outline: "none",
+            boxShadow: "none",
+            }}
+          >
+            ✕
+          </motion.button>
+
+          {/* Conteúdo do popup de ajuda */}
+          <p><strong>🖱️ Duplo clique:</strong> Alterna entre zoom padrão e ampliado.</p>
+          <p><strong>🖱️ Roda do mouse:</strong> Ajusta o nível de zoom.</p>
+          <p><strong>✋ Arrastar:</strong> Move a imagem quando ampliada.</p>
+          <p><strong>🔘 Slider:</strong> Ajuste preciso do zoom.</p>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-        <button onClick={zoomOut} disabled={zoomLevel <= 1} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel <= 1 ? "not-allowed" : "pointer", outline: "none" }}>
+      {/* Controles */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "10px",
+        marginBottom: "10px"
+      }}>
+        <button onClick={zoomOut} disabled={zoomLevel <= 1} style={{
+          border: "none",
+          backgroundColor: "transparent",
+          cursor: zoomLevel <= 1 ? "not-allowed" : "pointer",
+          outline: "none"
+        }}>
           <img src={IconZoomOut} alt="Zoom Out" style={{ width: 24, height: 24 }} />
         </button>
-        <input type="range" min={1} max={3} step={0.1} value={zoomLevel} onChange={(e) => setZoomLevel(Number(e.target.value))} style={{ width: "250px", accentColor: "#F4783B", cursor: "pointer" }} />
-        <button onClick={zoomIn} disabled={zoomLevel >= 3} style={{ border: "none", backgroundColor: "transparent", cursor: zoomLevel >= 3 ? "not-allowed" : "pointer", outline: "none" }}>
+        <input
+          type="range"
+          min={1}
+          max={3}
+          step={0.1}
+          value={zoomLevel}
+          onChange={(e) => setZoomLevel(Number(e.target.value))}
+          style={{
+            width: "250px",
+            accentColor: "#F4783B",
+            cursor: "pointer",
+            outline: "none"
+          }}
+        />
+        <button onClick={zoomIn} disabled={zoomLevel >= 3} style={{
+          border: "none",
+          backgroundColor: "transparent",
+          cursor: zoomLevel >= 3 ? "not-allowed" : "pointer",
+          outline: "none"
+        }}>
           <img src={IconZoomIn} alt="Zoom In" style={{ width: 24, height: 24 }} />
         </button>
-        <button onClick={resetZoom} style={{ marginLeft: "10px", padding: "6px 12px", border: "2px solid #F4783B", borderRadius: "6px", backgroundColor: "white", color: "#F4783B", cursor: "pointer", fontSize: "12px", fontWeight: "bold" }}>
+        <button onClick={resetZoom} style={{
+          marginLeft: "10px",
+          padding: "6px 12px",
+          border: "2px solid #F4783B",
+          borderRadius: "6px",
+          backgroundColor: "white",
+          color: "#F4783B",
+          cursor: "pointer",
+          fontSize: "12px",
+          fontWeight: "bold"
+        }}>
           Reset
         </button>
-      </div>
-
-      <div style={{ fontSize: "12px", color: "#666", textAlign: "center" }}>
-        <p style={{ margin: "5px 0" }}>
-          🖱️ <strong>Duplo clique:</strong> Ampliar/Reset • 
-          🖱️ <strong>Roda do mouse:</strong> Zoom • 
-          ✋ <strong>Arrastar:</strong> Mover imagem (quando ampliada)
-        </p>
       </div>
     </div>
   );

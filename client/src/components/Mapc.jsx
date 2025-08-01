@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import '../styles/Mapc.css';
 import DetailsWhite from "../assets/icons/detailswhite.png";
 import Legenda from "../assets/photos/legenda.svg";
-import Besouro from "../assets/icons/besouro.svg";
+//import Besouro from "../assets/icons/besouro.svg";
 import Chagas2 from "../assets/photos/asm/chagas2.png";
 import Leishmaniose from "../assets/photos/asm/leishmaniose.png";
 import Oncocercose from "../assets/photos/asm/oncocercose.png";
@@ -18,7 +18,7 @@ import Esquistossomose from "../assets/photos/asm/esquistossomose.png";
 import Esporotricose from "../assets/photos/asm/esporotricose.png";
 import Coccidioidomicose from "../assets/photos/asm/coccidioidomicose.png";
 import Veneno from "../assets/photos/asm/veneno.png";
-// import Bouba from "../assets/photos/asm/bouba.png";
+//import Bouba from "../assets/photos/asm/bouba.png";
 import Amarelao from "../assets/photos/asm/ancilostomose.png";
 
 import chagasIcon from '../assets/icons/mapicons/doenca-de-chagas.png';
@@ -34,6 +34,18 @@ import coccidioidomicoseIcon from '../assets/icons/mapicons/coccidioidomicose.pn
 import dengueIcon from '../assets/icons/mapicons/dengue.png';
 import boubaIcon from '../assets/icons/mapicons/bouba.png';
 import amarelaoIcon from '../assets/icons/mapicons/amarelao.png';
+
+import besouro from '../assets/icons/mapminiicons/besouro.png';
+import bat from '../assets/icons/mapminiicons/bat.png';
+import cat from '../assets/icons/mapminiicons/cat.png';
+import maos from '../assets/icons/mapminiicons/maos.png';
+import caracol from '../assets/icons/mapminiicons/caracol.png';
+import mosca from '../assets/icons/mapminiicons/mosca.png';
+import mosquito from '../assets/icons/mapminiicons/mosquito.png';
+import nose from '../assets/icons/mapminiicons/nose.png';
+import olhos from '../assets/icons/mapminiicons/olhos.png';
+import pe from '../assets/icons/mapminiicons/pe.png';
+import snake  from '../assets/icons/mapminiicons/snake.png';
 
 const iconMap = {
   "doença de chagas": chagasIcon,
@@ -51,6 +63,23 @@ const iconMap = {
   "amarelão": amarelaoIcon,
 };
 
+const miniIconMap = {
+  "doença de chagas": besouro,
+  "leishmaniose": mosquito,
+  "oncocercose": mosca,
+  "raiva humana": bat,
+  "tracoma": olhos,
+  "filariose": mosquito,
+  "ofidismo": snake,
+  "esquistossomose": caracol,
+  "esporotricose": cat,
+  "coccidioidomicose": nose,
+  "dengue": mosquito,
+  "bouba": maos,
+  "amarelão": pe,
+};
+
+
 const diseases = [
   { id: 1, name: 'Doença de Chagas', position: [-15.7801, -47.9292], victims: '10.000', transmission: 'Por meio do inseto barbeiro.', contaminationIndex: '7 milhões', contaminationDesc: '7 milhões de pessoas infectadas globalmente.', image: Chagas2, complemento: ' causadas pelo protozoário Trypanosoma cruzi.' },
   { id: 2, name: 'Leishmaniose', position: [-10.3333, -53.2], victims: '20.000', transmission: 'Picada do mosquito-palha.', contaminationIndex: '1 milhão', contaminationDesc: '1 milhão de novos casos anuais.', image: Leishmaniose },
@@ -63,9 +92,10 @@ const diseases = [
   { id: 9, name: 'Esporotricose', position: [-23.5505, -46.6333], victims: 'Raras', transmission: 'Contato com matéria orgânica contaminada.', contaminationIndex: 'Não há dados', contaminationDesc: 'Casos esporádicos e regionais.', image: Esporotricose },
   { id: 10, name: 'Coccidioidomicose', position: [34.0522, -118.2437], victims: 'Raras', transmission: 'Inalação de esporos do solo.', contaminationIndex: 'Não há dados', contaminationDesc: 'Dados imprecisos globalmente.', image: Coccidioidomicose },
   { id: 11, name: 'Dengue', position: [-22.9068, -43.1729], victims: '+3 mil', transmission: 'Mosquito Aedes aegypti.', contaminationIndex: '+3 milhões', contaminationDesc: '+3 milhões de casos confirmados ao ano.', image: Veneno },
-  // { id: 12, name: 'Bouba', position: [1.3733, 32.2903], victims: 'Raras', transmission: 'Contato com lesão infectada.', contaminationIndex: '89.000', contaminationDesc: 'Estimativa de 89.000 casos ativos.', image: Bouba },
+  //{ id: 12, name: 'Bouba', position: [1.3733, 32.2903], victims: 'Raras', transmission: 'Contato com lesão infectada.', contaminationIndex: '89.000', contaminationDesc: 'Estimativa de 89.000 casos ativos.', image: Bouba },
   { id: 13, name: 'Amarelão', position: [15.8700, 100.9925], victims: 'Raras', transmission: 'Larvas penetram pele do solo.', contaminationIndex: '500 milhões', contaminationDesc: 'Mais de 500 milhões no mundo.', image: Amarelao },
 ];
+
 
 const Mapc = () => {
   const [selectedDisease, setSelectedDisease] = useState(null);
@@ -80,6 +110,11 @@ const customIcon = (disease) =>
     iconSize: [22, 32],
     iconAnchor: [16, 32],
   });
+
+const transmissionIcon = selectedDisease
+  ? miniIconMap[selectedDisease.name.toLowerCase()]
+  : null;
+
 
   return (
     <section id="map" className="map-section">
@@ -127,14 +162,15 @@ const customIcon = (disease) =>
                       position: "absolute",
                       top: "10px",
                       right: "10px",
-                      width: "40px",
-                      height: "40px",
+                      width: "30px",
+                      height: "30px",
                       background: "#ff6f21",
                       border: "none",
                       outline: "none",
                       borderRadius: "50%",
                       color: "white",
-                      fontSize: "1.5rem",
+                      fontSize: "1rem",
+                      fontWeight: 'bold',
                       cursor: "pointer",
                       zIndex: "999",
                       display: "flex",
@@ -165,8 +201,8 @@ const customIcon = (disease) =>
                           : "."}
                       </p>
                     </div>
-                    <div className="popup-section-map">
-                      <img src={Besouro} style={{ marginBottom: '8px' }}></img>
+                    <div className="popup-section-map dois">
+                      <img src={transmissionIcon} style={{ marginBottom: '12px', maxWidth: '44px', textAlign: 'center'}}></img>
                       <strong>Meio de transmissão</strong>
                       <p>{selectedDisease.transmission}</p>
                     </div>
@@ -178,7 +214,7 @@ const customIcon = (disease) =>
                   </div>
 
                   <p className="popup-footer-map">
-                    <em>Fonte: www.fonte.com.br</em>
+                    {/* <em>Fonte: www.fonte.com.br</em> */}
                   </p>
                 </div>
               </div>

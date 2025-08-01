@@ -128,7 +128,11 @@ export default function PhotosGallery() {
           {currentImage && (
             <>
               <div className="photo-name">
-                <div className="photo-icon"><img src={chagasIcon} alt="Ícone Chagas" style={{ marginRight: '20px', height: '40px' }} /></div>
+                <div className="photo-icon">
+                  {currentImage.iconUrl && (
+                    <img src={currentImage.iconUrl} alt={currentImage.name} style={{ marginRight: '20px', height: '40px' }} />
+                  )}
+                </div>
                 <h2>{currentImage.name}</h2>
               </div>
 
@@ -216,12 +220,12 @@ export default function PhotosGallery() {
                 </motion.div>
               </div>
 
-              {currentImage.description && <FloatingIcon icon={<img src={IconI} alt="Detalhes" />} label="Detalhes" position={{ top: "35%", left: "90%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
+              {currentImage.description && <FloatingIcon icon={<img src={IconI} alt="Detalhes" style={{width: "55px", height: "55px"}}/>} label="Detalhes" position={{ top: "35%", left: "85%" }} size={75} onClick={() => setActivePopup('Detalhes')} />}
               {currentImage.author && (
                 <FloatingIcon
-                  icon={<img src={IconAutor} alt="Autor" />}
+                  icon={<img src={IconAutor} alt="Autor" style={{width: "55px", height: "55px"}}/>}
                   label="Autor"
-                  position={{ top: "70%", left: "15%" }}
+                  position={{ top: "45%", left: "30%" }}
                   size={65}
                   onClick={() => {
                     setActivePopup('Autor');
@@ -229,9 +233,9 @@ export default function PhotosGallery() {
                   }}
                 />
               )}
-              {currentImage.song && <FloatingIcon icon={<img src={IconSound} alt="Som" />} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
-              {currentImage.predominance && <FloatingIcon icon={<img src={IconWorldMap} alt="Predominância" />} label="Predominância" position={{ top: "65%", left: "87%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
-              <FloatingIcon icon={<img src={IconZoomIn} alt="Amostra" />} label="Amostra" position={{ top: "70%", left: "75%" }} size={90} onClick={() => setActivePopup('Amostra')} />
+              {currentImage.song && <FloatingIcon icon={<img src={IconSound} alt="Som" style={{width: "40px", height: "40px"}}/>} label="Som" position={{ top: "35%", left: "10%" }} size={60} onClick={() => setActivePopup('Som')} />}
+              {currentImage.predominance && <FloatingIcon icon={<img src={IconWorldMap} alt="Predominância" style={{width: "40px", height: "40px"}}/>} label="Predominância" position={{ top: "45%", left: "68%" }} size={55} onClick={() => setActivePopup('Predominância')} />}
+              <FloatingIcon icon={<img src={IconZoomIn} alt="Amostra" style={{width: "70px", height: "70px"}}/>} label="Amostra" position={{ top: "35%", left: "50%" }} size={90} onClick={() => setActivePopup('Amostra')} />
             </>
           )}
         </div>
@@ -241,22 +245,77 @@ export default function PhotosGallery() {
         <Footer />
       </div>
 
-      <AnimatePresence>
-        {activePopup && (
-          <motion.div className="popup-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closePopup}>
-            <motion.div
-              className={`popup-content ${activePopup.toLowerCase()}`}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button onClick={closePopup} className="close-popup-button">✕</button>
-              {renderPopupContent()}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+     <AnimatePresence>
+  {activePopup && (
+    <motion.div
+      className="popup-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={closePopup}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <motion.div
+        className={`popup-content ${activePopup.toLowerCase()}`}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "#fff",
+           padding: activePopup === "Amostra" ? "0px" : "20px",
+          borderRadius: "10px",
+          width: "90%",
+          maxHeight: "100vh",
+          boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+          position: "relative",
+          color: "black",
+          overflowY: "auto"
+        }}
+      >
+        <motion.button
+          onClick={closePopup}
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "12px",
+            backgroundColor: "#F4783B",
+            width: "28px",
+            height: "28px",
+            fontWeight: "bold",
+            borderRadius: "50%",
+            border: "none",
+            fontSize: "1rem",
+            cursor: "pointer",
+            zIndex: 999,
+            color: "white",
+            outline: "none",
+            boxShadow: "none",
+          }}
+          whileHover={{ y: -5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          ✕
+        </motion.button>
+
+        {renderPopupContent()}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </>
   );
 }
