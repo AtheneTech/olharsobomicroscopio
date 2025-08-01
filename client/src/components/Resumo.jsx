@@ -200,9 +200,9 @@ export default function Resumo({ exhibition, galleryImages }) {
                 ))}
               </motion.div>
               <motion.div className="carousel-controls" variants={staggerItem}>
-                <motion.button onClick={prevImage} disabled={currentIndex === 0} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}><ChevronLeft size={14} color="#ffffff" /></motion.button>
+                <motion.button onClick={prevImage} disabled={currentIndex === 0} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}><ChevronLeft size={14} color="#ffffff" className='nav-button'/></motion.button>
                 <span>{Math.floor(currentIndex / 5) + 1} / {Math.ceil(galleryImages.length / 5)}</span>
-                <motion.button onClick={nextImage} disabled={currentIndex + 5 >= galleryImages.length} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}><ChevronRight size={14} color="#ffffff" /></motion.button>
+                <motion.button onClick={nextImage} disabled={currentIndex + 5 >= galleryImages.length} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}><ChevronRight size={14} color="#ffffff" className='nav-button'/></motion.button>
               </motion.div>
               <motion.div className="divider3" variants={staggerItem}></motion.div>
               <motion.h2 className="gallery-title" variants={staggerItem}>{slide.content.quantidadeImagens} {slide.content.textoGaleria}</motion.h2>
