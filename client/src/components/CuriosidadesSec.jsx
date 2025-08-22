@@ -10,7 +10,7 @@ import Microscop from "../assets/images/microscop.png";
 
 const CuriosidadesSec = () => {
   return (
-    <div className='bg-section'>
+    <div className='bg-section' id='curiosidades'>
       <div className='bgRetangulo'>
         <div className='conteuSecCuiriosidades'>
           <div className='cabecalhoCuriosidades'>
